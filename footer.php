@@ -27,6 +27,11 @@
 			<!-- replaced by posts when they're loaded -->
 		</div>
 	<?php endif; ?>
+	<?php if( !is_page_template('page-about.php') ): ?>
+		<div class="layer layer__committee">
+			<!-- replaced by about content when that gets loaded -->
+		</div>
+	<?php endif; ?>
 
 	</div><!-- end .dc-site-contents -->
 	<div class="dc-site-loader"></div>

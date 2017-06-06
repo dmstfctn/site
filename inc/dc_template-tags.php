@@ -53,7 +53,10 @@
         			$media[] = $tag;
         		} else if( get_row_layout() == 'project_media_embed' ){
         			$embed = get_sub_field( 'embed' );
-        			$media[] = '<div class="dc-video">'  . $embed . '</div>';
+							$img_id = get_sub_field( 'image' );
+							$img_src = wp_get_attachment_image_src( $img_id, 'dc_normal' );
+							$tag = '<img src="' . $img_src[0] . '" width="' . $img_src[1] . '" height="' . $img_src[2] . '" class="dc-video-image">';
+        			$media[] = '<div class="dc-video">'  . $embed . $tag . '</div>';
         		}
         	}
         	return $media;

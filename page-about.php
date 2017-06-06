@@ -3,7 +3,7 @@
 <?php get_header(); ?>
 
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
-	<div class="layer layer__committee about">
+	<div class="layer layer__committee">
 		<article class="about-wrapper" id="about">
 			<aside class="about--extra">
 				<a href="<?php echo home_url(); ?>" class="text-link">&larr; Home</a>

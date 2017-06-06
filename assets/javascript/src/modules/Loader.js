@@ -35,7 +35,7 @@ proto.setupPaths = function(){
 		},
 		'home': {
 			name: 'home',
-			regexp: new RegExp( this.pathBase + '$' ),
+			regexp: new RegExp( this.pathBase + '/?$' ),
 			selector: '.layer__themes'
 		},
 		'note': {

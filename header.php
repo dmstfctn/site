@@ -32,7 +32,4 @@
 			</a>
 		</h1>
 	</header>
-	<div class="dc-site-contents">
-		<div class="layer layer__committee">
-			<!-- replaced by about content when that gets loaded -->
-		</div>
+	<div class="dc-site-contents">		

@@ -4,6 +4,7 @@ var Header = function( _ele ){
 	this.$ele = (_ele) ? $( _ele ) : this.$ele;
   this.ele = this.$ele.get(0);
 	this.width = this.$ele.outerWidth();
+	this.resizable = false
 	this.setConstraints();
 	this.calculateProportion();
 	this.render();
@@ -25,7 +26,13 @@ proto.setWidth = function( to ){
 
 proto.setConstraints = function(){
 	this.minWidth = this.$ele.parent().width() / 8;
-	this.maxWidth = this.$ele.parent().width() - this.minWidth;
+	this.maxWidth = this.$ele.parent().width();
+}
+
+proto.clearSizing = function(){
+	this.width = this.maxWidth;
+	this.calculateProportion();
+	this.render();
 }
 
 proto.calculateProportion = function(){
@@ -43,8 +50,15 @@ proto.calculateProportion = function(){
 proto.render = function(){
 	this.$ele.attr('data-proportion', this.proportionName );
 	this.$ele.css({
-    'width': this.width
+    'width': (this.resizable) ? this.width : this.maxWidth
   });
+}
+
+proto.setResizable = function(){
+	this.resizable = true;
+}
+proto.cancelResizable = function(){
+	this.resizable = false;
 }
 
 module.exports = Header

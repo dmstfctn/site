@@ -123,6 +123,9 @@ proto.addListeners = function(){
 			that.scrollInner( e.originalEvent.deltaY );
 		}
 	});
+	this.$ele.on( 'mouseenter', function(){
+		that._onHover();
+	})
 };
 
 proto.render = function(){
@@ -130,6 +133,12 @@ proto.render = function(){
 	this.$ele.css({
     'width': this.width
   });
+}
+
+proto._onHover = function(){
+	if( typeof this.onHover === 'function' ){
+		this.onHover();
+	}
 }
 
 module.exports = Pane;

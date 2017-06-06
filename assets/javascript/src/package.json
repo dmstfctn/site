@@ -6,6 +6,7 @@
   "dependencies": {
     "@vimeo/player": "^2.1.0",
     "jquery": "^3.2.1",
+    "tween.js": "^16.6.0",
     "unidragger": "^2.1.0"
   },
   "devDependencies": {},

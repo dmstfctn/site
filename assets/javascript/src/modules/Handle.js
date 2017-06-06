@@ -1,5 +1,6 @@
 var $ = require('jquery');
 var Unidragger = require( 'unidragger' );
+var TWEEN = require('tween.js');
 
 var Handle = function( _ele, _movement ){
   this.$ele = (_ele) ? $( _ele ) : this.$ele;
@@ -32,6 +33,9 @@ var Handle = function( _ele, _movement ){
 		x: this.pos.x,
 		y: this.pos.y
 	};
+
+	this.isDragging = false;
+	this.hasBeenPositioned = false;
 
 	this.$indicator = this.$ele.find('.indicator');
 	this.setIndicator();
@@ -85,6 +89,39 @@ proto.setPos = function( to ){
 	this._onMove();
 };
 
+proto.animate = function(){
+	var that = this;
+	var anim = function( time ){
+		requestAnimationFrame( anim );
+		TWEEN.update(time);
+	};
+	this.animFrame = requestAnimationFrame( anim );
+};
+
+proto.animatePos = function( to, _time ){
+	if( this.isDragging || this.hasBeenPositioned ){
+		return;
+	}
+	var time = _time || 500;
+	var that = this;
+	var pos = {};
+	if( to.x ){
+		pos.x = this.pos.x;
+	}
+	if( to.y ){
+		pos.y = this.pos.y;
+	}
+	this.tween = new TWEEN.Tween( pos )
+		.to( to, time )
+		.onUpdate(function() {
+			that.setPos( this );
+		})
+		.start();
+
+	cancelAnimationFrame( this.animFrame );
+	this.animate();
+};
+
 proto.setCrossPoint = function( cross ){
 	this.crossPoint = cross;
 }
@@ -136,7 +173,7 @@ proto.render = function(){
 		} else if( this.crop === 2 ){
 			this.$ele.css({
 				top: 0,
-				bottom: this.crossPoint
+				bottom:  $(window).height() - this.crossPoint
 			});
 		}
 	}
@@ -159,7 +196,7 @@ proto.render = function(){
 			console.log( 'rendering handle from ', 0, ' to ', this.crossPoint );
 			this.$ele.css({
 				left: 0,
-				right: this.crossPoint
+				right: $(window).width() - this.crossPoint
 			});
 		}
 	}
@@ -197,6 +234,7 @@ proto.moveIndicator = function( at ){
 }
 
 proto.dragStart = function( event, pointer ){
+	this.isDragging = true;
 	this.$ele.addClass('handle__active');
 	this.pPos = {
 		x: pointer.pageX,
@@ -205,6 +243,7 @@ proto.dragStart = function( event, pointer ){
 };
 
 proto.dragMove = function( event, pointer, moveVector ){
+	this.hasBeenPositioned = true;
 	var adjust = {
 		x: (this.movement.x) ? pointer.pageX - this.pPos.x : 0,
 		y: (this.movement.y) ? pointer.pageY - this.pPos.y : 0
@@ -218,6 +257,7 @@ proto.dragMove = function( event, pointer, moveVector ){
 };
 
 proto.dragEnd = function( event, pointer ){
+	this.isDragging = false;
 	this.$ele.removeClass('handle__active');
 	this.pPos = {
 		x: pointer.pageX,

@@ -1,4 +1,97 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+// shim for using process in browser
+
+var process = module.exports = {};
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = setTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    clearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        setTimeout(drainQueue, 0);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+},{}],2:[function(require,module,exports){
 var $ = require( 'jquery' );
 var Handle = require( './modules/Handle.js' );
 var Pane = require( './modules/Pane.js' );
@@ -11,10 +104,69 @@ var Slideshow = require('./modules/Slideshow.js' );
 var Video = require('./modules/Video.js' );
 var Header = require('./modules/Header.js');
 
+
+var project;
+var post;
+var about;
+var slideshows = [];
+var hoverImgs = [];
+var videos = [];
+
+
+var sizePanes = function(){
+	var leftW = Math.round(handleX.pos.x);
+	var rightW = $(window).width() - leftW;
+	paneLeft.setWidth( leftW );
+	paneRight.setWidth( rightW );
+}
+
+var sizeAbout = function(){
+	var leftW = Math.round(handleX.pos.x);
+	var rightW = $(window).width() - leftW;
+	about.setWidth( leftW, rightW );
+}
+
+var sizeHeader = function(){
+	var leftW = Math.round(handleX.pos.x);
+	header.setWidth( leftW );
+}
+
+var sizeVideos = function(){
+	for( var i = 0; i < videos.length; i++ ){
+		videos[i].setSize();
+	}
+}
+
+var moveGrid = function(){
+	var center = {
+		x: handleX.pos.x,
+		y: handleY.pos.y
+	};
+	project.setCenter( center );
+	post.setCenter( center );
+}
+
 var init = function( config ){
-	var header = new Header( $('.committee-header') );
-	var paneLeft = new Pane( $('.theme:first-child') );
-	var paneRight = new Pane( $('.theme:nth-child(2)') );
+	paneLeft = new Pane( $('.theme:first-child') );
+	paneRight = new Pane( $('.theme:nth-child(2)') );
+	project = new Project( $('.layer__project') );
+	post = new Post( $('.layer__post') );
+	about = new About( $('.about-wrapper') );
+	slideshows = [];
+	hoverImgs = [];
+	videos = [];
+
+	$('.dc-slideshow').each(function(){
+		slideshows.push( new Slideshow( $(this) ) );
+	});
+
+	$('.dc-hoverimg-img').each(function(){
+		hoverImgs.push( new HoverImg( $(this) ) );
+	});
+
+	$('.dc-video').each(function(){
+		videos.push( new Video( $(this) ) );
+	});
 
 	handleX.setConstraints({
 		x: {
@@ -37,81 +189,24 @@ var init = function( config ){
 		}
 	});
 
-	var project = new Project( $('.layer__project') );
-	var post = new Post( $('.layer__post') );
-	var about = new About( $('.about-wrapper') );
-
-	var sizePanes = function(){
-		var leftW = Math.round(handleX.pos.x);
-		var rightW = $(window).width() - leftW;
-		paneLeft.setWidth( leftW );
-		paneRight.setWidth( rightW );
-	}
-
-	var sizeAbout = function(){
-		var leftW = Math.round(handleX.pos.x);
-		var rightW = $(window).width() - leftW;
-		about.setWidth( leftW, rightW );
-	}
-
-	var sizeHeader = function(){
-		var leftW = Math.round(handleX.pos.x);
-		header.setWidth( leftW );
-	}
-
-	var moveGrid = function(){
-		var center = {
-			x: handleX.pos.x,
-			y: handleY.pos.y
-		};
-		project.setCenter( center );
-		post.setCenter( center );
-	}
-
 	handleX.onMove = function( pos ){
 		sizePanes();
 		sizeAbout();
 		sizeHeader();
+		sizeVideos();
 		handleY.setCrossPoint( handleX.pos.x );
 		moveGrid();
 	}
 	handleY.onMove = function( pos ){
+		sizeVideos();
 		moveGrid();
 	}
-
-	var pWinW = $(window).width();
-	var pWinH = $(window).height();
-
-	$(window).on('resize', function(){
-		var handleXProportion = handleX.pos.x / pWinW;
-		var handleYProportion = handleY.pos.y / pWinH;
-		var winW = $(window).width();
-		var winH = $(window).height()
-		handleX.setPos( { x: winW * handleXProportion } );
-		handleY.setPos( { y: winH * handleYProportion } );
-
-		handleX.constraints.y.max = $(window).height();
-		handleY.constraints.x.max = $(window).width();
-
-		pWinW = winW;
-		pWinH = winH;
-	});
-
-	$('.dc-slideshow').each(function(){
-		new Slideshow( $(this) );
-	});
-
-	$('.dc-hoverimg-img').each(function(){
-		new HoverImg( $(this) );
-	});
-	$('.dc-video').each(function(){
-		new Video( $(this) );
-	});
 
 	sizePanes();
 	sizeAbout();
 	moveGrid();
 	sizeHeader();
+	sizeVideos();
 
 	if( $('body').hasClass('single-dc_project') ){
 		project.setReorderable( false );
@@ -128,19 +223,80 @@ var init = function( config ){
 			handleY.setCroppedPart( 2 );
 		}
 	} else {
-		console.log( 'we not on a note' );
 		handleY.setCroppedPart( 0 );
 	}
+	if( config && config.name === 'home' ){
+		paneLeft.onHover = function(){
+			handleX.animatePos({ x: $(window).width() * 0.66 });
+		};
+		paneRight.onHover = function(){
+			handleX.animatePos({ x: $(window).width() * 0.33 });
+		};
+	}
+	if( config && config.name === 'about' ){
+		header.setResizable();
+		sizeHeader();
+	} else {
+		header.cancelResizable();
+		header.clearSizing();
+	}
 	handleY.render();
+};
 
-}
-
-var loader = new Loader();
-
+var paneLeft = new Pane( $('.theme:first-child') );
+var paneRight = new Pane( $('.theme:nth-child(2)') );
 var handleX = new Handle( '#handle-x', { x: true } );
 var handleY = new Handle( '#handle-y', { y: true } );
 
+handleX.setConstraints({
+	x: {
+		min: paneLeft.minWidth,
+		max: paneLeft.maxWidth
+	},
+	y: {
+		min: 0,
+		max: $(window).width()
+	}
+});
+handleY.setConstraints({
+	x: {
+		min: 0,
+		max: $(window).height()
+	},
+	y: {
+		min: $(window).height() * 0.2,
+		max: $(window).height() * 0.8
+	}
+});
+
+var header = new Header( $('.committee-header') );
+
+var loader = new Loader();
+
+var pWinW = $(window).width();
+var pWinH = $(window).height();
+
+$(window).on('resize', function(){
+	var handleXProportion = handleX.pos.x / pWinW;
+	var handleYProportion = handleY.pos.y / pWinH;
+	var winW = $(window).width();
+	var winH = $(window).height()
+	handleX.setPos( { x: winW * handleXProportion } );
+	handleY.setPos( { y: winH * handleYProportion } );
+
+	handleX.constraints.y.max = $(window).height();
+	handleY.constraints.x.max = $(window).width();
+
+	sizeVideos();
+
+	pWinW = winW;
+	pWinH = winH;
+});
+
 loader.onInit = function( config ){
+	handleY.setPos({
+		y: $(window).height() * 0.7
+	});
 	init( config );
 }
 
@@ -149,7 +305,7 @@ loader.onLoaded = function( config ){
 	init( config );
 };
 
-},{"./modules/About.js":2,"./modules/Handle.js":4,"./modules/Header.js":5,"./modules/HoverImg.js":6,"./modules/Loader.js":7,"./modules/Pane.js":8,"./modules/Post.js":9,"./modules/Project.js":10,"./modules/Slideshow.js":12,"./modules/Video.js":13,"jquery":16}],2:[function(require,module,exports){
+},{"./modules/About.js":3,"./modules/Handle.js":5,"./modules/Header.js":6,"./modules/HoverImg.js":7,"./modules/Loader.js":8,"./modules/Pane.js":9,"./modules/Post.js":10,"./modules/Project.js":11,"./modules/Slideshow.js":13,"./modules/Video.js":14,"jquery":17}],3:[function(require,module,exports){
 var $ = require('jquery');
 
 var About = function( _ele ){
@@ -212,7 +368,7 @@ proto.render = function(){
 
 module.exports = About;
 
-},{"jquery":16}],3:[function(require,module,exports){
+},{"jquery":17}],4:[function(require,module,exports){
 var $ = require('jquery');
 
 var Grid = function( _ele ){
@@ -300,9 +456,10 @@ proto.setCenter = function( to ){
 
 module.exports = Grid;
 
-},{"jquery":16}],4:[function(require,module,exports){
+},{"jquery":17}],5:[function(require,module,exports){
 var $ = require('jquery');
 var Unidragger = require( 'unidragger' );
+var TWEEN = require('tween.js');
 
 var Handle = function( _ele, _movement ){
   this.$ele = (_ele) ? $( _ele ) : this.$ele;
@@ -335,6 +492,9 @@ var Handle = function( _ele, _movement ){
 		x: this.pos.x,
 		y: this.pos.y
 	};
+
+	this.isDragging = false;
+	this.hasBeenPositioned = false;
 
 	this.$indicator = this.$ele.find('.indicator');
 	this.setIndicator();
@@ -388,6 +548,39 @@ proto.setPos = function( to ){
 	this._onMove();
 };
 
+proto.animate = function(){
+	var that = this;
+	var anim = function( time ){
+		requestAnimationFrame( anim );
+		TWEEN.update(time);
+	};
+	this.animFrame = requestAnimationFrame( anim );
+};
+
+proto.animatePos = function( to, _time ){
+	if( this.isDragging || this.hasBeenPositioned ){
+		return;
+	}
+	var time = _time || 500;
+	var that = this;
+	var pos = {};
+	if( to.x ){
+		pos.x = this.pos.x;
+	}
+	if( to.y ){
+		pos.y = this.pos.y;
+	}
+	this.tween = new TWEEN.Tween( pos )
+		.to( to, time )
+		.onUpdate(function() {
+			that.setPos( this );
+		})
+		.start();
+
+	cancelAnimationFrame( this.animFrame );
+	this.animate();
+};
+
 proto.setCrossPoint = function( cross ){
 	this.crossPoint = cross;
 }
@@ -439,7 +632,7 @@ proto.render = function(){
 		} else if( this.crop === 2 ){
 			this.$ele.css({
 				top: 0,
-				bottom: this.crossPoint
+				bottom:  $(window).height() - this.crossPoint
 			});
 		}
 	}
@@ -462,7 +655,7 @@ proto.render = function(){
 			console.log( 'rendering handle from ', 0, ' to ', this.crossPoint );
 			this.$ele.css({
 				left: 0,
-				right: this.crossPoint
+				right: $(window).width() - this.crossPoint
 			});
 		}
 	}
@@ -500,6 +693,7 @@ proto.moveIndicator = function( at ){
 }
 
 proto.dragStart = function( event, pointer ){
+	this.isDragging = true;
 	this.$ele.addClass('handle__active');
 	this.pPos = {
 		x: pointer.pageX,
@@ -508,6 +702,7 @@ proto.dragStart = function( event, pointer ){
 };
 
 proto.dragMove = function( event, pointer, moveVector ){
+	this.hasBeenPositioned = true;
 	var adjust = {
 		x: (this.movement.x) ? pointer.pageX - this.pPos.x : 0,
 		y: (this.movement.y) ? pointer.pageY - this.pPos.y : 0
@@ -521,6 +716,7 @@ proto.dragMove = function( event, pointer, moveVector ){
 };
 
 proto.dragEnd = function( event, pointer ){
+	this.isDragging = false;
 	this.$ele.removeClass('handle__active');
 	this.pPos = {
 		x: pointer.pageX,
@@ -536,13 +732,14 @@ proto._onMove = function(){
 
 module.exports = Handle;
 
-},{"jquery":16,"unidragger":17}],5:[function(require,module,exports){
+},{"jquery":17,"tween.js":18,"unidragger":19}],6:[function(require,module,exports){
 var $ = require('jquery');
 
 var Header = function( _ele ){
 	this.$ele = (_ele) ? $( _ele ) : this.$ele;
   this.ele = this.$ele.get(0);
 	this.width = this.$ele.outerWidth();
+	this.resizable = false
 	this.setConstraints();
 	this.calculateProportion();
 	this.render();
@@ -564,7 +761,13 @@ proto.setWidth = function( to ){
 
 proto.setConstraints = function(){
 	this.minWidth = this.$ele.parent().width() / 8;
-	this.maxWidth = this.$ele.parent().width() - this.minWidth;
+	this.maxWidth = this.$ele.parent().width();
+}
+
+proto.clearSizing = function(){
+	this.width = this.maxWidth;
+	this.calculateProportion();
+	this.render();
 }
 
 proto.calculateProportion = function(){
@@ -582,13 +785,20 @@ proto.calculateProportion = function(){
 proto.render = function(){
 	this.$ele.attr('data-proportion', this.proportionName );
 	this.$ele.css({
-    'width': this.width
+    'width': (this.resizable) ? this.width : this.maxWidth
   });
+}
+
+proto.setResizable = function(){
+	this.resizable = true;
+}
+proto.cancelResizable = function(){
+	this.resizable = false;
 }
 
 module.exports = Header
 
-},{"jquery":16}],6:[function(require,module,exports){
+},{"jquery":17}],7:[function(require,module,exports){
 var $ = require('jquery');
 
 var HoverImg = function( _ele ){
@@ -619,7 +829,7 @@ proto.setSrc = function(){
 
 module.exports = HoverImg;
 
-},{"jquery":16}],7:[function(require,module,exports){
+},{"jquery":17}],8:[function(require,module,exports){
 var $ = require('jquery');
 
 var Loader = function( context ){
@@ -657,7 +867,7 @@ proto.setupPaths = function(){
 		},
 		'home': {
 			name: 'home',
-			regexp: new RegExp( this.pathBase + '$' ),
+			regexp: new RegExp( this.pathBase + '/?$' ),
 			selector: '.layer__themes'
 		},
 		'note': {
@@ -779,7 +989,7 @@ proto._onInit = function( config ){
 
 module.exports = Loader;
 
-},{"jquery":16}],8:[function(require,module,exports){
+},{"jquery":17}],9:[function(require,module,exports){
 var $ = require('jquery');
 
 var Pane = function( _ele ){
@@ -905,6 +1115,9 @@ proto.addListeners = function(){
 			that.scrollInner( e.originalEvent.deltaY );
 		}
 	});
+	this.$ele.on( 'mouseenter', function(){
+		that._onHover();
+	})
 };
 
 proto.render = function(){
@@ -914,9 +1127,15 @@ proto.render = function(){
   });
 }
 
+proto._onHover = function(){
+	if( typeof this.onHover === 'function' ){
+		this.onHover();
+	}
+}
+
 module.exports = Pane;
 
-},{"jquery":16}],9:[function(require,module,exports){
+},{"jquery":17}],10:[function(require,module,exports){
 var $ = require('jquery');
 var Quadrant = require( './Quadrant.js' );
 
@@ -973,7 +1192,7 @@ proto.calculateHierarchy = function(){
 
 module.exports = Post;
 
-},{"./Quadrant.js":11,"jquery":16}],10:[function(require,module,exports){
+},{"./Quadrant.js":12,"jquery":17}],11:[function(require,module,exports){
 var $ = require('jquery');
 var Quadrant = require( './Quadrant.js' );
 
@@ -1013,7 +1232,7 @@ proto.render = function(){
 
 module.exports = Project;
 
-},{"./Quadrant.js":11,"jquery":16}],11:[function(require,module,exports){
+},{"./Quadrant.js":12,"jquery":17}],12:[function(require,module,exports){
 var $ = require('jquery');
 var Grid = require( './Grid.js' );
 
@@ -1095,7 +1314,7 @@ proto.setReorderable = function( to ){
 
 module.exports = Quadrant;
 
-},{"./Grid.js":3,"jquery":16}],12:[function(require,module,exports){
+},{"./Grid.js":4,"jquery":17}],13:[function(require,module,exports){
 var $ = require('jquery');
 
 var Slideshow = function( _ele ){
@@ -1153,7 +1372,7 @@ proto.addListeners = function(){
 
 module.exports = Slideshow;
 
-},{"jquery":16}],13:[function(require,module,exports){
+},{"jquery":17}],14:[function(require,module,exports){
 var $ = require('jquery');
 var VimeoPlayer = require('@vimeo/player');
 
@@ -1161,16 +1380,21 @@ var VimeoPlayer = require('@vimeo/player');
 var Video = function( _ele ){
 	this.$ele = $(_ele);
 	this.$video = this.$ele.find('iframe');
+	this.$img = this.$ele.find( '.dc-video-image' );
 	this.player = new VimeoPlayer( this.$video[0] );
 	this.vidW = this.$video.attr('width') || 16;
 	this.vidH = this.$video.attr('height') || 9;
 	this.vidRatio = this.vidH / this.vidW;
+
+	this.w = this.vidW;
+	this.h = this.vidH;
 
 	this.playing = false;
 
 	this.createDom();
 	this.addListeners();
 	this.setSize();
+	this.render();
 }
 
 var proto = Video.prototype;
@@ -1182,12 +1406,10 @@ proto.createDom = function(){
 
 proto.play = function(){
 	this.player.play();
-	this.playing = true;
 }
 
 proto.pause = function(){
 	this.player.pause();
-	this.playing = false;
 }
 
 proto.toggleVideo = function(){
@@ -1202,7 +1424,23 @@ proto.addListeners = function(){
 	var that = this;
 	this.$cover.on('click', function(){
 		that.toggleVideo();
+		that.render();
 	});
+
+	this.player.on('play', function(){
+		that.playing = true;
+		that.render();
+	});
+	this.player.on('pause', function(){
+		that.playing = false;
+		that.render();
+	});
+	this.player.on('ended', function(){
+		that.playing = false;
+		that.render();
+	});
+
+
 }
 
 proto.setSize = function(){
@@ -1210,19 +1448,31 @@ proto.setSize = function(){
 	var eleH = this.$ele.height();
 	var w, h;
 	if( eleW * this.vidRatio > eleH ){
-		h = eleH;
-		w = h / this.vidRatio;
+		h = Math.ceil( eleH );
+		w = Math.ceil( h / this.vidRatio );
 	} else if( eleH / this.vidRatio > eleW ){
-		w = eleW;
-		h = w * this.vidRatio;
+		w = Math.ceil( eleW );
+		h = Math.ceil( w * this.vidRatio );
+	} else {
+		h = Math.ceil( eleH );
+		w = Math.ceil( h / this.vidRatio );
 	}
-	this.$video.width( w ).height( h );
-	this.$cover.width( w ).height( h );
+
+	this.w = w;
+	this.h = h;
+	this.render();
+}
+
+proto.render = function(){
+	this.$ele.toggleClass( 'playing', this.playing );
+	this.$video.width( this.w ).height( this.h );
+	this.$cover.width( this.w ).height( this.h );
+	this.$img.width( this.w ).height( this.h );
 }
 
 module.exports = Video;
 
-},{"@vimeo/player":14,"jquery":16}],14:[function(require,module,exports){
+},{"@vimeo/player":15,"jquery":17}],15:[function(require,module,exports){
 (function (global){
 /*! @vimeo/player v2.1.0 | (c) 2017 Vimeo | MIT License | https://github.com/vimeo/player.js */
 (function (global, factory) {
@@ -3308,7 +3558,7 @@ return Player;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 /**
  * EvEmitter v1.0.3
  * Lil' event emitter
@@ -3419,7 +3669,7 @@ return EvEmitter;
 
 }));
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.2.1
  * https://jquery.com/
@@ -13674,7 +13924,893 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
+(function (process){
+/**
+ * Tween.js - Licensed under the MIT license
+ * https://github.com/tweenjs/tween.js
+ * ----------------------------------------------
+ *
+ * See https://github.com/tweenjs/tween.js/graphs/contributors for the full list of contributors.
+ * Thank you all, you're awesome!
+ */
+
+var TWEEN = TWEEN || (function () {
+
+	var _tweens = [];
+
+	return {
+
+		getAll: function () {
+
+			return _tweens;
+
+		},
+
+		removeAll: function () {
+
+			_tweens = [];
+
+		},
+
+		add: function (tween) {
+
+			_tweens.push(tween);
+
+		},
+
+		remove: function (tween) {
+
+			var i = _tweens.indexOf(tween);
+
+			if (i !== -1) {
+				_tweens.splice(i, 1);
+			}
+
+		},
+
+		update: function (time, preserve) {
+
+			if (_tweens.length === 0) {
+				return false;
+			}
+
+			var i = 0;
+
+			time = time !== undefined ? time : TWEEN.now();
+
+			while (i < _tweens.length) {
+
+				if (_tweens[i].update(time) || preserve) {
+					i++;
+				} else {
+					_tweens.splice(i, 1);
+				}
+
+			}
+
+			return true;
+
+		}
+	};
+
+})();
+
+
+// Include a performance.now polyfill.
+// In node.js, use process.hrtime.
+if (typeof (window) === 'undefined' && typeof (process) !== 'undefined') {
+	TWEEN.now = function () {
+		var time = process.hrtime();
+
+		// Convert [seconds, nanoseconds] to milliseconds.
+		return time[0] * 1000 + time[1] / 1000000;
+	};
+}
+// In a browser, use window.performance.now if it is available.
+else if (typeof (window) !== 'undefined' &&
+         window.performance !== undefined &&
+		 window.performance.now !== undefined) {
+	// This must be bound, because directly assigning this function
+	// leads to an invocation exception in Chrome.
+	TWEEN.now = window.performance.now.bind(window.performance);
+}
+// Use Date.now if it is available.
+else if (Date.now !== undefined) {
+	TWEEN.now = Date.now;
+}
+// Otherwise, use 'new Date().getTime()'.
+else {
+	TWEEN.now = function () {
+		return new Date().getTime();
+	};
+}
+
+
+TWEEN.Tween = function (object) {
+
+	var _object = object;
+	var _valuesStart = {};
+	var _valuesEnd = {};
+	var _valuesStartRepeat = {};
+	var _duration = 1000;
+	var _repeat = 0;
+	var _repeatDelayTime;
+	var _yoyo = false;
+	var _isPlaying = false;
+	var _reversed = false;
+	var _delayTime = 0;
+	var _startTime = null;
+	var _easingFunction = TWEEN.Easing.Linear.None;
+	var _interpolationFunction = TWEEN.Interpolation.Linear;
+	var _chainedTweens = [];
+	var _onStartCallback = null;
+	var _onStartCallbackFired = false;
+	var _onUpdateCallback = null;
+	var _onCompleteCallback = null;
+	var _onStopCallback = null;
+
+	this.to = function (properties, duration) {
+
+		_valuesEnd = properties;
+
+		if (duration !== undefined) {
+			_duration = duration;
+		}
+
+		return this;
+
+	};
+
+	this.start = function (time) {
+
+		TWEEN.add(this);
+
+		_isPlaying = true;
+
+		_onStartCallbackFired = false;
+
+		_startTime = time !== undefined ? time : TWEEN.now();
+		_startTime += _delayTime;
+
+		for (var property in _valuesEnd) {
+
+			// Check if an Array was provided as property value
+			if (_valuesEnd[property] instanceof Array) {
+
+				if (_valuesEnd[property].length === 0) {
+					continue;
+				}
+
+				// Create a local copy of the Array with the start value at the front
+				_valuesEnd[property] = [_object[property]].concat(_valuesEnd[property]);
+
+			}
+
+			// If `to()` specifies a property that doesn't exist in the source object,
+			// we should not set that property in the object
+			if (_object[property] === undefined) {
+				continue;
+			}
+
+			// Save the starting value.
+			_valuesStart[property] = _object[property];
+
+			if ((_valuesStart[property] instanceof Array) === false) {
+				_valuesStart[property] *= 1.0; // Ensures we're using numbers, not strings
+			}
+
+			_valuesStartRepeat[property] = _valuesStart[property] || 0;
+
+		}
+
+		return this;
+
+	};
+
+	this.stop = function () {
+
+		if (!_isPlaying) {
+			return this;
+		}
+
+		TWEEN.remove(this);
+		_isPlaying = false;
+
+		if (_onStopCallback !== null) {
+			_onStopCallback.call(_object, _object);
+		}
+
+		this.stopChainedTweens();
+		return this;
+
+	};
+
+	this.end = function () {
+
+		this.update(_startTime + _duration);
+		return this;
+
+	};
+
+	this.stopChainedTweens = function () {
+
+		for (var i = 0, numChainedTweens = _chainedTweens.length; i < numChainedTweens; i++) {
+			_chainedTweens[i].stop();
+		}
+
+	};
+
+	this.delay = function (amount) {
+
+		_delayTime = amount;
+		return this;
+
+	};
+
+	this.repeat = function (times) {
+
+		_repeat = times;
+		return this;
+
+	};
+
+	this.repeatDelay = function (amount) {
+
+		_repeatDelayTime = amount;
+		return this;
+
+	};
+
+	this.yoyo = function (yoyo) {
+
+		_yoyo = yoyo;
+		return this;
+
+	};
+
+
+	this.easing = function (easing) {
+
+		_easingFunction = easing;
+		return this;
+
+	};
+
+	this.interpolation = function (interpolation) {
+
+		_interpolationFunction = interpolation;
+		return this;
+
+	};
+
+	this.chain = function () {
+
+		_chainedTweens = arguments;
+		return this;
+
+	};
+
+	this.onStart = function (callback) {
+
+		_onStartCallback = callback;
+		return this;
+
+	};
+
+	this.onUpdate = function (callback) {
+
+		_onUpdateCallback = callback;
+		return this;
+
+	};
+
+	this.onComplete = function (callback) {
+
+		_onCompleteCallback = callback;
+		return this;
+
+	};
+
+	this.onStop = function (callback) {
+
+		_onStopCallback = callback;
+		return this;
+
+	};
+
+	this.update = function (time) {
+
+		var property;
+		var elapsed;
+		var value;
+
+		if (time < _startTime) {
+			return true;
+		}
+
+		if (_onStartCallbackFired === false) {
+
+			if (_onStartCallback !== null) {
+				_onStartCallback.call(_object, _object);
+			}
+
+			_onStartCallbackFired = true;
+		}
+
+		elapsed = (time - _startTime) / _duration;
+		elapsed = elapsed > 1 ? 1 : elapsed;
+
+		value = _easingFunction(elapsed);
+
+		for (property in _valuesEnd) {
+
+			// Don't update properties that do not exist in the source object
+			if (_valuesStart[property] === undefined) {
+				continue;
+			}
+
+			var start = _valuesStart[property] || 0;
+			var end = _valuesEnd[property];
+
+			if (end instanceof Array) {
+
+				_object[property] = _interpolationFunction(end, value);
+
+			} else {
+
+				// Parses relative end values with start as base (e.g.: +10, -3)
+				if (typeof (end) === 'string') {
+
+					if (end.charAt(0) === '+' || end.charAt(0) === '-') {
+						end = start + parseFloat(end);
+					} else {
+						end = parseFloat(end);
+					}
+				}
+
+				// Protect against non numeric properties.
+				if (typeof (end) === 'number') {
+					_object[property] = start + (end - start) * value;
+				}
+
+			}
+
+		}
+
+		if (_onUpdateCallback !== null) {
+			_onUpdateCallback.call(_object, value);
+		}
+
+		if (elapsed === 1) {
+
+			if (_repeat > 0) {
+
+				if (isFinite(_repeat)) {
+					_repeat--;
+				}
+
+				// Reassign starting values, restart by making startTime = now
+				for (property in _valuesStartRepeat) {
+
+					if (typeof (_valuesEnd[property]) === 'string') {
+						_valuesStartRepeat[property] = _valuesStartRepeat[property] + parseFloat(_valuesEnd[property]);
+					}
+
+					if (_yoyo) {
+						var tmp = _valuesStartRepeat[property];
+
+						_valuesStartRepeat[property] = _valuesEnd[property];
+						_valuesEnd[property] = tmp;
+					}
+
+					_valuesStart[property] = _valuesStartRepeat[property];
+
+				}
+
+				if (_yoyo) {
+					_reversed = !_reversed;
+				}
+
+				if (_repeatDelayTime !== undefined) {
+					_startTime = time + _repeatDelayTime;
+				} else {
+					_startTime = time + _delayTime;
+				}
+
+				return true;
+
+			} else {
+
+				if (_onCompleteCallback !== null) {
+
+					_onCompleteCallback.call(_object, _object);
+				}
+
+				for (var i = 0, numChainedTweens = _chainedTweens.length; i < numChainedTweens; i++) {
+					// Make the chained tweens start exactly at the time they should,
+					// even if the `update()` method was called way past the duration of the tween
+					_chainedTweens[i].start(_startTime + _duration);
+				}
+
+				return false;
+
+			}
+
+		}
+
+		return true;
+
+	};
+
+};
+
+
+TWEEN.Easing = {
+
+	Linear: {
+
+		None: function (k) {
+
+			return k;
+
+		}
+
+	},
+
+	Quadratic: {
+
+		In: function (k) {
+
+			return k * k;
+
+		},
+
+		Out: function (k) {
+
+			return k * (2 - k);
+
+		},
+
+		InOut: function (k) {
+
+			if ((k *= 2) < 1) {
+				return 0.5 * k * k;
+			}
+
+			return - 0.5 * (--k * (k - 2) - 1);
+
+		}
+
+	},
+
+	Cubic: {
+
+		In: function (k) {
+
+			return k * k * k;
+
+		},
+
+		Out: function (k) {
+
+			return --k * k * k + 1;
+
+		},
+
+		InOut: function (k) {
+
+			if ((k *= 2) < 1) {
+				return 0.5 * k * k * k;
+			}
+
+			return 0.5 * ((k -= 2) * k * k + 2);
+
+		}
+
+	},
+
+	Quartic: {
+
+		In: function (k) {
+
+			return k * k * k * k;
+
+		},
+
+		Out: function (k) {
+
+			return 1 - (--k * k * k * k);
+
+		},
+
+		InOut: function (k) {
+
+			if ((k *= 2) < 1) {
+				return 0.5 * k * k * k * k;
+			}
+
+			return - 0.5 * ((k -= 2) * k * k * k - 2);
+
+		}
+
+	},
+
+	Quintic: {
+
+		In: function (k) {
+
+			return k * k * k * k * k;
+
+		},
+
+		Out: function (k) {
+
+			return --k * k * k * k * k + 1;
+
+		},
+
+		InOut: function (k) {
+
+			if ((k *= 2) < 1) {
+				return 0.5 * k * k * k * k * k;
+			}
+
+			return 0.5 * ((k -= 2) * k * k * k * k + 2);
+
+		}
+
+	},
+
+	Sinusoidal: {
+
+		In: function (k) {
+
+			return 1 - Math.cos(k * Math.PI / 2);
+
+		},
+
+		Out: function (k) {
+
+			return Math.sin(k * Math.PI / 2);
+
+		},
+
+		InOut: function (k) {
+
+			return 0.5 * (1 - Math.cos(Math.PI * k));
+
+		}
+
+	},
+
+	Exponential: {
+
+		In: function (k) {
+
+			return k === 0 ? 0 : Math.pow(1024, k - 1);
+
+		},
+
+		Out: function (k) {
+
+			return k === 1 ? 1 : 1 - Math.pow(2, - 10 * k);
+
+		},
+
+		InOut: function (k) {
+
+			if (k === 0) {
+				return 0;
+			}
+
+			if (k === 1) {
+				return 1;
+			}
+
+			if ((k *= 2) < 1) {
+				return 0.5 * Math.pow(1024, k - 1);
+			}
+
+			return 0.5 * (- Math.pow(2, - 10 * (k - 1)) + 2);
+
+		}
+
+	},
+
+	Circular: {
+
+		In: function (k) {
+
+			return 1 - Math.sqrt(1 - k * k);
+
+		},
+
+		Out: function (k) {
+
+			return Math.sqrt(1 - (--k * k));
+
+		},
+
+		InOut: function (k) {
+
+			if ((k *= 2) < 1) {
+				return - 0.5 * (Math.sqrt(1 - k * k) - 1);
+			}
+
+			return 0.5 * (Math.sqrt(1 - (k -= 2) * k) + 1);
+
+		}
+
+	},
+
+	Elastic: {
+
+		In: function (k) {
+
+			if (k === 0) {
+				return 0;
+			}
+
+			if (k === 1) {
+				return 1;
+			}
+
+			return -Math.pow(2, 10 * (k - 1)) * Math.sin((k - 1.1) * 5 * Math.PI);
+
+		},
+
+		Out: function (k) {
+
+			if (k === 0) {
+				return 0;
+			}
+
+			if (k === 1) {
+				return 1;
+			}
+
+			return Math.pow(2, -10 * k) * Math.sin((k - 0.1) * 5 * Math.PI) + 1;
+
+		},
+
+		InOut: function (k) {
+
+			if (k === 0) {
+				return 0;
+			}
+
+			if (k === 1) {
+				return 1;
+			}
+
+			k *= 2;
+
+			if (k < 1) {
+				return -0.5 * Math.pow(2, 10 * (k - 1)) * Math.sin((k - 1.1) * 5 * Math.PI);
+			}
+
+			return 0.5 * Math.pow(2, -10 * (k - 1)) * Math.sin((k - 1.1) * 5 * Math.PI) + 1;
+
+		}
+
+	},
+
+	Back: {
+
+		In: function (k) {
+
+			var s = 1.70158;
+
+			return k * k * ((s + 1) * k - s);
+
+		},
+
+		Out: function (k) {
+
+			var s = 1.70158;
+
+			return --k * k * ((s + 1) * k + s) + 1;
+
+		},
+
+		InOut: function (k) {
+
+			var s = 1.70158 * 1.525;
+
+			if ((k *= 2) < 1) {
+				return 0.5 * (k * k * ((s + 1) * k - s));
+			}
+
+			return 0.5 * ((k -= 2) * k * ((s + 1) * k + s) + 2);
+
+		}
+
+	},
+
+	Bounce: {
+
+		In: function (k) {
+
+			return 1 - TWEEN.Easing.Bounce.Out(1 - k);
+
+		},
+
+		Out: function (k) {
+
+			if (k < (1 / 2.75)) {
+				return 7.5625 * k * k;
+			} else if (k < (2 / 2.75)) {
+				return 7.5625 * (k -= (1.5 / 2.75)) * k + 0.75;
+			} else if (k < (2.5 / 2.75)) {
+				return 7.5625 * (k -= (2.25 / 2.75)) * k + 0.9375;
+			} else {
+				return 7.5625 * (k -= (2.625 / 2.75)) * k + 0.984375;
+			}
+
+		},
+
+		InOut: function (k) {
+
+			if (k < 0.5) {
+				return TWEEN.Easing.Bounce.In(k * 2) * 0.5;
+			}
+
+			return TWEEN.Easing.Bounce.Out(k * 2 - 1) * 0.5 + 0.5;
+
+		}
+
+	}
+
+};
+
+TWEEN.Interpolation = {
+
+	Linear: function (v, k) {
+
+		var m = v.length - 1;
+		var f = m * k;
+		var i = Math.floor(f);
+		var fn = TWEEN.Interpolation.Utils.Linear;
+
+		if (k < 0) {
+			return fn(v[0], v[1], f);
+		}
+
+		if (k > 1) {
+			return fn(v[m], v[m - 1], m - f);
+		}
+
+		return fn(v[i], v[i + 1 > m ? m : i + 1], f - i);
+
+	},
+
+	Bezier: function (v, k) {
+
+		var b = 0;
+		var n = v.length - 1;
+		var pw = Math.pow;
+		var bn = TWEEN.Interpolation.Utils.Bernstein;
+
+		for (var i = 0; i <= n; i++) {
+			b += pw(1 - k, n - i) * pw(k, i) * v[i] * bn(n, i);
+		}
+
+		return b;
+
+	},
+
+	CatmullRom: function (v, k) {
+
+		var m = v.length - 1;
+		var f = m * k;
+		var i = Math.floor(f);
+		var fn = TWEEN.Interpolation.Utils.CatmullRom;
+
+		if (v[0] === v[m]) {
+
+			if (k < 0) {
+				i = Math.floor(f = m * (1 + k));
+			}
+
+			return fn(v[(i - 1 + m) % m], v[i], v[(i + 1) % m], v[(i + 2) % m], f - i);
+
+		} else {
+
+			if (k < 0) {
+				return v[0] - (fn(v[0], v[0], v[1], v[1], -f) - v[0]);
+			}
+
+			if (k > 1) {
+				return v[m] - (fn(v[m], v[m], v[m - 1], v[m - 1], f - m) - v[m]);
+			}
+
+			return fn(v[i ? i - 1 : 0], v[i], v[m < i + 1 ? m : i + 1], v[m < i + 2 ? m : i + 2], f - i);
+
+		}
+
+	},
+
+	Utils: {
+
+		Linear: function (p0, p1, t) {
+
+			return (p1 - p0) * t + p0;
+
+		},
+
+		Bernstein: function (n, i) {
+
+			var fc = TWEEN.Interpolation.Utils.Factorial;
+
+			return fc(n) / fc(i) / fc(n - i);
+
+		},
+
+		Factorial: (function () {
+
+			var a = [1];
+
+			return function (n) {
+
+				var s = 1;
+
+				if (a[n]) {
+					return a[n];
+				}
+
+				for (var i = n; i > 1; i--) {
+					s *= i;
+				}
+
+				a[n] = s;
+				return s;
+
+			};
+
+		})(),
+
+		CatmullRom: function (p0, p1, p2, p3, t) {
+
+			var v0 = (p2 - p0) * 0.5;
+			var v1 = (p3 - p1) * 0.5;
+			var t2 = t * t;
+			var t3 = t * t2;
+
+			return (2 * p1 - 2 * p2 + v0 + v1) * t3 + (- 3 * p1 + 3 * p2 - 2 * v0 - v1) * t2 + v0 * t + p1;
+
+		}
+
+	}
+
+};
+
+// UMD (Universal Module Definition)
+(function (root) {
+
+	if (typeof define === 'function' && define.amd) {
+
+		// AMD
+		define([], function () {
+			return TWEEN;
+		});
+
+	} else if (typeof module !== 'undefined' && typeof exports === 'object') {
+
+		// Node.js
+		module.exports = TWEEN;
+
+	} else if (root !== undefined) {
+
+		// Global variable
+		root.TWEEN = TWEEN;
+
+	}
+
+})(this);
+
+}).call(this,require('_process'))
+},{"_process":1}],19:[function(require,module,exports){
 /*!
  * Unidragger v2.1.0
  * Draggable base class
@@ -13960,7 +15096,7 @@ return Unidragger;
 
 }));
 
-},{"unipointer":18}],18:[function(require,module,exports){
+},{"unipointer":20}],20:[function(require,module,exports){
 /*!
  * Unipointer v2.1.0
  * base class for doing one thing with pointer event
@@ -14265,4 +15401,4 @@ return Unipointer;
 
 }));
 
-},{"ev-emitter":15}]},{},[1]);
+},{"ev-emitter":16}]},{},[2]);
