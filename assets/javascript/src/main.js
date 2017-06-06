@@ -8,8 +8,10 @@ var HoverImg = require('./modules/HoverImg.js' );
 var Loader = require('./modules/Loader.js' );
 var Slideshow = require('./modules/Slideshow.js' );
 var Video = require('./modules/Video.js' );
+var Header = require('./modules/Header.js');
 
 var init = function(){
+	var header = new Header( $('.committee-header') );
 	var paneLeft = new Pane( $('.theme:first-child') );
 	var paneRight = new Pane( $('.theme:nth-child(2)') );
 
@@ -51,6 +53,11 @@ var init = function(){
 		about.setWidth( leftW, rightW );
 	}
 
+	var sizeHeader = function(){
+		var leftW = Math.round(handleX.pos.x);
+		header.setWidth( leftW );
+	}
+
 	var moveGrid = function(){
 		var center = {
 			x: handleX.pos.x,
@@ -63,6 +70,7 @@ var init = function(){
 	handleX.onMove = function( pos ){
 		sizePanes();
 		sizeAbout();
+		sizeHeader();
 		moveGrid();
 	}
 	handleY.onMove = function( pos ){
@@ -101,6 +109,7 @@ var init = function(){
 	sizePanes();
 	sizeAbout();
 	moveGrid();
+	sizeHeader();
 
 	if( $('body').hasClass('single-dc_project') ){
 		project.setReorderable( false );

@@ -94,15 +94,31 @@ html, body, .dc-site-contents, .layer{
 		display: none;
 	}
 		.committee-header svg{
-			width: 40%;
-			width: calc( 50% - 2rem );
+			width: 100%;
 			max-width: 200px;
 			height: auto;
 			pointer-events: auto;
 		}
+			.committee-header svg .dc-small-logo{
+				display: none;
+			}
 			.committee-header svg path{
 				fill: #FFFFFF;
 			}
+
+			.committee-header[data-proportion="small"] svg .dc-full-logo,
+			.committee-header[data-proportion="tiny"] svg .dc-full-logo{
+				display: none;
+			}
+			.committee-header[data-proportion="small"] svg .dc-small-logo,
+			.committee-header[data-proportion="tiny"] svg .dc-small-logo{
+				display: block;
+				width: 100%;
+			}
+				.committee-header[data-proportion="small"] svg,
+				.committee-header[data-proportion="tiny"] svg{
+					width: 160px;
+				}
 
 .theme{
 	width: 50%;
@@ -351,17 +367,7 @@ html, body, .dc-site-contents, .layer{
 
 	.quadrant-section.project-section__description{
 		overflow-y: scroll;
-	}
-		.quadrant-section.project-section__description[data-section-location="nw"]:after,
-		.quadrant-section.project-section__description[data-section-location="ne"]:after{
-			content: '';
-			position: absolute;
-			bottom: 0;
-			height: 2rem;
-			width: 100%;
-			background: #ffffff;
-			left: 0;
-		}
+	}	
 
 	/* post specifics */
 	.quadrant-section.post-section__contents{
@@ -645,12 +651,29 @@ a.text-link{
 
 
 /* loading */
+body.loading .dc-site-loader{
+	opacity: 1;
+}
+	.dc-site-loader{
+		width: 100%;
+		height: 100%;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index: 90;
+		background: #ffffff;
+		pointer-events: none;
+		opacity: 0;
+		transition: opacity .3s ease-in-out;
+	}
 body.loading .committee-header{
 	opacity: 0;
 }
 	.committee-header{
 		transition: opacity .3s ease-in-out;
+		transition-delay: .05s;
 	}
+
 body.loading .dc-site-contents,
 body.loading .layer{
 	opacity: 0;
@@ -658,6 +681,7 @@ body.loading .layer{
 	.dc-site-contents,
 	.layer{
 		transition: opacity .3s ease-in-out;
+		transition-delay: .05s;
 	}
 
 body.loading .handle{
@@ -667,11 +691,14 @@ body.loading .handle{
 	body.loading .handle .indicator{
 		opacity: 0;
 	}
-
+	.handle{
+		transition-delay: 1s;
+	}
 	body.loading .handle:after{
 		background: #000000;
 		transition: background-color .13s ease-in-out;
 	}
 		 .handle:after{
 			 transition: background-color .3s ease-in-out;
+			 transition-delay: 1s;
 		 }
