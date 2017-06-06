@@ -85,12 +85,85 @@ proto.setPos = function( to ){
 	this._onMove();
 };
 
+proto.setCrossPoint = function( cross ){
+	this.crossPoint = cross;
+}
+
+proto.setCroppedPart = function( crop ){
+	// crop=0 means no croppping / hiding of any part of the handle
+	//if moving y, so a horizontal handle then crop=1 is left and crop=2 is right
+	//if moving x, so a vertical handle then crop=1 is top and crop=2 is bottom
+	if( crop <1 ){
+		crop = 0;
+	} else if (crop < 2 ) {
+		crop = 1;
+	} else {
+		crop = 2;
+	}
+	this.crop = crop;
+}
+
+proto.setAllVisible = function(){
+	if( this.movement.x )	{
+		this.$ele.css({
+			'left': 0,
+			'right': 0
+		});
+	}
+	if( this.movement.y )	{
+		this.$ele.css({
+			'top': 0,
+			'bottom': 0
+		});
+	}
+}
 
 proto.render = function(){
-	this.$ele.css({
-    'left': this.pos.x + 'px',
-		'top': this.pos.y + 'px'
-  });
+	if( this.movement.x ){
+		this.$ele.css({
+	    'left': this.pos.x + 'px'
+	  });
+		if( this.crop === 0 ){
+			this.$ele.css({
+				top: 0,
+				bottom: 0
+			});
+		} else if( this.crop === 1 ){
+			this.$ele.css({
+				top: this.crossPoint,
+				bottom: 0
+			});
+		} else if( this.crop === 2 ){
+			this.$ele.css({
+				top: 0,
+				bottom: this.crossPoint
+			});
+		}
+	}
+	if( this.movement.y ){
+		this.$ele.css({
+			'top': this.pos.y + 'px'
+		});
+		if( this.crop === 0 ){
+			this.$ele.css({
+				left: 0,
+				right: 0
+			});
+		} else if( this.crop === 1 ){
+			console.log( 'rendering handle from ', this.crossPoint, ' to ', 0 );
+			this.$ele.css({
+				left: this.crossPoint,
+				right: 0
+			});
+		} else if( this.crop === 2 ){
+			console.log( 'rendering handle from ', 0, ' to ', this.crossPoint );
+			this.$ele.css({
+				left: 0,
+				right: this.crossPoint
+			});
+		}
+	}
+
 };
 
 proto.setIndicator = function(){
@@ -100,9 +173,17 @@ proto.setIndicator = function(){
 		top: 0
 	};
 	$('body').on('mousemove', function( e ){
+		var x = e.pageX;
+		var y = e.pageY;
+		if( that.movement.x && that.crop === 1){
+			y = y - that.crossPoint;
+		}
+		if( that.movement.y && that.crop === 1 ){
+			x = x - that.crossPoint;
+		}
 		that.moveIndicator({
-			x: e.pageX,
-			y: e.pageY
+			x: x,
+			y: y
 		});
 	});
 };

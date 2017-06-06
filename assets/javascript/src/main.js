@@ -10,7 +10,7 @@ var Slideshow = require('./modules/Slideshow.js' );
 var Video = require('./modules/Video.js' );
 var Header = require('./modules/Header.js');
 
-var init = function(){
+var init = function( config ){
 	var header = new Header( $('.committee-header') );
 	var paneLeft = new Pane( $('.theme:first-child') );
 	var paneRight = new Pane( $('.theme:nth-child(2)') );
@@ -71,6 +71,7 @@ var init = function(){
 		sizePanes();
 		sizeAbout();
 		sizeHeader();
+		handleY.setCrossPoint( handleX.pos.x );
 		moveGrid();
 	}
 	handleY.onMove = function( pos ){
@@ -117,16 +118,32 @@ var init = function(){
 	if( $('body').hasClass('single-post') ){
 		post.setReorderable( false );
 	}
+
+	if( config && config.name === 'note' ){
+		handleY.setCrossPoint( handleX.pos.x );
+		if( handleX.pos.x > $(window).width()/2 ){
+			handleY.setCroppedPart( 1 );
+		}	else {
+			handleY.setCroppedPart( 2 );
+		}
+		handleY.render();
+	} else {
+		console.log( 'we not on a note' );
+		handleY.setCroppedPart( 0 );
+	}
+
 }
 
 var loader = new Loader();
-console.log( 'LOADER BASE: ', loader.pathBase );
+
 var handleX = new Handle( '#handle-x', { x: true } );
 var handleY = new Handle( '#handle-y', { y: true } );
 
-init();
+loader.onInit = function( config ){
+	init( config );
+}
 
-loader.onLoaded = function(){
+loader.onLoaded = function( config ){
 	console.log('loader loaded -> init()')
-	init();
+	init( config );
 };

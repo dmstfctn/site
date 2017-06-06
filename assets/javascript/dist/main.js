@@ -11,7 +11,7 @@ var Slideshow = require('./modules/Slideshow.js' );
 var Video = require('./modules/Video.js' );
 var Header = require('./modules/Header.js');
 
-var init = function(){
+var init = function( config ){
 	var header = new Header( $('.committee-header') );
 	var paneLeft = new Pane( $('.theme:first-child') );
 	var paneRight = new Pane( $('.theme:nth-child(2)') );
@@ -72,6 +72,7 @@ var init = function(){
 		sizePanes();
 		sizeAbout();
 		sizeHeader();
+		handleY.setCrossPoint( handleX.pos.x );
 		moveGrid();
 	}
 	handleY.onMove = function( pos ){
@@ -118,18 +119,34 @@ var init = function(){
 	if( $('body').hasClass('single-post') ){
 		post.setReorderable( false );
 	}
+
+	if( config && config.name === 'note' ){
+		handleY.setCrossPoint( handleX.pos.x );
+		if( handleX.pos.x > $(window).width()/2 ){
+			handleY.setCroppedPart( 1 );
+		}	else {
+			handleY.setCroppedPart( 2 );
+		}
+		handleY.render();
+	} else {
+		console.log( 'we not on a note' );
+		handleY.setCroppedPart( 0 );
+	}
+
 }
 
 var loader = new Loader();
-console.log( 'LOADER BASE: ', loader.pathBase );
+
 var handleX = new Handle( '#handle-x', { x: true } );
 var handleY = new Handle( '#handle-y', { y: true } );
 
-init();
+loader.onInit = function( config ){
+	init( config );
+}
 
-loader.onLoaded = function(){
+loader.onLoaded = function( config ){
 	console.log('loader loaded -> init()')
-	init();
+	init( config );
 };
 
 },{"./modules/About.js":2,"./modules/Handle.js":4,"./modules/Header.js":5,"./modules/HoverImg.js":6,"./modules/Loader.js":7,"./modules/Pane.js":8,"./modules/Post.js":9,"./modules/Project.js":10,"./modules/Slideshow.js":12,"./modules/Video.js":13,"jquery":16}],2:[function(require,module,exports){
@@ -371,12 +388,85 @@ proto.setPos = function( to ){
 	this._onMove();
 };
 
+proto.setCrossPoint = function( cross ){
+	this.crossPoint = cross;
+}
+
+proto.setCroppedPart = function( crop ){
+	// crop=0 means no croppping / hiding of any part of the handle
+	//if moving y, so a horizontal handle then crop=1 is left and crop=2 is right
+	//if moving x, so a vertical handle then crop=1 is top and crop=2 is bottom
+	if( crop <1 ){
+		crop = 0;
+	} else if (crop < 2 ) {
+		crop = 1;
+	} else {
+		crop = 2;
+	}
+	this.crop = crop;
+}
+
+proto.setAllVisible = function(){
+	if( this.movement.x )	{
+		this.$ele.css({
+			'left': 0,
+			'right': 0
+		});
+	}
+	if( this.movement.y )	{
+		this.$ele.css({
+			'top': 0,
+			'bottom': 0
+		});
+	}
+}
 
 proto.render = function(){
-	this.$ele.css({
-    'left': this.pos.x + 'px',
-		'top': this.pos.y + 'px'
-  });
+	if( this.movement.x ){
+		this.$ele.css({
+	    'left': this.pos.x + 'px'
+	  });
+		if( this.crop === 0 ){
+			this.$ele.css({
+				top: 0,
+				bottom: 0
+			});
+		} else if( this.crop === 1 ){
+			this.$ele.css({
+				top: this.crossPoint,
+				bottom: 0
+			});
+		} else if( this.crop === 2 ){
+			this.$ele.css({
+				top: 0,
+				bottom: this.crossPoint
+			});
+		}
+	}
+	if( this.movement.y ){
+		this.$ele.css({
+			'top': this.pos.y + 'px'
+		});
+		if( this.crop === 0 ){
+			this.$ele.css({
+				left: 0,
+				right: 0
+			});
+		} else if( this.crop === 1 ){
+			console.log( 'rendering handle from ', this.crossPoint, ' to ', 0 );
+			this.$ele.css({
+				left: this.crossPoint,
+				right: 0
+			});
+		} else if( this.crop === 2 ){
+			console.log( 'rendering handle from ', 0, ' to ', this.crossPoint );
+			this.$ele.css({
+				left: 0,
+				right: this.crossPoint
+			});
+		}
+	}
+
 };
 
 proto.setIndicator = function(){
@@ -386,9 +476,17 @@ proto.setIndicator = function(){
 		top: 0
 	};
 	$('body').on('mousemove', function( e ){
+		var x = e.pageX;
+		var y = e.pageY;
+		if( that.movement.x && that.crop === 1){
+			y = y - that.crossPoint;
+		}
+		if( that.movement.y && that.crop === 1 ){
+			x = x - that.crossPoint;
+		}
 		that.moveIndicator({
-			x: e.pageX,
-			y: e.pageY
+			x: x,
+			y: y
 		});
 	});
 };
@@ -525,11 +623,16 @@ module.exports = HoverImg;
 var $ = require('jquery');
 
 var Loader = function( context ){
+	var that = this;
 	this.$context = (context) ? $(context) : $('html');
 	this.loadTime = 300;
 	this.setupPaths();
 	this.addListeners();
 	this.prepareLinks();
+
+	setTimeout(function(){
+		that._onInit( that.getLoadConfig( window.location.pathname ) );
+	},1);
 };
 
 var proto = Loader.prototype;
@@ -666,6 +769,11 @@ proto.prepareLinks = function( _$context ){
 proto._onLoaded = function( config ){
 	if( typeof this.onLoaded === 'function' ){
 		this.onLoaded( config );
+	}
+}
+proto._onInit = function( config ){
+	if( typeof this.onInit === 'function' ){
+		this.onInit( config );
 	}
 }
 

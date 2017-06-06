@@ -1,11 +1,16 @@
 var $ = require('jquery');
 
 var Loader = function( context ){
+	var that = this;
 	this.$context = (context) ? $(context) : $('html');
 	this.loadTime = 300;
 	this.setupPaths();
 	this.addListeners();
 	this.prepareLinks();
+
+	setTimeout(function(){
+		that._onInit( that.getLoadConfig( window.location.pathname ) );
+	},1);
 };
 
 var proto = Loader.prototype;
@@ -142,6 +147,11 @@ proto.prepareLinks = function( _$context ){
 proto._onLoaded = function( config ){
 	if( typeof this.onLoaded === 'function' ){
 		this.onLoaded( config );
+	}
+}
+proto._onInit = function( config ){
+	if( typeof this.onInit === 'function' ){
+		this.onInit( config );
 	}
 }
 
