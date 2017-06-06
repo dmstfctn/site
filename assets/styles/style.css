@@ -76,6 +76,11 @@ html, body, .dc-site-contents, .layer{
 		pointer-events: none;
 	}
 
+	body.single-post .committee-header,
+	body.single-dc_project .committee-header{
+		display: none;
+	}
+
 	.layer__themes{
 		overflow: hidden;
 	}
@@ -91,6 +96,7 @@ html, body, .dc-site-contents, .layer{
 	//pointer-events: none;
 	background: #000000;
 	height: 3.9rem;
+	z-index: 99;
 	//border-bottom: 1px solid #ffffff;
 }
 
@@ -498,6 +504,7 @@ html, body, .dc-site-contents, .layer{
 			top: 50%;
 			left: 50%;
 			transform: translateX(-50%) translateY(-50%);
+			display: none;
 		}
 			.handle__x .indicator:before{
 				width: 50%;
@@ -815,3 +822,36 @@ body.loading .handle{
 			 transition: background-color .3s ease-in-out;
 			 transition-delay: 1s;
 		 }
+
+
+		.handle__x:after{
+			background: #FFFFFF;
+			width: 1;
+			-webkit-box-shadow: 0px 0px 0.5px 0.25px rgba( 200, 200, 200, 0.9 ),
+														0px 0px 10px 3px rgba(123,123,123,0.85);
+				 -moz-box-shadow: 0px 0px 0.5px 0.25px rgba( 200, 200, 200, 0.9 ),
+											 			0px 0px 10px 3px rgba(123,123,123,0.85);
+							box-shadow: 0px 0px 0.5px 0.25px rgba( 200, 200, 200, 0.9 ),
+														0px 0px 10px 3px rgba(123,123,123,0.85);
+		}
+
+			.theme:after{
+				content: '';
+				display: block;
+				position: fixed;
+				width: 1px;
+				left: -1px;
+				top: 0;
+				height: 100%;
+				background: transparent;
+				-webkit-box-shadow: 0px 0px 0.5px 0.25px rgba( 200, 200, 200, 0.9 ),
+															0px 0px 10px 3px rgba(123,123,123,0.85);
+					 -moz-box-shadow: 0px 0px 0.5px 0.25px rgba( 200, 200, 200, 0.9 ),
+												 			0px 0px 10px 3px rgba(123,123,123,0.85);
+								box-shadow: 0px 0px 0.5px 0.25px rgba( 200, 200, 200, 0.9 ),
+															0px 0px 10px 3px rgba(123,123,123,0.85);
+			}
+				.theme__offshore-studies:after{
+					left: auto;
+					right: -1px;
+				}
