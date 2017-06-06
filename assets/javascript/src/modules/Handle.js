@@ -93,7 +93,7 @@ proto.setCroppedPart = function( crop ){
 	// crop=0 means no croppping / hiding of any part of the handle
 	//if moving y, so a horizontal handle then crop=1 is left and crop=2 is right
 	//if moving x, so a vertical handle then crop=1 is top and crop=2 is bottom
-	if( crop <1 ){
+	if( crop < 1 ){
 		crop = 0;
 	} else if (crop < 2 ) {
 		crop = 1;

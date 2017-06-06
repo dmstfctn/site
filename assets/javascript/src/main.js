@@ -126,11 +126,11 @@ var init = function( config ){
 		}	else {
 			handleY.setCroppedPart( 2 );
 		}
-		handleY.render();
 	} else {
 		console.log( 'we not on a note' );
 		handleY.setCroppedPart( 0 );
 	}
+	handleY.render();
 
 }
 
