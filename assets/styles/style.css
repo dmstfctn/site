@@ -624,7 +624,7 @@ html, body, .dc-site-contents, .layer{
 a.text-link{
 	color: #000000;
 	text-decoration: none;
-	border-bottom: 1px solid #000000;
+	border-bottom: 1px solid;
 	display: inline-block;
 	vertical-align: baseline;
 	box-sizing: border-box;
@@ -642,6 +642,7 @@ a.text-link{
 	}
 		.wysiwyg a:hover:after,
 		a.text-link:hover:after{
+			display: block;
 			height: 100%;
 			border-width: 1px;
 		}
@@ -664,6 +665,35 @@ a.text-link{
 		background: #FFFFFF;
 	}
 
+	.wysiwyg a.image-link{
+		border-bottom: none;
+	}
+		.wysiwyg a.image-link:after{
+			//display: none;
+		}
+
+		a::selection{
+			color: transparent;
+			background: #000000;
+		}
+
+		a::-moz-selection {
+			color: transparent;
+			background: #000000;
+			border-bottom: none;
+		}
+			a::-moz-selection:after {
+				display: none;
+			}
+
+	::-moz-selection {
+		color: transparent;
+		background: transparent;
+	}
+	::selection {
+		color: transparent;
+		background: transparent;
+	}
 
 
 
