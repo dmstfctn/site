@@ -142,20 +142,20 @@ html, body, .dc-site-contents, .layer{
 	//border-right: 1px solid #000000;
 }
 
-	.theme:nth-child( 2n ){
+	.theme.theme__network-ensemble{
 		background-color: #000000;
 		color: #FFFFFF;
 		border-right: none;
 		//border-left: 1px solid #ffffff;
 	}
-	.theme:nth-child( 2n ) a{
+	.theme.theme__network-ensemble a{
 		color: #FFFFFF;
 	}
 		.theme .theme--content{
 			background-color: #FFFFFF;
 			//border-top: 1px solid #000000;
 		}
-		.theme:nth-child( 2n ) .theme--content{
+		.theme.theme__network-ensemble .theme--content{
 			background-color: #000000;
 			//border-top: 1px solid #ffffff;
 		}
@@ -431,7 +431,7 @@ html, body, .dc-site-contents, .layer{
 				position: absolute;
 			}
 			.handle .indicator:before{
-				background: #000000;
+				background: #ffffff;
 				left: 0;
 				top: 0;
 			}
@@ -441,12 +441,15 @@ html, body, .dc-site-contents, .layer{
 			}
 
 			body.home .handle .indicator:after{
-				background: #ffffff;
+				background: #000000;
 			}
 			body.page-template-page-about .handle .indicator:before,
 			body.page-template-page-about .handle .indicator:after{
 				background: #ffffff;
 			}
+				body.page-template-page-about .handle .indicator{
+					border-color:#000000;
+				}
 
 				.handle__x{
 					opacity: 0;
@@ -483,15 +486,15 @@ html, body, .dc-site-contents, .layer{
 		z-index: 98;
 	}
 		.handle__x:after{
-			width: 1px;
+			width: 0px;
 			height: 100%;
 			left: 50%;
 			transform: translateX(-50%);
 		}
 		.handle__x .indicator{
 			height: 36px;
-			border-left: 1px solid #000000;
-			border-right: 1px solid #ffffff;
+			border-left: 1px solid #ffffff;
+			border-right: 1px solid #000000;
 			top: 50%;
 			left: 50%;
 			transform: translateX(-50%) translateY(-50%);
@@ -504,8 +507,8 @@ html, body, .dc-site-contents, .layer{
 			}
 			.handle__x:hover .indicator,
 			.handle__x.handle__active .indicator{
-				border-left: 1px solid #000000;
-				border-right: 1px solid #ffffff;
+				border-left: 1px solid transparent;
+				border-right: 1px solid #000000;
 				width: 10px;
 				height: 36px;
 			}
