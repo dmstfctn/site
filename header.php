@@ -27,6 +27,7 @@
 		<h1>
 			<a href="<?php echo home_url( 'about' ); ?>">
 				<span>Demystification Committee</span>
+				<!-- make sure that the svg has a path with class .dc-small-logo and one with .dc-full-logo -->
 				<?php echo file_get_contents( __DIR__ . '/assets/svg/demystification-committee-logo.svg' ); ?>
 			</a>
 		</h1>
