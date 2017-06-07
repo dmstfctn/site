@@ -2,7 +2,13 @@
 	<div class="theme--image-cover" style="background-image: url('<?php echo $theme->image ?>')"></div>
 	<div class="theme--content">
 		<header class="theme--leader">
-			<h1><?php echo $theme->name ?></h1>
+			<h1><?php
+				$name_parts = explode( ' ', $theme->name );
+				foreach ($name_parts as $part):
+			?><span>
+				<?php echo $part; ?>
+			</span><?php
+			endforeach; ?></h1>
 		</header>
 		<div class="theme--follower">
 			<section class="theme--section theme--section__description">

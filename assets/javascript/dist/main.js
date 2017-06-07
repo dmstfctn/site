@@ -1105,6 +1105,7 @@ proto.scrollMainResponse = function(){
 	var maxScroll = this.ele.scrollHeight - this.$ele.height();
 	var scroll = this.$ele.scrollTop();
 	var scrollAmount = ( scroll / maxScroll );
+	console.log( scroll, maxScroll - buffer );
 	if( scroll >= maxScroll - buffer ){
 		this.lockScroll();
 	} else {
@@ -1121,9 +1122,11 @@ proto.scrollInnerResponse = function(){
 	if( !this.locked ){
 		return;
 	}
-	if( this.$inner.scrollTop() <= 0 ){
+	var scroll = this.$inner.scrollTop();
+	if( scroll < 0 || (scroll < this.innerPScroll && scroll < 1 ) ){
 		this.unlockScroll();
 	}
+	this.innerPScroll = scroll;
 }
 
 proto.scrollInner = function( by ){
@@ -1142,8 +1145,10 @@ proto.addListeners = function(){
 			that.scrollInner( e.originalEvent.deltaY );
 		} else {
 			e.stopPropagation();
-			that.scrollMainBy( e.originalEvent.deltaY )
-			//that.scrollInnerResponse();
+			console.log( 'mosuewheel' );
+			that.scrollMainBy( e.originalEvent.deltaY );
+			that.scrollMainResponse();
+			that.scrollInnerResponse();
 		}
 	});
 
@@ -1152,7 +1157,9 @@ proto.addListeners = function(){
 	});
 	this.$ele.on('scroll', function(e){
 		e.preventDefault();
-		that.scrollMainResponse();
+		e.returnValue = false;
+		return false;
+		//that.scrollMainResponse();
 	});
 	this.$inner.on('scroll', function( e ){
 		if( that.locked ){

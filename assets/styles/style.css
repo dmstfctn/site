@@ -193,14 +193,16 @@ html, body, .dc-site-contents, .layer{
 		box-sizing: border-box;
 	}
 		.theme .theme--leader{
-			padding: 0.9em 1.75rem 0.9em;
+			padding: 0.9rem 1.75rem 0.9rem;
 			position: sticky;
 			top: 0;
 		}
 			.theme .theme--leader h1{
 				margin-bottom: 0;
-				line-height: 1;
+				line-height: 1rem;
+				white-space: nowrap;
 			}
+
 		.theme .theme--follower{
 			height: 100%;
 			box-sizing: border-box;
@@ -399,6 +401,16 @@ html, body, .dc-site-contents, .layer{
 			.theme[data-proportion="tiny"]  .theme--section__research ul li a:after{
 				content: 'Rsrch';
 			}
+
+	.theme[data-proportion="tiny"] .theme--leader h1{
+		text-align: center;
+	}
+	.theme[data-proportion="tiny"] .theme--leader h1 span{
+		display: none;
+	}
+		.theme[data-proportion="tiny"] .theme--leader h1 span:first-child{
+			display: block;
+		}
 /* about */
 .about-wrapper .about--extra,
 .about-wrapper .about--content{
