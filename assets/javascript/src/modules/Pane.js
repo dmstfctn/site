@@ -73,10 +73,12 @@ proto.toggleLock = function(){
 }
 
 proto.scrollMainBy = function( by ){
-	var mainMaxScroll = this.ele.scrollHeight - this.$ele.height();
-	var innerMaxScroll = this.$inner[0].scrollHeight - this.$inner.innerHeight();
-	var ratio = (innerMaxScroll / mainMaxScroll) / 7.5;
+	var mainMaxScroll = this.ele.scrollHeight// - this.$ele.height();
+	var innerMaxScroll = this.$inner[0].scrollHeight// - this.$inner.innerHeight();
+	var ratio = (innerMaxScroll / mainMaxScroll) / 3 // 7.5;
 	var mappedScroll = by * ratio;
+	//mappedScroll = Math.min( mappedScroll, 10 );
+	console.log( mappedScroll );
 	var currentScroll = this.$ele.scrollTop();
 	this.$ele.scrollTop( currentScroll + mappedScroll );
 };
@@ -86,7 +88,6 @@ proto.scrollMainResponse = function(){
 	var maxScroll = this.ele.scrollHeight - this.$ele.height();
 	var scroll = this.$ele.scrollTop();
 	var scrollAmount = ( scroll / maxScroll );
-	console.log( scroll, maxScroll - buffer );
 	if( scroll >= maxScroll - buffer ){
 		this.lockScroll();
 	} else {
