@@ -6,7 +6,7 @@
 	<div class="layer layer__committee">
 		<article class="about-wrapper" id="about">
 			<aside class="about--extra">
-				<a href="<?php echo home_url(); ?>" class="text-link">&larr; Home</a>
+				<a href="<?php echo home_url(); ?>" class="text-link home-link">&larr; Home</a>
 			</aside>
 			<section class="about--content">
 				<div class="wysiwyg">
