@@ -683,6 +683,7 @@ a.text-link{
 	text-decoration: underline;
 	text-decoration-skip: ink;
 	-webkit-text-decoration-skip: skip;
+	display: inline-block;
 	//border-bottom: 1px solid;
 	/*display: inline-block;
 	vertical-align: baseline;
@@ -737,6 +738,8 @@ a.text-link{
 			background: black;
 			text-decoration: none !important;
 			opacity: 1;
+			background: transparent;
+			color: rgba( 200, 200, 200, 1 );
 		}
 
 		a::-moz-selection {
@@ -744,6 +747,8 @@ a.text-link{
 			background: black;
 			text-decoration: none !important;
 			opacity: 1;
+			background: transparent;
+			color: rgba( 200, 200, 200, 1 );
 		}
 			a::-moz-selection:after {
 				display: none;
