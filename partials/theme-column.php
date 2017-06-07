@@ -1,5 +1,5 @@
-<article id="pane-<?php echo $theme->slug; ?>" class="theme theme__<?php echo $theme->slug; ?>" style="background-image: url('<?php echo $theme->image ?>')">
-	<div class="theme--image-cover"></div>
+<article id="pane-<?php echo $theme->slug; ?>" class="theme theme__<?php echo $theme->slug; ?>" >
+	<div class="theme--image-cover" style="background-image: url('<?php echo $theme->image ?>')"></div>
 	<div class="theme--content">
 		<header class="theme--leader">
 			<h1><?php echo $theme->name ?></h1>

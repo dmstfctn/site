@@ -83,7 +83,9 @@ proto.scrollMainResponse = function(){
 		this.unlockScroll();
 	}
 	this.$imageCover.css({
-		opacity: scrollAmount
+		top: scroll,
+		filter: 'blur(' + scrollAmount * 10+ 'px )',
+		opacity: 1- scrollAmount
 	});
 };
 

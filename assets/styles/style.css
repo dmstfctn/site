@@ -173,8 +173,11 @@ html, body, .dc-site-contents, .layer{
 		left: 0;
 		height: 100%;
 		width: 100%;
-		background-color: #000000;
-		opacity: 0;
+		//background-color: #000000;
+		//opacity: 0;
+		background-position: center;
+		background-size: cover;
+		background-attachment: fixed;
 	}
 		/*.theme:nth-child( 2n ) .theme--image-cover{
 			background-color: #ffffff;
