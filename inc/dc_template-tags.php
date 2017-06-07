@@ -147,7 +147,7 @@
 		$topics = get_terms( 'dc_tax_topics', array(
     	'hide_empty' => false,
 			'orderby' => 'term_id',
-			'order' => 'asc'
+			'order' => 'desc'
 		));
 		return $topics;
 	}
