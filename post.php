@@ -1,4 +1,4 @@
-<article class="quadrant-wrapper post-wrapper">
+<article class="quadrant-wrapper post-wrapper quadrant-wrapper__<?php echo dc_get_post_theme( get_the_ID() )->slug; ?>">
 	<header class="quadrant-section post-section post-section__title" data-section-location="nw">
 		<h1>
 			<?php the_title(); ?>

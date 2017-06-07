@@ -60,20 +60,24 @@
 								$notes->the_post();
 								global $post;
 					?>
-						<li class="theme-item theme-item__post theme-item__<?php echo $post->post_type; ?><?php if( has_post_thumbnail() ):?> dc-hoverimg-trigger theme-item__hasimg<?php endif; ?>">
-							<!--<a href="<?php the_permalink(); ?>">-->
-							<!-- <?php var_dump( $post ); ?> -->
-								<h3><?php
-									if( strlen($post->post_content) > 0 ){
-										echo $post->post_content;
-									} else {
-										the_title();
-									}
-								?></h3>
+						<li class="theme-item theme-item__post theme-item__<?php echo $post->post_type; ?><?php if( has_post_thumbnail() ):?> theme-item__hasimg<?php endif; ?>">
+								<h3 class="wysiwyg">
+									<?php if( has_post_thumbnail() ):?>
+										<div class="dc-hoverimg-trigger"></div>
+									<?php endif; ?>
+									<span class="text">
+									<?php
+										if( strlen($post->post_content) > 0 ){
+											echo $post->post_content;
+										} else {
+											the_title();
+										}
+									?>
+									</span>
+								</h3>
 								<?php if( has_post_thumbnail() ): ?>
 									<img class="theme-item--hoverimg dc-hoverimg-img" data-src="<?php echo get_the_post_thumbnail_url( $post->ID, 'dc_normal' ); ?>">
 								<?php endif; ?>
-							<!--</a>-->
 						</li>
 					<?php
 							endwhile;

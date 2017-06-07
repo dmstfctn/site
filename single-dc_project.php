@@ -2,7 +2,7 @@
 
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 <div class="layer layer__project project">
-	<article class="quadrant-wrapper project-wrapper" id="project">
+	<article class="quadrant-wrapper project-wrapper quadrant-wrapper__<?php echo dc_get_post_theme( get_the_ID() )->slug; ?>" id="project">
 		<header class="quadrant-section project-section project-section__title" data-section-location="nw">
 			<h1>
 				<?php the_title(); ?>

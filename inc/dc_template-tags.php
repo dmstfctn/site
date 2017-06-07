@@ -165,6 +165,11 @@
 		}
 	}
 
+	function dc_get_post_theme( $project_id ){
+		$themes = wp_get_post_terms( $project_id, 'dc_tax_topics' );
+		return $themes[0];
+	}
+
 	function dc_get_theme_projects( $theme_slug ){
 		$project_query = new WP_Query( array(
 			'posts_per_page'	=>	-1,
