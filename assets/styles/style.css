@@ -553,10 +553,22 @@ html, body, .dc-site-contents, .layer{
 		position: absolute;
 		background: transparent;
 		pointer-events: none;
+		border: 3px solid transparent;
 	}
-	.handle:hover{
-		//background: #AAAAAA;
+	body.loading .handle:after,
+	.handle:hover:after{
+		background: #FFFFFF;
+		filter: blur( 5px );
+		border: 3px solid #FFFFFF;
+		opacity: 0.3;
 	}
+		body.loading .handle:after{
+			background: #000000;
+			border: #000000;
+		}
+		body.home .handle:hover:after{
+			border-left-color: #000000;
+		}
 		.handle .indicator{
 			width: 0;
 			height: 0;
@@ -631,7 +643,7 @@ html, body, .dc-site-contents, .layer{
 		z-index: 98;
 	}
 		.handle__x:after{
-			width: 0px;
+			width: 1px;
 			height: 100%;
 			left: 50%;
 			transform: translateX(-50%);
@@ -965,13 +977,13 @@ body.loading .handle{
 	.handle{
 		transition-delay: 1s;
 	}
-	body.loading .handle:after{
+	/*body.loading .handle:after{
 		background: #000000;
-		transition: background-color .13s ease-in-out;
-	}
+		transition: all .13s ease-in-out;
+	}*/
 		 .handle:after{
-			 transition: background-color .3s ease-in-out;
-			 transition-delay: 1s;
+			 transition: all .2s ease-in-out;
+			transition-delay: 0;
 		 }
 
 		 .quadrant-section{
@@ -1002,7 +1014,7 @@ body.loading .handle{
 			 display: none !important;
 		 }
 
-		 body.loading .handle:after{
+		 /*body.loading .handle:after{
 			 background: rgba(163,163,163,0.4);
 			 -webkit-box-shadow: 0px 0px 0.5px 0.25px rgba( 200, 200, 200, 0.9 ),
  													 0px 0px 15px 3px rgba(163,163,163,0.85);
@@ -1010,7 +1022,7 @@ body.loading .handle{
  											 		 0px 0px 15px 3px rgba(163,163,163,0.85);
  							box-shadow:  0px 0px 0.5px 0.25px rgba( 163,163,163, 0.9 ),
  													 0px 0px 15px 3px rgba(163,163,163,0.85);
-		 }
+		 }*/
 
 		/*.handle__x:after{
 			background: #FFFFFF;
