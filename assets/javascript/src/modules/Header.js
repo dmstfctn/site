@@ -14,6 +14,9 @@ var Header = function( _ele ){
 var proto = Header.prototype;
 
 proto.setWidth = function( to ){
+	if( !this.resizable ){
+		return;
+	}
 	this.width = to;
 	if( this.width > this.maxWidth ){
 		this.width = this.maxWidth;
@@ -58,7 +61,7 @@ proto.addListeners = function(){
 proto.render = function(){
 	this.$ele.attr('data-proportion', this.proportionName );
 	this.$ele.css({
-    'width': (this.resizable) ? this.width : this.maxWidth
+    'width': this.width
   });
 }
 

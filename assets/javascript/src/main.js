@@ -149,6 +149,7 @@ var init = function( config ){
 	} else {
 		header.cancelResizable();
 		header.clearSizing();
+		header.render();
 	}
 	handleY.render();
 };
