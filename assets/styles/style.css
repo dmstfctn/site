@@ -798,8 +798,14 @@ html, body, .dc-site-contents, .layer{
 			bottom: 2em;
 			right: 2em;
 			z-index: 1;
-			background: rgba( 255,255,255,0.75 );
+			background: rgba( 255, 255, 255, 0.75 );
 		}
+			.quadrant-wrapper__network-ensemble .dc-video .dc-video-cover{
+				background: rgba( 0, 0, 0, 0.75 );
+			}
+				.quadrant-wrapper__network-ensemble .dc-video .dc-video-cover:after{
+					color: #FFFFFF;
+				}
 			.dc-video .dc-video-cover:hover{
 				//background: transparent;
 			}
@@ -824,7 +830,7 @@ html, body, .dc-site-contents, .layer{
 					.dc-video.playing:hover .dc-video-cover{
 						opacity: 1;
 						pointer-events: all;
-					}
+					}					
 
 					.dc-video.playing .dc-video-cover:after{
 						content: 'Stop';
