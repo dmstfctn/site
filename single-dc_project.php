@@ -17,7 +17,7 @@
 			</div>
 		</section><!--
 	--><section class="quadrant-section project-section project-section__close" data-section-location="se">
-			<a href="<?php echo home_url() ?>">Close</a>
+			<a href="<?php echo home_url() ?>" class="text-link no-decoration-link">Close</a>
 		</section>
 	</article>
 </div>

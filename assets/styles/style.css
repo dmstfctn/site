@@ -435,9 +435,6 @@ html, body, .dc-site-contents, .layer{
 		padding-top: 1.3rem;
 		border-left: 1px solid #FFFFFF;
 	}
-	.about--extra .home-link{
-		text-decoration: none;
-	}
 
 /* quadrant page */
 .quadrant-wrapper{
@@ -887,6 +884,9 @@ a.text-link{
 	color: #ffffff;
 	border-color: #ffffff;
 }
+	a.no-decoration-link{
+		text-decoration: none;
+	}
 	.about-wrapper .wysiwyg a:after,
 	.about-wrapper a.text-link:after{
 		background: #FFFFFF;
@@ -982,8 +982,8 @@ body.loading .handle{
 		transition: all .13s ease-in-out;
 	}*/
 		 .handle:after{
-			 transition: all .2s ease-in-out;
-			transition-delay: 0;
+			 transition: all .2s linear;
+			 transition-delay: 0;
 		 }
 
 		 .quadrant-section{
