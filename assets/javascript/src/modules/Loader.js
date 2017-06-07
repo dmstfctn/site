@@ -74,7 +74,7 @@ proto.getLoadConfig = function( path ){
 proto.load = function( state ){
 	var that = this;
 	var config = this.getLoadConfig( state.path );
-	$('body').attr('class','loading');
+	$('body').attr('class','loading');	
 	$.get( state.path, function( data ){
 		var newBodyClasses = $( data.replace('<body', '<div id="was-body"') ).filter('#was-body').attr('class');
 

@@ -934,7 +934,7 @@ proto.getLoadConfig = function( path ){
 proto.load = function( state ){
 	var that = this;
 	var config = this.getLoadConfig( state.path );
-	$('body').attr('class','loading');
+	$('body').attr('class','loading');	
 	$.get( state.path, function( data ){
 		var newBodyClasses = $( data.replace('<body', '<div id="was-body"') ).filter('#was-body').attr('class');
 
@@ -1091,6 +1091,15 @@ proto.toggleLock = function(){
 	}
 }
 
+proto.scrollMainBy = function( by ){
+	var mainMaxScroll = this.ele.scrollHeight - this.$ele.height();
+	var innerMaxScroll = this.$inner[0].scrollHeight - this.$inner.innerHeight();
+	var ratio = (innerMaxScroll / mainMaxScroll) / 7.5;
+	var mappedScroll = by * ratio;
+	var currentScroll = this.$ele.scrollTop();
+	this.$ele.scrollTop( currentScroll + mappedScroll );
+};
+
 proto.scrollMainResponse = function(){
 	var buffer = 0;
 	var maxScroll = this.ele.scrollHeight - this.$ele.height();
@@ -1127,10 +1136,22 @@ proto.scrollInner = function( by ){
 
 proto.addListeners = function(){
 	var that = this;
+
+	this.$ele.on('mousewheel', function( e ){
+		if( that.locked ){
+			that.scrollInner( e.originalEvent.deltaY );
+		} else {
+			e.stopPropagation();
+			that.scrollMainBy( e.originalEvent.deltaY )
+			//that.scrollInnerResponse();
+		}
+	});
+
 	this.$ele.find('.theme--leader').on('click', function(){
 		that.toggleLock();
 	});
-	this.$ele.on('scroll', function(){
+	this.$ele.on('scroll', function(e){
+		e.preventDefault();
 		that.scrollMainResponse();
 	});
 	this.$inner.on('scroll', function( e ){
@@ -1138,11 +1159,6 @@ proto.addListeners = function(){
 			e.stopPropagation();
 		}
 		that.scrollInnerResponse();
-	});
-	this.$ele.on('mousewheel', function( e ){
-		if( that.locked ){
-			that.scrollInner( e.originalEvent.deltaY );
-		}
 	});
 	this.$ele.on( 'mouseenter', function(){
 		that._onHover();
