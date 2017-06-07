@@ -20,8 +20,8 @@
 					?>
 						<li class="theme-item theme-item__work">
 							<a href="<?php the_permalink(); ?>">
-								<?php the_post_thumbnail(); ?>
 								<h2><?php the_title(); ?></h2>
+								<?php the_post_thumbnail(); ?>
 							</a>
 						</li>
 					<?php
@@ -62,6 +62,7 @@
 					?>
 						<li class="theme-item theme-item__post theme-item__<?php echo $post->post_type; ?><?php if( has_post_thumbnail() ):?> dc-hoverimg-trigger theme-item__hasimg<?php endif; ?>">
 							<!--<a href="<?php the_permalink(); ?>">-->
+							<!-- <?php var_dump( $post ); ?> -->
 								<h3><?php
 									if( strlen($post->post_content) > 0 ){
 										echo $post->post_content;
