@@ -53,6 +53,7 @@ var moveGrid = function(){
 }
 
 var init = function( config ){
+	console.log ('INIT. CONFIG: ', config );
 	paneLeft = new Pane( $('.theme:first-child') );
 	paneRight = new Pane( $('.theme:nth-child(2)') );
 	project = new Project( $('.layer__project') );
@@ -138,6 +139,9 @@ var init = function( config ){
 		paneRight.onHover = function(){
 			handleX.animatePos({ x: $(window).width() * 0.33 });
 		};
+		header.onHover = function(){
+			handleX.animatePos({ x: $(window).width() * 0.5 });
+		}
 	}
 	if( config && config.name === 'about' ){
 		header.setResizable();

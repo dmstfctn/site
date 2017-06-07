@@ -7,6 +7,7 @@ var Header = function( _ele ){
 	this.resizable = false
 	this.setConstraints();
 	this.calculateProportion();
+	this.addListeners();
 	this.render();
 }
 
@@ -47,6 +48,13 @@ proto.calculateProportion = function(){
 	}
 }
 
+proto.addListeners = function(){
+	var that = this;
+	this.$ele.on('mouseenter', function(){
+		that._onHover();
+	});
+}
+
 proto.render = function(){
 	this.$ele.attr('data-proportion', this.proportionName );
 	this.$ele.css({
@@ -59,6 +67,12 @@ proto.setResizable = function(){
 }
 proto.cancelResizable = function(){
 	this.resizable = false;
+}
+
+proto._onHover = function(){
+	if( typeof this.onHover === 'function' ){
+		this.onHover();
+	}
 }
 
 module.exports = Header

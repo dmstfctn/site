@@ -25,7 +25,7 @@ proto.setupPaths = function(){
 	this.paths = {
 		'about': {
 			name: 'about',
-			regexp: new RegExp( this.pathBase + '/about$'),
+			regexp: new RegExp( this.pathBase + '/about/?$'),
 			selector: '.layer__committee'
 		},
 		'project': {

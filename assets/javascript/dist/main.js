@@ -147,6 +147,7 @@ var moveGrid = function(){
 }
 
 var init = function( config ){
+	console.log ('INIT. CONFIG: ', config );
 	paneLeft = new Pane( $('.theme:first-child') );
 	paneRight = new Pane( $('.theme:nth-child(2)') );
 	project = new Project( $('.layer__project') );
@@ -232,6 +233,9 @@ var init = function( config ){
 		paneRight.onHover = function(){
 			handleX.animatePos({ x: $(window).width() * 0.33 });
 		};
+		header.onHover = function(){
+			handleX.animatePos({ x: $(window).width() * 0.5 });
+		}
 	}
 	if( config && config.name === 'about' ){
 		header.setResizable();
@@ -742,6 +746,7 @@ var Header = function( _ele ){
 	this.resizable = false
 	this.setConstraints();
 	this.calculateProportion();
+	this.addListeners();
 	this.render();
 }
 
@@ -782,6 +787,13 @@ proto.calculateProportion = function(){
 	}
 }
 
+proto.addListeners = function(){
+	var that = this;
+	this.$ele.on('mouseenter', function(){
+		that._onHover();
+	});
+}
+
 proto.render = function(){
 	this.$ele.attr('data-proportion', this.proportionName );
 	this.$ele.css({
@@ -794,6 +806,12 @@ proto.setResizable = function(){
 }
 proto.cancelResizable = function(){
 	this.resizable = false;
+}
+
+proto._onHover = function(){
+	if( typeof this.onHover === 'function' ){
+		this.onHover();
+	}
 }
 
 module.exports = Header
@@ -857,7 +875,7 @@ proto.setupPaths = function(){
 	this.paths = {
 		'about': {
 			name: 'about',
-			regexp: new RegExp( this.pathBase + '/about$'),
+			regexp: new RegExp( this.pathBase + '/about/?$'),
 			selector: '.layer__committee'
 		},
 		'project': {
