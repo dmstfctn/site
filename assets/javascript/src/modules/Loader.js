@@ -136,7 +136,6 @@ proto.prepareLinks = function( _$context ){
 	var $context = _$context || this.$context;
 	$('a', $context ).on( 'click', function( e ){
 		var isTargetBlank = ( $(this).attr('target') === '_blank' );
-		e.preventDefault();
 		if( !that.isExternalLink( this.href ) && !isTargetBlank ){
 			that.historyChange( this.href, this.pathname, this.hash, this.search );
 			e.preventDefault();
