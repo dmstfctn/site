@@ -51,10 +51,10 @@ proto.addListeners = function(){
 proto.render = function(){
 	this.$content.attr('data-proportion', this.proportionName );
 	this.$content.css({
-    'width': this.widthR
+    'width': this.widthL
   });
 	this.$extra.css({
-    'width': this.widthL
+    'width': this.widthR
   });
 }
 

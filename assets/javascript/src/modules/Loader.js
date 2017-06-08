@@ -71,20 +71,31 @@ proto.getLoadConfig = function( path ){
 	}
 }
 
+proto.isLoadingBlack = function( classes, html ){
+	var isAboutPage = (classes.indexOf( 'page-template-page-about' ) !== -1);
+	var hasNetworkQuadrant = $( $(html)[0] ).hasClass( '.quadrant-wrapper__network-ensemble' );
+	console.log( $(html), hasNetworkQuadrant );
+	return isAboutPage || hasNetworkQuadrant;
+}
+
 proto.load = function( state ){
 	var that = this;
 	var config = this.getLoadConfig( state.path );
-	$('body').attr('class','loading');	
+	$('body').attr('class','loading');
 	$.get( state.path, function( data ){
 		var newBodyClasses = $( data.replace('<body', '<div id="was-body"') ).filter('#was-body').attr('class');
+		var $html = $(data).find( config.selector ).html();
+		var title = $(data).filter("title").text();
 
-		document.title = $(data).filter("title").text();
-
-		config.destination.html( $(data).find( config.selector ).html() );
+		document.title = title;
+		config.destination.html( $html );
 
 		that.prepareLinks( config.destination );
 
 		$('body').attr('class', newBodyClasses + ' loading' );
+		if( that.isLoadingBlack( newBodyClasses, $html ) ){
+			$('body').addClass('dc-black-page');
+		}
 
 		setTimeout( function(){
 			$('body').removeClass('loading');

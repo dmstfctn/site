@@ -6,7 +6,7 @@ require_once( 'inc/dc_social.php' );
 
 function dc_styles(){
 	//wp_enqueue_style( 'font-source', '//fonts.googleapis.com/css?family=Source+Serif+Pro:400,600,700&subset=latin-ext' );
-	wp_enqueue_style( 'styles', get_template_directory_uri() . '/assets/styles/style.css'  );
+	wp_enqueue_style( 'styles', get_template_directory_uri() . '/assets/styles/style.css' );
 }
 
 function dc_scripts() {

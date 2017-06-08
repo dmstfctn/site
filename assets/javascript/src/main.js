@@ -133,12 +133,12 @@ var init = function( config ){
 		handleY.setCroppedPart( 0 );
 	}
 	if( config && config.name === 'home' ){
-		paneLeft.onHover = function(){
-			handleX.animatePos({ x: $(window).width() * 0.66 });
-		};
-		paneRight.onHover = function(){
-			handleX.animatePos({ x: $(window).width() * 0.33 });
-		};
+		// paneLeft.onHover = function(){
+		// 	handleX.animatePos({ x: $(window).width() * 0.66 });
+		// };
+		// paneRight.onHover = function(){
+		// 	handleX.animatePos({ x: $(window).width() * 0.33 });
+		// };
 		// header.onHover = function(){
 		// 	handleX.animatePos({ x: $(window).width() * 0.5 });
 		// }

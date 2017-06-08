@@ -1018,9 +1018,9 @@ body.loading .handle{
  														inset 0px 0px 15px 3px rgba(163,163,163,0.85);
 		 }
 
-		 .handle .indicator{
+		 /*.handle .indicator{
 			 display: none !important;
-		 }
+		 }*/
 
 		 /*body.loading .handle:after{
 			 background: rgba(163,163,163,0.4);
@@ -1164,29 +1164,34 @@ body.page-template-page-about .committee-header{
 	padding-top: 1.3rem;
 }
 .committee-header{
-  bottom: 1.1rem;
-	right: 1.6rem;
-  left: auto;
+  ///bottom: 1.4rem;
+	left: auto;
   top: auto;
+	top: 1.4rem;
+	right: 1.4rem;
   background: transparent;
-  width: 3rem;
-  height: 3rem;
+  width: 2.4rem;
+  height: 2.4rem;
   padding: 0;
+	transition: filter .13s ease-in-out;
 }
 	.committee-header h1{
 		width: 100%;
 		height: 100%;
 		background: url('../svg/demystification-committee-logo-small.svg' );
 		background-size: contain;
-		background-position: center;
+		background-position: center top;
 		background-repeat: no-repeat;
 		pointer-events: painted;
 	}
-		.committee-header:hover{
-			width: 8rem;
+		.committee-header:hover,
+		body.page-template-page-about .committee-header{
+			display: block;
+			height: 14.5rem;
 		}
-		.committee-header:hover h1{
-			background-image:  url('../svg/demystification-committee-logo.svg' );
+		.committee-header:hover h1,
+		body.page-template-page-about .committee-header h1{
+			background-image:  url('../svg/demystification-committee-logo-rotate.svg' );
 		}
 	.committee-header h1 svg{
 		display: block;
@@ -1201,6 +1206,156 @@ body.page-template-page-about .committee-header{
 	.committee-header svg .dc-full-logo{
 		display: none;
 	}
+
+	.about-wrapper 	.about--content{
+		left: 0;
+		right: auto;
+	}
+	.about-wrapper 	.about--extra{
+		position: absolute;
+		left: auto;
+		right: 0;
+	}
+	.about-wrapper 	.about--extra a{
+		position: absolute;
+		bottom: 1.4rem;
+		right: 1.8rem;
+	}
+		.about-wrapper 	.about--extra a:after{
+			content: '→';
+			background: transparent;
+			margin-left: .2em;
+		}
+
+/* HANDLE ARROWS */
+.handle{
+	overflow: visible;
+}
+.handle .indicator{
+	display: block;
+	border: none;
+	overflow: visible;
+}
+.handle__x{
+	width: 100px;
+}
+.handel__y{
+	height: 100px;
+}
+.handle .indicator:before,
+.handle .indicator:after{
+	width: 0;
+	background-color: transparent !important;
+	filter: blur( 3px );
+	transition: all .2s ease-in-out;
+}
+.handle:hover .indicator,
+.handle.handle__active .indicator{
+	border: none;
+}
+
+	.handle__x .indicator:before,
+	.handle__x .indicator:after{
+		background-image: url('../svg/arrow-left.svg');
+		background-size: 35px auto;
+		background-repeat: no-repeat;
+		background-position: center left;
+	}
+		.handle__x .indicator:before{
+			right: 50%;
+			left: auto;
+		}
+		.handle__x .indicator:after{
+			left: 50%;
+			right: auto;
+		}
+		.handle__x .indicator:after{
+			background-image: url('../svg/arrow-right.svg');
+			background-size: 35px auto;
+			background-repeat: no-repeat;
+			background-position: center right;
+		}
+		body.home .handle__x .indicator:after{
+			background-image: url('../svg/arrow-right-white.svg');
+			background-size: 35px auto;
+			background-repeat: no-repeat;
+			background-position: center right;
+		}
+
+		.handle__x:hover .indicator:before,
+		.handle__x:hover .indicator:after{
+			filter: blur( 1px );
+			width: 28px;
+			opacity: 0.8;
+		}
+
+	.handle__y .indicator:before,
+	.handle__y .indicator:after{
+		background-image: url('../svg/arrow-up.svg');
+		background-size: auto 35px;
+		background-repeat: no-repeat;
+		background-position: top center;
+		width: 36px;
+	}
+		.handle__y .indicator:before{
+			bottom: 50%;
+			top: auto;
+		}
+		.handle__y .indicator:after{
+			top: 50%;
+			bottom: auto;
+		}
+		.handle__y .indicator:after,
+		body.home .handle__y .indicator:after{
+			background-image: url('../svg/arrow-down.svg');
+			background-size: auto 35px;
+			background-repeat: no-repeat;
+			background-position: bottom center;
+		}
+		.handle__y:hover .indicator:before,
+		.handle__y:hover .indicator:after{
+			filter: blur( 1px );
+			height: 28px;
+			opacity: 0.8;
+		}
+
+		body.single-dc_project .handle__x .indicator:after{
+			background-image: url('../svg/arrow-right.svg');
+		}
+		body.dc_tax_topics-network-ensemble .handle__x .indicator:after{
+			background-image: url('../svg/arrow-right-white.svg');
+			opacity: 1;
+		}
+		body.dc_tax_topics-network-ensemble .handle__x .indicator:before{
+			background-image: url('../svg/arrow-left-white.svg');
+			opacity: 1;
+		}
+		body.dc_tax_topics-network-ensemble .handle__y .indicator:after{
+			background-image: url('../svg/arrow-down-white.svg');
+			opacity: 1;
+		}
+		body.dc_tax_topics-network-ensemble .handle__y .indicator:before{
+			background-image: url('../svg/arrow-up-white.svg');
+			opacity: 1;
+		}
+
+
+
+		body.single-dc_project .handle:hover .indicator:before,
+		body.single-dc_project .handle:hover .indicator:after{
+			filter: blur( 1.5px );
+		}
+
+		.handle{
+			cursor: -moz-grab;
+			cursor: -webkit-grab;
+			cursor: grab;
+		}
+			.handle__active{
+				cursor: -moz-grabbing;
+				cursor: -webkit-grabbing;
+				cursor: grabbing;
+			}
 
 /* SCROLLBAR HIDING */
 .theme:nth-child(2){
