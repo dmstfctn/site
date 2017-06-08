@@ -317,6 +317,7 @@ html, body, .dc-site-contents, .layer{
 	.theme-item__work{
 		margin-bottom: 4em;
 		position: relative;
+		transition: filter .3s ease-in;
 	}
 		.theme-item__work img{
 			display: block;
@@ -325,6 +326,13 @@ html, body, .dc-site-contents, .layer{
 		.theme-item__work h2{
 			margin: .5em 0 0 0;
 			transform-origin: top left;
+		}
+		.theme-item__work:hover h2{
+			transition: filter .3s ease-in;
+		}
+
+		.theme-item__work:hover{
+			filter: blur( 10px );
 		}
 
 .theme .theme--section__research ul{
@@ -369,7 +377,12 @@ html, body, .dc-site-contents, .layer{
 	.theme .theme--section__notes ul li h3{
 		margin-bottom: 1em;
 	}
-
+		.theme--section__research a{
+			transition: .3s ease-in;
+		}
+	 .theme--section__research a:hover{
+		 filter: blur(10px);
+	 }
 
 .theme[data-proportion="large"] .theme--section__description{
 	width: 66.66%;
@@ -380,7 +393,7 @@ html, body, .dc-site-contents, .layer{
 	}
 	.theme[data-proportion="large"] .theme-item__work h2{
 		position: absolute;
-		bottom: -1.6em;
+		bottom: -1.23em;
 		transform: rotate(-90deg);
 		transform-origin: top left;
 	}
