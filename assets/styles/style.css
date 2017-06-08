@@ -394,8 +394,11 @@ html, body, .dc-site-contents, .layer{
 		margin-bottom: 2em;
 	}
 	.theme[data-proportion="small"] .theme-item__hasimg .theme-item--hoverimg{
-		max-width: 100%;
-		padding: 1em;
+		padding: 0;
+    width: calc(100% + 1.6rem);
+    margin-left: -0.85em;
+		top: 1.5rem;
+		transform: translate( -50%, 0 );
 	}
 
 .theme[data-proportion="tiny"] .theme-item__work,
