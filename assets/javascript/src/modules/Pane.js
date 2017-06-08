@@ -4,11 +4,14 @@ var Pane = function( _ele ){
 	this.$ele = (_ele) ? $( _ele ) : this.$ele;
   this.ele = this.$ele.get(0);
 	this.$scrollwrapper = this.$ele.find('.theme-scroller-wrapper');
+	this.$scrollBar = this.$ele.find('.dc-scrollbar');
+	this.$scrollBarHandle = this.$ele.find('.dc-scrollbar--handle');
 	this.$content = this.$ele.find('.theme--content');
 	this.$inner = this.$ele.find('.theme--follower');
 	this.$imageCover = this.$ele.find('.theme--image-cover');
 	this.width = this.$ele.outerWidth();
 	this.locked = false;
+	this.scrollPercent = 0;
 	this.setConstraints();
 	this.calculateProportion();
 	this.render();
@@ -99,12 +102,10 @@ proto.scrollMainResponse = function(){
 	} else {
 		this.unlockScroll();
 	}
-	console.log( 'scroll amt', proportionToLock );
+
 	this.$imageCover.css({
-		//top: scroll,
 		filter: 'blur(' + proportionToLock * 10 + 'px )',
 		transform: 'scale(' + (1 + (proportionToLock*0.02)) + ' )'
-		//opacity: 1 - proportionToLock
 	});
 };
 
@@ -113,15 +114,21 @@ proto.scrollInnerResponse = function(){
 		return;
 	}
 	var scroll = this.$inner.scrollTop();
+	var scrollMax = Math.round( this.$inner[0].scrollHeight - this.$inner.innerHeight() );
+	this.scrollPercent = (scroll/scrollMax) * 100;
+
 	if( scroll < 0 || (scroll < this.innerPScroll && scroll < 1 ) ){
 		this.unlockScroll();
 	}
+
 	this.innerPScroll = scroll;
 }
 
 proto.scrollInner = function( by ){
 	var scroll = this.$inner.scrollTop();
 	var scrollMax = Math.round( this.$inner[0].scrollHeight - this.$inner.innerHeight() );
+	this.scrollPercent = (scroll/scrollMax) * 100;
+	console.log( 'scroll percent: ', this.scrollPercent );
 	if( scroll + by <= scrollMax - 1 ){
 		this.$inner.scrollTop( scroll + by );
 	}
@@ -157,11 +164,18 @@ proto.addListeners = function(){
 			e.stopPropagation();
 		}
 		that.scrollInnerResponse();
+		that.renderScrollBar();
 	});
 	this.$ele.on( 'mouseenter', function(){
 		that._onHover();
 	})
 };
+
+proto.renderScrollBar = function(){
+	this.$scrollBarHandle.css({
+		top: this.scrollPercent + '%'
+	})
+}
 
 proto.render = function(){
 	this.$ele.attr('data-proportion', this.proportionName );

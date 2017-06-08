@@ -1428,3 +1428,60 @@ body.page-template-page-about .committee-header{
 			-moz-box-shadow: none;
 			box-shadow: none;
 		}
+
+.dc-scrollbar{
+	width: 14px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+}
+	.theme:nth-child(2) .dc-scrollbar{
+		left: auto;
+		right: 0
+	}
+	.theme:nth-child(2) .dc-scrollbar--handle{
+		background: #ffffff;
+		right: 0;
+		left: auto;
+	}
+	.dc-scrollbar--handle{
+		position: absolute;
+		left: -1px;
+		cursor: pointer;
+		width: 8px;
+		height: 18px;
+		background: #000000;
+		transform: translateY(1px);
+		transition: width .2s, height .5s;
+		filter: blur( 1px);
+	}
+	.theme.locked .dc-scrollbar{
+		pointer-events: all;
+		/*transform: translateY( 0 );*/
+		opacity: 1;
+		z-index: 2;
+		top: 2.8rem;
+		bottom: 18px;
+	}
+		.theme.locked .dc-scrollbar--handle{
+			height: 15px;
+		}
+
+		.dc-scrollbar:hover .dc-scrollbar--handle,
+		.dc-scrollbar--handle:hover{
+			height: 27px;
+		}
+			.dc-scrollbar:hover .dc-scrollbar--handle,
+			.dc-scrollbar.mouse-near .dc-scrollbar--handle{
+				opacity: 1;
+			}
+		.theme .dc-scrollbar{
+			opacity: 0;
+			pointer-events: none;
+			/*transform: translateY(  -1rem );
+			transition: transform .7s ease-out, opacity .4s .3s ease-in, z-index .3s .3s;*/
+		}
+			.theme .dc-scrollbar--handle{
+				height: 5px;
+			}
