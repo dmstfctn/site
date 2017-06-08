@@ -233,9 +233,6 @@ html, body, .dc-site-contents, .layer{
 
 		.theme--section__notes .theme-item__post h3{
 			max-width: 100%;
-			/*white-space: nowrap;
-			text-overflow: ellipsis;*/
-			overflow: hidden;
 		}
 
 	.theme-item__hasimg{
@@ -830,7 +827,7 @@ html, body, .dc-site-contents, .layer{
 					.dc-video.playing:hover .dc-video-cover{
 						opacity: 1;
 						pointer-events: all;
-					}					
+					}
 
 					.dc-video.playing .dc-video-cover:after{
 						content: 'Stop';
