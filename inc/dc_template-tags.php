@@ -28,6 +28,20 @@
 
 	add_filter('the_content', 'dc_add_class_to_linked_images', 100, 1);
 
+	function dc_add_taxonomy_class_to_body( $classes ){
+	    global $post;
+			$tax = 'dc_tax_topics';
+	    $terms = get_the_terms( $post->ID, $tax );
+	    if ( $terms && ! is_wp_error( $terms ) ) {
+	        foreach ($terms as $term) {
+	            $classes[] = $tax . '-' . $term->slug;
+	        }
+	    }
+	    return $classes;
+	}
+
+	add_filter( 'body_class', 'dc_add_taxonomy_class_to_body', 10, 1 );
+
 	function dc_get_notes_url(){
 		return get_permalink( get_option( 'page_for_posts' ) );
 	}
