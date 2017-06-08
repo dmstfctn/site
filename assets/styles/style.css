@@ -1079,7 +1079,7 @@ body.loading .handle{
 						}
 
 					.theme.theme__offshore-studies.locked .theme--content:before{
-						opacity: 0;
+						//opacity: 0;
 					}
 				.theme__network-ensemble .theme--content:before,
 				.theme__network-ensemble .theme--content:after{
@@ -1103,8 +1103,11 @@ body.loading .handle{
 				.theme.theme__network-ensemble .theme--content .theme--leader{
 					border-bottom: 1px solid #ffffff;
 				}
+				.theme.locked .theme--content{
+					border-top: 1px solid transparent;
+				}
 				.theme.theme__network-ensemble.locked .theme--content{
-					border-top: 1px solid #ffffff;
+					border-top-color: #ffffff;
 				}
 
 			.dc-slideshow .dc-slideshow--prev:after,
@@ -1155,3 +1158,13 @@ body.loading .handle{
 	.theme:nth-child(2) .theme--content{
 		height: 100%;
 	}*/
+
+/* SCROLLBAR HIDING */
+.theme .theme--follower{
+	box-sizing: content-box;
+	width:100%;
+	padding: 1.3em 0 10em 1.75rem;
+}
+.theme .theme--section {
+	padding-right: 3.5rem;
+}
