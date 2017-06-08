@@ -316,13 +316,15 @@ html, body, .dc-site-contents, .layer{
 
 	.theme-item__work{
 		margin-bottom: 4em;
+		position: relative;
 	}
 		.theme-item__work img{
 			display: block;
 			width: 100%;
 		}
 		.theme-item__work h2{
-			margin: 0 0 .4em 0;
+			margin: .5em 0 0 0;
+			transform-origin: top left;
 		}
 
 .theme .theme--section__research ul{
@@ -372,10 +374,16 @@ html, body, .dc-site-contents, .layer{
 .theme[data-proportion="large"] .theme--section__description{
 	width: 66.66%;
 }
-/*.theme[data-proportion="large"] .theme--section__notes ul,
-.theme[data-proportion="large"] .theme--section__research ul{
-	max-width: 80%;
-}*/
+	.theme[data-proportion="large"] .theme-item__work img{
+		box-sizing: border-box;
+		padding-left: 1.9em;
+	}
+	.theme[data-proportion="large"] .theme-item__work h2{
+		position: absolute;
+		bottom: -1.6em;
+		transform: rotate(-90deg);
+		transform-origin: top left;
+	}
 
 .theme[data-proportion="small"],
 .theme[data-proportion="tiny"]{
