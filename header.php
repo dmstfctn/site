@@ -24,12 +24,12 @@
 
 <body <?php body_class(); ?>>
 	<header class="committee-header">
-		<h1>
 			<a href="<?php echo home_url( 'about' ); ?>">
-				<span>Demystification Committee</span>
-				<!-- make sure that the svg has a path with class .dc-small-logo and one with .dc-full-logo -->
-				<?php echo file_get_contents( __DIR__ . '/assets/svg/demystification-committee-logo.svg' ); ?>
+				<h1>
+					<span>Demystification Committee</span>
+					<!-- make sure that the svg has a path with class .dc-small-logo and one with .dc-full-logo -->
+					<?php echo file_get_contents( __DIR__ . '/assets/svg/demystification-committee-logo.svg' ); ?>
+				</h1>
 			</a>
-		</h1>
 	</header>
-	<div class="dc-site-contents">		
+	<div class="dc-site-contents">

@@ -50,7 +50,7 @@ html, body, .dc-site-contents, .layer{
 	.layer__committee{
 		background: #000000;
 		color: #ffffff;
-		z-index: 1;
+		z-index: 5;
 	}
 	body.home .layer__project,
 	body.home .layer__post,
@@ -1148,9 +1148,6 @@ body.loading .handle{
 	.page-template-page-about .committee-header{
 		background: transparent
 	}
-			.committee-header{
-				//background: transparent;
-			}
 			.theme{
 				background-color: #000000;
 			}
@@ -1159,10 +1156,53 @@ body.loading .handle{
 		height: 100%;
 	}*/
 
-/* SCROLLBAR HIDING */
-.committee-header{
+/* HEADER MOVE */
+body.page-template-page-about .committee-header{
 	display: none;
 }
+.about-wrapper .about--extra{
+	padding-top: 1.3rem;
+}
+.committee-header{
+  bottom: 1.1rem;
+	right: 1.6rem;
+  left: auto;
+  top: auto;
+  background: transparent;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+}
+	.committee-header h1{
+		width: 100%;
+		height: 100%;
+		background: url('../svg/demystification-committee-logo-small.svg' );
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
+		pointer-events: painted;
+	}
+		.committee-header:hover{
+			width: 8rem;
+		}
+		.committee-header:hover h1{
+			background-image:  url('../svg/demystification-committee-logo.svg' );
+		}
+	.committee-header h1 svg{
+		display: block;
+		width: 100%;
+		height: 100%;
+		display: none;
+	}
+	.committee-header svg .dc-small-logo{
+		display: block;
+		width: 4rem;
+	}
+	.committee-header svg .dc-full-logo{
+		display: none;
+	}
+
+/* SCROLLBAR HIDING */
 .theme:nth-child(2){
 	z-index: 1; //so that it covers the first-column's scrollbar
 }

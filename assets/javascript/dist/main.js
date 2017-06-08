@@ -102,7 +102,7 @@ var HoverImg = require('./modules/HoverImg.js' );
 var Loader = require('./modules/Loader.js' );
 var Slideshow = require('./modules/Slideshow.js' );
 var Video = require('./modules/Video.js' );
-var Header = require('./modules/Header.js');
+//var Header = require('./modules/Header.js');
 
 
 var project;
@@ -126,10 +126,10 @@ var sizeAbout = function(){
 	about.setWidth( leftW, rightW );
 }
 
-var sizeHeader = function(){
-	var leftW = Math.round(handleX.pos.x);
-	header.setWidth( leftW );
-}
+// var sizeHeader = function(){
+// 	var leftW = Math.round(handleX.pos.x);
+// 	header.setWidth( leftW );
+// }
 
 var sizeVideos = function(){
 	for( var i = 0; i < videos.length; i++ ){
@@ -193,7 +193,7 @@ var init = function( config ){
 	handleX.onMove = function( pos ){
 		sizePanes();
 		sizeAbout();
-		sizeHeader();
+		//sizeHeader();
 		sizeVideos();
 		handleY.setCrossPoint( handleX.pos.x );
 		moveGrid();
@@ -206,7 +206,7 @@ var init = function( config ){
 	sizePanes();
 	sizeAbout();
 	moveGrid();
-	sizeHeader();
+	//sizeHeader();
 	sizeVideos();
 
 	if( $('body').hasClass('single-dc_project') ){
@@ -233,18 +233,18 @@ var init = function( config ){
 		paneRight.onHover = function(){
 			handleX.animatePos({ x: $(window).width() * 0.33 });
 		};
-		header.onHover = function(){
-			handleX.animatePos({ x: $(window).width() * 0.5 });
-		}
+		// header.onHover = function(){
+		// 	handleX.animatePos({ x: $(window).width() * 0.5 });
+		// }
 	}
-	if( config && config.name === 'about' ){
-		header.setResizable();
-		sizeHeader();
-	} else {
-		header.cancelResizable();
-		header.clearSizing();
-		header.render();
-	}
+	// if( config && config.name === 'about' ){
+	// 	header.setResizable();
+	// 	sizeHeader();
+	// } else {
+	// 	header.cancelResizable();
+	// 	header.clearSizing();
+	// 	header.render();
+	// }
 	handleY.render();
 };
 
@@ -274,7 +274,7 @@ handleY.setConstraints({
 	}
 });
 
-var header = new Header( $('.committee-header') );
+//var header = new Header( $('.committee-header') );
 
 var loader = new Loader();
 
@@ -310,7 +310,7 @@ loader.onLoaded = function( config ){
 	init( config );
 };
 
-},{"./modules/About.js":3,"./modules/Handle.js":5,"./modules/Header.js":6,"./modules/HoverImg.js":7,"./modules/Loader.js":8,"./modules/Pane.js":9,"./modules/Post.js":10,"./modules/Project.js":11,"./modules/Slideshow.js":13,"./modules/Video.js":14,"jquery":17}],3:[function(require,module,exports){
+},{"./modules/About.js":3,"./modules/Handle.js":5,"./modules/HoverImg.js":6,"./modules/Loader.js":7,"./modules/Pane.js":8,"./modules/Post.js":9,"./modules/Project.js":10,"./modules/Slideshow.js":12,"./modules/Video.js":13,"jquery":16}],3:[function(require,module,exports){
 var $ = require('jquery');
 
 var About = function( _ele ){
@@ -373,7 +373,7 @@ proto.render = function(){
 
 module.exports = About;
 
-},{"jquery":17}],4:[function(require,module,exports){
+},{"jquery":16}],4:[function(require,module,exports){
 var $ = require('jquery');
 
 var Grid = function( _ele ){
@@ -461,7 +461,7 @@ proto.setCenter = function( to ){
 
 module.exports = Grid;
 
-},{"jquery":17}],5:[function(require,module,exports){
+},{"jquery":16}],5:[function(require,module,exports){
 var $ = require('jquery');
 var Unidragger = require( 'unidragger' );
 var TWEEN = require('tween.js');
@@ -740,90 +740,7 @@ proto._onMove = function(){
 
 module.exports = Handle;
 
-},{"jquery":17,"tween.js":18,"unidragger":19}],6:[function(require,module,exports){
-var $ = require('jquery');
-
-var Header = function( _ele ){
-	this.$ele = (_ele) ? $( _ele ) : this.$ele;
-  this.ele = this.$ele.get(0);
-	this.width = this.$ele.outerWidth();
-	this.resizable = false
-	this.setConstraints();
-	this.calculateProportion();
-	this.addListeners();
-	this.render();
-}
-
-var proto = Header.prototype;
-
-proto.setWidth = function( to ){
-	if( !this.resizable ){
-		return;
-	}
-	this.width = to;
-	if( this.width > this.maxWidth ){
-		this.width = this.maxWidth;
-	} else if( this.width < this.minWidth ){
-		this.width = this.minWidth;
-	}
-
-	this.calculateProportion();
-	this.render();
-}
-
-proto.setConstraints = function(){
-	this.minWidth = this.$ele.parent().width() / 8;
-	this.maxWidth = this.$ele.parent().width();
-}
-
-proto.clearSizing = function(){
-	this.width = this.maxWidth;
-	this.calculateProportion();
-	this.render();
-}
-
-proto.calculateProportion = function(){
-	this.proportion = this.width / this.maxWidth;
-	this.proportionName = 'large';
-	if( this.proportion < 0.15 ){
-		this.proportionName = 'tiny';
-	} else if( this.proportion < 0.3 ){
-		this.proportionName = 'small';
-	} else if( this.proportion < 0.7 ){
-		this.proportionName = 'normal';
-	}
-}
-
-proto.addListeners = function(){
-	var that = this;
-	this.$ele.on('mouseenter', function(){
-		that._onHover();
-	});
-}
-
-proto.render = function(){
-	this.$ele.attr('data-proportion', this.proportionName );
-	this.$ele.css({
-    'width': this.width
-  });
-}
-
-proto.setResizable = function(){
-	this.resizable = true;
-}
-proto.cancelResizable = function(){
-	this.resizable = false;
-}
-
-proto._onHover = function(){
-	if( typeof this.onHover === 'function' ){
-		this.onHover();
-	}
-}
-
-module.exports = Header
-
-},{"jquery":17}],7:[function(require,module,exports){
+},{"jquery":16,"tween.js":17,"unidragger":18}],6:[function(require,module,exports){
 var $ = require('jquery');
 
 var HoverImg = function( _ele ){
@@ -881,7 +798,7 @@ proto.setSrc = function(){
 
 module.exports = HoverImg;
 
-},{"jquery":17}],8:[function(require,module,exports){
+},{"jquery":16}],7:[function(require,module,exports){
 var $ = require('jquery');
 
 var Loader = function( context ){
@@ -1040,7 +957,7 @@ proto._onInit = function( config ){
 
 module.exports = Loader;
 
-},{"jquery":17}],9:[function(require,module,exports){
+},{"jquery":16}],8:[function(require,module,exports){
 var $ = require('jquery');
 
 var Pane = function( _ele ){
@@ -1221,7 +1138,7 @@ proto._onHover = function(){
 
 module.exports = Pane;
 
-},{"jquery":17}],10:[function(require,module,exports){
+},{"jquery":16}],9:[function(require,module,exports){
 var $ = require('jquery');
 var Quadrant = require( './Quadrant.js' );
 
@@ -1278,7 +1195,7 @@ proto.calculateHierarchy = function(){
 
 module.exports = Post;
 
-},{"./Quadrant.js":12,"jquery":17}],11:[function(require,module,exports){
+},{"./Quadrant.js":11,"jquery":16}],10:[function(require,module,exports){
 var $ = require('jquery');
 var Quadrant = require( './Quadrant.js' );
 
@@ -1318,7 +1235,7 @@ proto.render = function(){
 
 module.exports = Project;
 
-},{"./Quadrant.js":12,"jquery":17}],12:[function(require,module,exports){
+},{"./Quadrant.js":11,"jquery":16}],11:[function(require,module,exports){
 var $ = require('jquery');
 var Grid = require( './Grid.js' );
 
@@ -1400,7 +1317,7 @@ proto.setReorderable = function( to ){
 
 module.exports = Quadrant;
 
-},{"./Grid.js":4,"jquery":17}],13:[function(require,module,exports){
+},{"./Grid.js":4,"jquery":16}],12:[function(require,module,exports){
 var $ = require('jquery');
 
 var Slideshow = function( _ele ){
@@ -1458,7 +1375,7 @@ proto.addListeners = function(){
 
 module.exports = Slideshow;
 
-},{"jquery":17}],14:[function(require,module,exports){
+},{"jquery":16}],13:[function(require,module,exports){
 var $ = require('jquery');
 var VimeoPlayer = require('@vimeo/player');
 
@@ -1558,7 +1475,7 @@ proto.render = function(){
 
 module.exports = Video;
 
-},{"@vimeo/player":15,"jquery":17}],15:[function(require,module,exports){
+},{"@vimeo/player":14,"jquery":16}],14:[function(require,module,exports){
 (function (global){
 /*! @vimeo/player v2.1.0 | (c) 2017 Vimeo | MIT License | https://github.com/vimeo/player.js */
 (function (global, factory) {
@@ -3644,7 +3561,7 @@ return Player;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],16:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 /**
  * EvEmitter v1.0.3
  * Lil' event emitter
@@ -3755,7 +3672,7 @@ return EvEmitter;
 
 }));
 
-},{}],17:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.2.1
  * https://jquery.com/
@@ -14010,7 +13927,7 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{}],18:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 (function (process){
 /**
  * Tween.js - Licensed under the MIT license
@@ -14896,7 +14813,7 @@ TWEEN.Interpolation = {
 })(this);
 
 }).call(this,require('_process'))
-},{"_process":1}],19:[function(require,module,exports){
+},{"_process":1}],18:[function(require,module,exports){
 /*!
  * Unidragger v2.1.0
  * Draggable base class
@@ -15182,7 +15099,7 @@ return Unidragger;
 
 }));
 
-},{"unipointer":20}],20:[function(require,module,exports){
+},{"unipointer":19}],19:[function(require,module,exports){
 /*!
  * Unipointer v2.1.0
  * base class for doing one thing with pointer event
@@ -15487,4 +15404,4 @@ return Unipointer;
 
 }));
 
-},{"ev-emitter":16}]},{},[2]);
+},{"ev-emitter":15}]},{},[2]);

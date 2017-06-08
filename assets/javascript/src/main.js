@@ -8,7 +8,7 @@ var HoverImg = require('./modules/HoverImg.js' );
 var Loader = require('./modules/Loader.js' );
 var Slideshow = require('./modules/Slideshow.js' );
 var Video = require('./modules/Video.js' );
-var Header = require('./modules/Header.js');
+//var Header = require('./modules/Header.js');
 
 
 var project;
@@ -32,10 +32,10 @@ var sizeAbout = function(){
 	about.setWidth( leftW, rightW );
 }
 
-var sizeHeader = function(){
-	var leftW = Math.round(handleX.pos.x);
-	header.setWidth( leftW );
-}
+// var sizeHeader = function(){
+// 	var leftW = Math.round(handleX.pos.x);
+// 	header.setWidth( leftW );
+// }
 
 var sizeVideos = function(){
 	for( var i = 0; i < videos.length; i++ ){
@@ -99,7 +99,7 @@ var init = function( config ){
 	handleX.onMove = function( pos ){
 		sizePanes();
 		sizeAbout();
-		sizeHeader();
+		//sizeHeader();
 		sizeVideos();
 		handleY.setCrossPoint( handleX.pos.x );
 		moveGrid();
@@ -112,7 +112,7 @@ var init = function( config ){
 	sizePanes();
 	sizeAbout();
 	moveGrid();
-	sizeHeader();
+	//sizeHeader();
 	sizeVideos();
 
 	if( $('body').hasClass('single-dc_project') ){
@@ -139,18 +139,18 @@ var init = function( config ){
 		paneRight.onHover = function(){
 			handleX.animatePos({ x: $(window).width() * 0.33 });
 		};
-		header.onHover = function(){
-			handleX.animatePos({ x: $(window).width() * 0.5 });
-		}
+		// header.onHover = function(){
+		// 	handleX.animatePos({ x: $(window).width() * 0.5 });
+		// }
 	}
-	if( config && config.name === 'about' ){
-		header.setResizable();
-		sizeHeader();
-	} else {
-		header.cancelResizable();
-		header.clearSizing();
-		header.render();
-	}
+	// if( config && config.name === 'about' ){
+	// 	header.setResizable();
+	// 	sizeHeader();
+	// } else {
+	// 	header.cancelResizable();
+	// 	header.clearSizing();
+	// 	header.render();
+	// }
 	handleY.render();
 };
 
@@ -180,7 +180,7 @@ handleY.setConstraints({
 	}
 });
 
-var header = new Header( $('.committee-header') );
+//var header = new Header( $('.committee-header') );
 
 var loader = new Loader();
 
