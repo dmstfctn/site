@@ -238,6 +238,7 @@ html, body, .dc-site-contents, .layer{
 	.theme-item__hasimg{
 		position: relative;
 		z-index: 0;
+		transition: z-index .01s .2s linear;
 	}
 		.theme-item__hasimg h3{
 			position: relative;
@@ -245,7 +246,7 @@ html, body, .dc-site-contents, .layer{
 			cursor: crosshair;
 		}
 		.theme-item__hasimg .theme-item--hoverimg{
-			display: none;
+			opacity: 0;
 			position: absolute;
 			width: 100%;
 			max-width: 24em;
@@ -256,18 +257,22 @@ html, body, .dc-site-contents, .layer{
 			left: 50%;
 			z-index: 2;
 			pointer-events: none;
+			filter: blur( 5px );
+			transition: filter .2s 0s ease-in, opacity .2s .2s ease-in;
 		}
 		.theme-item__hasimg:hover{
 			z-index: 2;
 		}
 		.theme-item--hoverimg.active{
-			display: block;
+			opacity: 1;
+			filter: blur( 0px );
+			transition: filter .2s .15s ease-in, opacity .2s ease-in;
 		}
 			.theme-item__hasimg.hoverimg-active h3{
 				overflow: visible;
 			}
 			.theme-item__hasimg h3 .text{
-				transition: filter .13s ease-in;
+				transition: filter .3s ease-in;
 			}
 			.theme-item__hasimg.hoverimg-active h3 .text{
 				filter: blur( 5px );
@@ -1115,7 +1120,7 @@ body.loading .handle{
 			.wysiwyg a,
 			a.text-link,
 			.wysiwyg a img{
-				transition: filter .13s ease-in;
+				transition: filter .3s ease-in;
 			}
 			.wysiwyg a:hover,
 			a.text-link:hover,
