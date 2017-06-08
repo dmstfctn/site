@@ -102,7 +102,8 @@ proto.animatePos = function( to, _time ){
 	if( this.isDragging || this.hasBeenPositioned ){
 		return;
 	}
-	var time = _time || 500;
+	var time = _time || 200;
+	console.log( time );
 	var that = this;
 	var pos = {};
 	if( to.x ){
@@ -112,10 +113,12 @@ proto.animatePos = function( to, _time ){
 		pos.y = this.pos.y;
 	}
 	this.tween = new TWEEN.Tween( pos )
+		.easing( TWEEN.Easing.Sinusoidal.In )
 		.to( to, time )
 		.onUpdate(function() {
 			that.setPos( this );
 		})
+		//.delay( 100 )
 		.start();
 
 	cancelAnimationFrame( this.animFrame );
