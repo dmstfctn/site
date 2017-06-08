@@ -1160,6 +1160,12 @@ body.loading .handle{
 	}*/
 
 /* SCROLLBAR HIDING */
+.committee-header{
+	display: none;
+}
+.theme:nth-child(2){
+	z-index: 1; //so that it covers the first-column's scrollbar
+}
 .theme .theme--follower{
 	box-sizing: content-box;
 	width:100%;
@@ -1168,3 +1174,31 @@ body.loading .handle{
 .theme .theme--section {
 	padding-right: 3.5rem;
 }
+.theme{
+	overflow-y: hidden;
+}
+.theme-scroller-wrapper{
+	position: relative;
+	width: 100%;
+	padding: 0;
+	height: 100%;
+	padding-right: 2rem;
+	overflow-y: scroll;
+}
+	.theme-scroller-wrapper .theme--content{
+		height: auto;
+	}
+	.theme.locked .theme-scroller-wrapper{
+		overflow: hidden;
+	}
+		.theme.locked .theme--content{
+			height: 100%;
+		}
+		.theme--section:last-child{
+			padding-bottom: 4rem;
+		}
+		.theme .theme--image-cover{
+			-webkit-box-shadow: none;
+			-moz-box-shadow: none;
+			box-shadow: none;
+		}

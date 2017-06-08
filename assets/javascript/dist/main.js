@@ -1046,6 +1046,8 @@ var $ = require('jquery');
 var Pane = function( _ele ){
 	this.$ele = (_ele) ? $( _ele ) : this.$ele;
   this.ele = this.$ele.get(0);
+	this.$scrollwrapper = this.$ele.find('.theme-scroller-wrapper');
+	this.$content = this.$ele.find('.theme--content');
 	this.$inner = this.$ele.find('.theme--follower');
 	this.$imageCover = this.$ele.find('.theme--image-cover');
 	this.width = this.$ele.outerWidth();
@@ -1098,48 +1100,54 @@ proto.unlockScroll = function(){
 }
 
 proto.isScrolled = function(){
-	var maxScroll = (this.ele.scrollHeight - this.$ele.innerHeight());
-	return this.$ele.scrollTop() > maxScroll * 0.5;
+	var maxScroll = (this.$scrollwrapper[0].scrollHeight - this.$scrollwrapper.innerHeight());
+	return this.$scrollwrapper.scrollTop() > maxScroll * 0.5;
 }
 
 proto.toggleLock = function(){
 	var that = this;
 	if( this.locked || this.isScrolled() ){
-		this.$ele.animate( { 'scrollTop': 0 }, 100, function(){
+		this.$scrollwrapper.animate( { 'scrollTop': 0 }, 100, function(){
 			that.unlockScroll();
 		});
 	} else {
-		this.$ele.animate( { 'scrollTop': (this.ele.scrollHeight - this.$ele.innerHeight()) }, 100, function(){
+		this.$scrollwrapper.animate( { 'scrollTop': (this.$scrollwrapper[0].scrollHeight - this.$scrollwrapper.innerHeight()) }, 100, function(){
 			that.lockScroll();
 		});
 	}
 }
 
 proto.scrollMainBy = function( by ){
-	var mainMaxScroll = this.ele.scrollHeight// - this.$ele.height();
+	var mainMaxScroll = this.$scrollwrapper[0].scrollHeight// - this.$ele.height();
 	var innerMaxScroll = this.$inner[0].scrollHeight// - this.$inner.innerHeight();
 	var ratio = (innerMaxScroll / mainMaxScroll) / 3 // 7.5;
 	var mappedScroll = by * ratio;
 	//mappedScroll = Math.min( mappedScroll, 10 );
 	console.log( mappedScroll );
-	var currentScroll = this.$ele.scrollTop();
-	this.$ele.scrollTop( currentScroll + mappedScroll );
+	var currentScroll = this.$scrollwrapper.scrollTop();
+	this.$scrollwrapper.scrollTop( currentScroll + mappedScroll );
 };
 
 proto.scrollMainResponse = function(){
 	var buffer = 0;
-	var maxScroll = this.ele.scrollHeight - this.$ele.height();
-	var scroll = this.$ele.scrollTop();
+	var maxScroll = this.$scrollwrapper[0].scrollHeight - this.$scrollwrapper.height();
+	var scroll = this.$scrollwrapper.scrollTop();
 	var scrollAmount = ( scroll / maxScroll );
-	if( scroll >= maxScroll - buffer ){
-		this.lockScroll();
+	var scrollLockAt = this.$content[0].offsetTop;
+	var proportionToLock = scroll / scrollLockAt;
+
+	if(  scroll >= scrollLockAt ){
+		this.$scrollwrapper.scrollTop( scrollLockAt );
+		this.lockScroll()
 	} else {
 		this.unlockScroll();
 	}
+	console.log( 'scroll amt', proportionToLock );
 	this.$imageCover.css({
-		top: scroll,
-		filter: 'blur(' + scrollAmount * 10+ 'px )',
-		opacity: 1- scrollAmount
+		//top: scroll,
+		filter: 'blur(' + proportionToLock * 10 + 'px )',
+		transform: 'scale(' + (1 + (proportionToLock*0.02)) + ' )'
+		//opacity: 1 - proportionToLock
 	});
 };
 
@@ -1165,26 +1173,27 @@ proto.scrollInner = function( by ){
 proto.addListeners = function(){
 	var that = this;
 
-	this.$ele.on('mousewheel', function( e ){
-		if( that.locked ){
-			that.scrollInner( e.originalEvent.deltaY );
-		} else {
-			e.stopPropagation();
-			console.log( 'mosuewheel' );
-			that.scrollMainBy( e.originalEvent.deltaY );
-			that.scrollMainResponse();
-			that.scrollInnerResponse();
-		}
-	});
+	// this.$scrollwrapper.on('mousewheel', function( e ){
+	// 	if( that.locked ){
+	// 		that.scrollInner( e.originalEvent.deltaY );
+	// 	} else {
+	// 		e.stopPropagation();
+	// 		console.log( 'mousewheel' );
+	// 		that.scrollMainBy( e.originalEvent.deltaY );
+	// 		that.scrollMainResponse();
+	// 		that.scrollInnerResponse();
+	// 	}
+	// });
 
 	this.$ele.find('.theme--leader').on('click', function(){
 		that.toggleLock();
 	});
-	this.$ele.on('scroll', function(e){
-		e.preventDefault();
-		e.returnValue = false;
+	this.$scrollwrapper.on('scroll', function(e){
+		//e.preventDefault();
+		//e.returnValue = false;
+		that.scrollMainResponse();
+		that.scrollInnerResponse();
 		return false;
-		//that.scrollMainResponse();
 	});
 	this.$inner.on('scroll', function( e ){
 		if( that.locked ){
