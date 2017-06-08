@@ -451,7 +451,7 @@ html, body, .dc-site-contents, .layer{
 	height: 100%;
 	right: 0;
 	top: 0;
-	padding: 2rem;
+	padding: 0.9rem 1.75rem;
 	box-sizing: border-box;
 }
 	.about-wrapper .about--extra{
@@ -465,7 +465,7 @@ html, body, .dc-site-contents, .layer{
 	.about-wrapper .about--content{
 		overflow-y: scroll;
 		position: absolute;
-		padding-top: 1.3rem;
+		//padding-top: 1.3rem;
 		border-left: 1px solid #FFFFFF;
 	}
 
@@ -1224,7 +1224,7 @@ body.page-template-page-about .committee-header{
 	}
 	.about-wrapper 	.about--extra a{
 		position: absolute;
-		top: 1rem;
+		top: 0.65rem;
 		left: -1.6rem;
 		transform-origin: right center;
 		transform: rotate( -90deg );
