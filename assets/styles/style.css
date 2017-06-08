@@ -889,6 +889,7 @@ html, body, .dc-site-contents, .layer{
 	}
 .wysiwyg a,
 a.text-link{
+	word-break: break-word;
 	color: inherit	;
 	text-decoration: underline;
 	text-decoration-skip: ink;
