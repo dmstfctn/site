@@ -401,7 +401,7 @@ html, body, .dc-site-contents, .layer{
 
 .theme[data-proportion="small"],
 .theme[data-proportion="tiny"]{
-	font-size: .75em;
+	font-size: .6em;
 }
 	.theme[data-proportion="small"] .theme--section,
 	.theme[data-proportion="small"] .theme-item__work{
@@ -1180,7 +1180,7 @@ body.page-template-page-about .committee-header{
 		}
 		.committee-header:hover h1,
 		body.page-template-page-about .committee-header h1{
-			background-position: center -30px;
+			background-position: center -26px;
 		}
 	.committee-header h1 svg{
 		display: block;
