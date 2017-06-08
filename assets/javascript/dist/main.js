@@ -566,7 +566,8 @@ proto.animatePos = function( to, _time ){
 	if( this.isDragging || this.hasBeenPositioned ){
 		return;
 	}
-	var time = _time || 500;
+	var time = _time || 200;
+	console.log( time );
 	var that = this;
 	var pos = {};
 	if( to.x ){
@@ -576,10 +577,12 @@ proto.animatePos = function( to, _time ){
 		pos.y = this.pos.y;
 	}
 	this.tween = new TWEEN.Tween( pos )
+		.easing( TWEEN.Easing.Sinusoidal.In )
 		.to( to, time )
 		.onUpdate(function() {
 			that.setPos( this );
 		})
+		//.delay( 100 )
 		.start();
 
 	cancelAnimationFrame( this.animFrame );
@@ -828,6 +831,7 @@ var HoverImg = function( _ele ){
   this.ele = this.$ele.get(0);
 	this.$trigger = this.$ele.parent().find('.dc-hoverimg-trigger');
 	this.replaced = false;
+	this.active = false;
 	this.addListeners();
 }
 
@@ -836,15 +840,35 @@ var proto = HoverImg.prototype;
 proto.addListeners = function(){
 	var that = this;
 	this.$trigger.on( 'mouseenter', function(){
-		console.log( 'activate hoverimg on', that.$ele );
-		that.$ele.addClass('active');
-		that.$ele.parent().addClass('hoverimg-active');
-		that.setSrc();
+		that.activate();
 	});
 	this.$trigger.on( 'mouseleave', function(){
-		that.$ele.parent().removeClass('hoverimg-active');
-		that.$ele.removeClass('active');
+		that.deactivate();
 	});
+	this.$trigger.on( 'click', function(){
+		that.toggle();
+	});
+}
+
+proto.toggle = function(){
+	if( this.active ){
+		this.deactivate();
+	} else {
+		this.activate();
+	}
+}
+
+proto.activate = function(){
+	this.$ele.addClass('active');
+	this.$ele.parent().addClass('hoverimg-active');
+	this.setSrc();
+	this.active = true;
+}
+
+proto.deactivate = function(){
+	this.$ele.parent().removeClass('hoverimg-active');
+	this.$ele.removeClass('active');
+	this.active = false;
 }
 
 proto.setSrc = function(){
