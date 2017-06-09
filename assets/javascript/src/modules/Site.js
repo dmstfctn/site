@@ -10,6 +10,7 @@ var Slideshow = require('./Slideshow.js' );
 var Video = require('./Video.js' );
 
 var Site = function(){
+	this.type = 'full';
 	this.project = null;
 	this.post = null;
 	this.about = null;

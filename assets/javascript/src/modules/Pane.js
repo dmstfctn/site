@@ -67,11 +67,12 @@ proto.isScrolled = function(){
 proto.toggleLock = function(){
 	var that = this;
 	if( this.locked || this.isScrolled() ){
-		this.$scrollwrapper.animate( { 'scrollTop': 0 }, 100, function(){
+		this.$scrollwrapper.animate( { 'scrollTop': 0 }, 250, function(){
 			that.unlockScroll();
 		});
 	} else {
-		this.$scrollwrapper.animate( { 'scrollTop': (this.$scrollwrapper[0].scrollHeight - this.$scrollwrapper.innerHeight()) }, 100, function(){
+		var to = this.$scrollwrapper.innerHeight();
+		this.$scrollwrapper.animate( { 'scrollTop': to }, to/3, function(){
 			that.lockScroll();
 		});
 	}
@@ -136,25 +137,18 @@ proto.scrollInner = function( by ){
 
 proto.addListeners = function(){
 	var that = this;
-
-	// this.$scrollwrapper.on('mousewheel', function( e ){
-	// 	if( that.locked ){
-	// 		that.scrollInner( e.originalEvent.deltaY );
-	// 	} else {
-	// 		e.stopPropagation();
-	// 		console.log( 'mousewheel' );
-	// 		that.scrollMainBy( e.originalEvent.deltaY );
-	// 		that.scrollMainResponse();
-	// 		that.scrollInnerResponse();
-	// 	}
-	// });
-
+	var firstClick = false;
+	this.$ele.on('click', function(){
+		if( that.locked || firstClick ){
+			return false;
+		}
+		firstClick = true;
+		that.toggleLock();
+	});
 	this.$ele.find('.theme--leader').on('click', function(){
 		that.toggleLock();
 	});
 	this.$scrollwrapper.on('scroll', function(e){
-		//e.preventDefault();
-		//e.returnValue = false;
 		that.scrollMainResponse();
 		that.scrollInnerResponse();
 		return false;
