@@ -16,6 +16,7 @@ var Pane = function( _ele ){
 	this.calculateProportion();
 	this.render();
 	this.addListeners();
+	this.setupScrollbar();
 }
 
 var proto = Pane.prototype;
@@ -162,8 +163,44 @@ proto.addListeners = function(){
 	});
 	this.$ele.on( 'mouseenter', function(){
 		that._onHover();
-	})
+	});
 };
+
+proto.setupScrollbar = function(){
+	var that = this;
+	this.scrollbarState = {
+		dragging: false,
+		pMouse: 0,
+		height: this.$scrollBar.height()
+	};
+	this.$scrollBarHandle.on( 'mousedown', function( e ){
+		that.scrollbarState.dragging = true;
+		that.scrollbarState.pMouse = e.pageX;
+		that.scrollbarState.height = that.$scrollBar.height();
+	});
+	$(window).on('mouseup', function(){
+		if( that.scrollbarState.dragging ){
+			that.scrollbarState.dragging = false;
+		}
+	});
+	$(window).on( 'mousemove', function( e ){
+		if( !that.scrollbarState.dragging ){
+			return false;
+		}
+		var currentScroll = that.$inner.scrollTop();
+		var winH = $(window).height();
+		var scrollLength = that.$inner[0].scrollHeight;
+		var ratio = scrollLength / winH;
+		var deltaX = e.pageX - that.scrollbarState.pMouse;
+		var scrollDistance = deltaX * ratio;
+		console.log( 'delta: ', deltaX, 'ratio: ', ratio, 'dist: ', scrollDistance );
+		var scrollTo = currentScroll - scrollDistance;
+		if( scrollTo >= 0 ){
+			that.$inner.scrollTop( scrollTo );
+		}
+		that.scrollbarState.pMouse = e.pageX;
+	});
+}
 
 proto.renderScrollBar = function(){
 	this.$scrollBarHandle.css({

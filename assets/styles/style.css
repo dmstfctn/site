@@ -325,6 +325,7 @@ html, body, .dc-site-contents, .layer{
 			filter: blur( 5px );
 			transition: filter .2s 0s ease-in, opacity .2s .2s ease-in;
 		}
+		.theme-item__hasimg.hoverimg-active,
 		.theme-item__hasimg:hover{
 			z-index: 2;
 		}
