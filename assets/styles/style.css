@@ -403,6 +403,11 @@ html, body, .dc-site-contents, .layer{
 .theme[data-proportion="tiny"]{
 	font-size: .6em;
 }
+.theme[data-proportion="small"] .theme--leader h1,
+.theme[data-proportion="tiny"] .theme--leader h1{
+	position: relative;
+	top: .09rem;
+}
 	.theme[data-proportion="small"] .theme--section,
 	.theme[data-proportion="small"] .theme-item__work{
 		margin-bottom: 2em;
