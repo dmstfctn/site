@@ -1233,10 +1233,10 @@ body.page-template-page-about .committee-header{
 	overflow: visible;
 }
 .handle__x{
-	width: 100px;
+	width: 60px;
 }
 .handel__y{
-	height: 100px;
+	height: 60px;
 }
 .handle .indicator:before,
 .handle .indicator:after{
