@@ -1128,8 +1128,8 @@ body.loading .handle{
 	.about-wrapper{
 		overflow: hidden;
 	}
-	.about-wrapper .about--content{
-		height: calc( 100% + 1em );
+	.about-wrapper .about--content,
+	.about-wrapper .about--extra{
 		border-left: none;
 		-webkit-box-shadow: 0 0 15px 3px rgba( 255, 255, 255, 0.4 ),
 												inset 0 0 15px 3px rgba( 255, 255, 255, 0.4 );
