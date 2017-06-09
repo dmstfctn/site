@@ -603,7 +603,8 @@ html, body, .dc-site-contents, .layer{
 	position: absolute;
 	z-index: 95;
 	transition: background .1s ease-in-out;
-	overflow: hidden;
+	overflow: visible;
+	cursor: none;
 }
 	.handle:after{
 		display: block;
@@ -612,9 +613,18 @@ html, body, .dc-site-contents, .layer{
 		background: transparent;
 		pointer-events: none;
 		border: 3px solid transparent;
+		transition: all .2s linear;
+		transition-delay: 0;
 	}
-	body.loading .handle:after,
-	.handle:hover:after{
+	body.loading .handle{
+		opacity: 1;
+		pointer-events: all;
+	}
+		body.loading .handle .indicator{
+			opacity: 0;
+		}
+
+	body.loading .handle:after{
 		background: #FFFFFF;
 		filter: blur( 5px );
 		border: 3px solid #FFFFFF;
@@ -624,118 +634,118 @@ html, body, .dc-site-contents, .layer{
 			background: #000000;
 			border: #000000;
 		}
-		body.home .handle:hover:after{
-			border-left-color: #000000;
-		}
+
 		.handle .indicator{
 			width: 0;
 			height: 0;
 			background: transparent;
 			position: absolute;
+			display: block;
 			z-index: 1;
-			overflow: hidden;
+			overflow: visible;
 			transition: width .27s ease-out, height .27s ease-out;
 		}
+
 			.handle .indicator:before,
 			.handle .indicator:after{
 				width: 100%;
 				height: 100%;
 				content: '';
+				display: block;
 				position: absolute;
+				//filter: blur( 1px );
+				transition: all .2s ease-in-out;
 			}
+
 			.handle .indicator:before{
-				background: #ffffff;
 				left: 0;
 				top: 0;
 			}
+
 			.handle .indicator:after{
 				right: 0;
 				bottom: 0;
 			}
 
-			body.home .handle .indicator:after{
-				background: #000000;
-			}
-			body.page-template-page-about .handle .indicator:before,
-			body.page-template-page-about .handle .indicator:after{
-				background: #ffffff;
-			}
-				body.page-template-page-about .handle .indicator{
-					border-color:#000000;
-				}
-
-				.handle__x{
-					opacity: 0;
-					pointer-events: none;
-				}
-				body.home .handle__x,
-				body.page-template-page-about .handle__x,
-				body.single-dc_project .handle__x,
-				body.single-post .handle__x{
-					opacity: 1;
-					pointer-events: all;
-				}
-				body.home .handle__y,
-				body.page-template-page-about .handle__y{
-					opacity: 0;
-					pointer-events: none;
-				}
-
 			.handle:hover .indicator,
 			.handle.handle__active .indicator{
 				transition: width .17s ease-in, height .17s ease-in;
 			}
+
 				.handle:hover .indicator:before,
 				.handle:hover .indicator:after,
 				.handle.handle__active .indicator:before,
 				.handle.handle__active .indicator:after{
 					display: block;
 				}
+
 	.handle__x{
-		width: 36px;
+		width: 60px;
 		top: 0;
 		bottom: 0;
 		left: 50%;
 		transform: translateX( -50% );
-		cursor: col-resize;
 		z-index: 98;
+		opacity: 0;
+		pointer-events: none;
 	}
+
 		.handle__x:after{
 			width: 1px;
 			height: 100%;
 			left: 50%;
 			transform: translateX(-50%);
 		}
+
 		.handle__x .indicator{
 			height: 36px;
-			border-left: 1px solid #ffffff;
-			border-right: 1px solid #000000;
 			top: 50%;
 			left: 50%;
 			transform: translateX(-50%) translateY(-50%);
-			display: none;
 		}
-			.handle__x .indicator:before{
-				width: 50%;
-			}
+
+			.handle__x .indicator:before,
 			.handle__x .indicator:after{
-				width: 50%;
+				background-image: url('../svg/arrow-left.svg');
+				background-size: 35px auto;
+				background-repeat: no-repeat;
+				background-position: center left;
 			}
-			.handle__x:hover .indicator,
-			.handle__x.handle__active .indicator{
-				border-left: 1px solid transparent;
-				border-right: 1px solid #000000;
-				width: 10px;
-				height: 36px;
+
+				.handle__x .indicator:before{
+					right: 50%;
+					left: auto;
+				}
+
+				.handle__x .indicator:after{
+					left: 50%;
+					right: auto;
+					background-image: url('../svg/arrow-right.svg');
+					background-size: 35px auto;
+					background-repeat: no-repeat;
+					background-position: center right;
+				}
+
+					body.home .handle__x .indicator:after{
+						background-image: url('../svg/arrow-right-white.svg');
+						background-size: 35px auto;
+						background-repeat: no-repeat;
+						background-position: center right;
+					}
+
+			.handle__x:hover .indicator:before,
+			.handle__x:hover .indicator:after,
+			.handle__x.handle__active .indicator:before,
+			.handle__x.handle__active .indicator:after{
+				width: 28px;
 			}
 
 	.handle__y{
-		height: 36px;
+		height: 60px;
 		top: 50%;
 		left: 0;
 		right: 0;
 		transform: translateY( -50% );
-		cursor: row-resize;
 	}
 
 		.handle__y:after{
@@ -744,29 +754,86 @@ html, body, .dc-site-contents, .layer{
 			top: 50%;
 			transform: translateY(-50%);
 		}
+
 		.handle__y .indicator{
 			width: 36px;
 			top: 50%;
 			left: 50%;
-			border-top: 1px solid #ffffff;
-			border-bottom: 1px solid #ffffff;
 			transform: translateX(-50%) translateY(-50%);
 		}
-			.handle__y .indicator:before{
-				height: 50%;
-				background: #000000;
-			}
+
+			.handle__y .indicator:before,
 			.handle__y .indicator:after{
-				height: 50%;
-				background: #000000;
-			}
-			.handle__y:hover .indicator,
-			.handle__y.handle__active .indicator{
-				border-top: 1px solid #ffffff;
-				border-bottom: 1px solid #ffffff;
-				height: 10px;
+				background-image: url('../svg/arrow-up.svg');
+				background-size: auto 35px;
+				background-repeat: no-repeat;
+				background-position: top center;
 				width: 36px;
 			}
+
+				.handle__y .indicator:before{
+					bottom: 50%;
+					top: auto;
+				}
+
+				.handle__y .indicator:after{
+					top: 50%;
+					bottom: auto;
+				}
+
+				.handle__y .indicator:after,
+				body.home .handle__y .indicator:after{
+					background-image: url('../svg/arrow-down.svg');
+					background-size: auto 35px;
+					background-repeat: no-repeat;
+					background-position: bottom center;
+				}
+
+		.handle__y:hover .indicator:before,
+		.handle__y:hover .indicator:after,
+		.handle__y.handle__active .indicator:before,
+		.handle__y.handle__active .indicator:after{
+			height: 28px;
+		}
+
+		body.single-dc_project .handle__x .indicator:after{
+			background-image: url('../svg/arrow-right.svg');
+		}
+		body.dc_tax_topics-network-ensemble .handle__x .indicator:after{
+			background-image: url('../svg/arrow-right-white.svg');
+			opacity: 1;
+		}
+		body.dc_tax_topics-network-ensemble .handle__x .indicator:before{
+			background-image: url('../svg/arrow-left-white.svg');
+			opacity: 1;
+		}
+		body.dc_tax_topics-network-ensemble .handle__y .indicator:after{
+			background-image: url('../svg/arrow-down-white.svg');
+			opacity: 1;
+		}
+		body.dc_tax_topics-network-ensemble .handle__y .indicator:before{
+			background-image: url('../svg/arrow-up-white.svg');
+			opacity: 1;
+		}
+
+		/*body.single-dc_project .handle:hover .indicator:before,
+		body.single-dc_project .handle:hover .indicator:after{
+			filter: blur( 1.5px );
+		}*/
+
+		body.home .handle__x,
+		body.page-template-page-about .handle__x,
+		body.single-dc_project .handle__x,
+		body.single-post .handle__x{
+			opacity: 1;
+			pointer-events: all;
+		}
+		body.home .handle__y,
+		body.page-template-page-about .handle__y{
+			opacity: 0;
+			pointer-events: none;
+		}
+
 
 /* slideshow */
 .dc-slideshow{
@@ -1015,21 +1082,6 @@ body.loading .layer{
 		transition-delay: .05s;
 	}
 
-body.loading .handle{
-	opacity: 1;
-	pointer-events: all;
-}
-	body.loading .handle .indicator{
-		opacity: 0;
-	}
-	.handle{
-		transition-delay: 1s;
-	}
-		 .handle:after{
-			 transition: all .2s linear;
-			 transition-delay: 0;
-		 }
-
 		 .quadrant-section{
 			 border: none !important;
 		 }
@@ -1222,128 +1274,6 @@ body.page-template-page-about .committee-header{
 			background: transparent;
 			margin-left: .2em;
 		}
-
-/* HANDLE ARROWS */
-.handle{
-	overflow: visible;
-}
-.handle .indicator{
-	display: block;
-	border: none;
-	overflow: visible;
-}
-.handle__x{
-	width: 60px;
-}
-.handel__y{
-	height: 60px;
-}
-.handle .indicator:before,
-.handle .indicator:after{
-	width: 0;
-	background-color: transparent !important;
-	filter: blur( 3px );
-	transition: all .2s ease-in-out;
-}
-.handle:hover .indicator,
-.handle.handle__active .indicator{
-	border: none;
-}
-
-	.handle__x .indicator:before,
-	.handle__x .indicator:after{
-		background-image: url('../svg/arrow-left.svg');
-		background-size: 35px auto;
-		background-repeat: no-repeat;
-		background-position: center left;
-	}
-		.handle__x .indicator:before{
-			right: 50%;
-			left: auto;
-		}
-		.handle__x .indicator:after{
-			left: 50%;
-			right: auto;
-		}
-		.handle__x .indicator:after{
-			background-image: url('../svg/arrow-right.svg');
-			background-size: 35px auto;
-			background-repeat: no-repeat;
-			background-position: center right;
-		}
-		body.home .handle__x .indicator:after{
-			background-image: url('../svg/arrow-right-white.svg');
-			background-size: 35px auto;
-			background-repeat: no-repeat;
-			background-position: center right;
-		}
-
-		.handle__x:hover .indicator:before,
-		.handle__x:hover .indicator:after{
-			filter: blur( 1px );
-			width: 28px;
-			opacity: 0.8;
-		}
-
-	.handle__y .indicator:before,
-	.handle__y .indicator:after{
-		background-image: url('../svg/arrow-up.svg');
-		background-size: auto 35px;
-		background-repeat: no-repeat;
-		background-position: top center;
-		width: 36px;
-	}
-		.handle__y .indicator:before{
-			bottom: 50%;
-			top: auto;
-		}
-		.handle__y .indicator:after{
-			top: 50%;
-			bottom: auto;
-		}
-		.handle__y .indicator:after,
-		body.home .handle__y .indicator:after{
-			background-image: url('../svg/arrow-down.svg');
-			background-size: auto 35px;
-			background-repeat: no-repeat;
-			background-position: bottom center;
-		}
-		.handle__y:hover .indicator:before,
-		.handle__y:hover .indicator:after{
-			filter: blur( 1px );
-			height: 28px;
-			opacity: 0.8;
-		}
-
-		body.single-dc_project .handle__x .indicator:after{
-			background-image: url('../svg/arrow-right.svg');
-		}
-		body.dc_tax_topics-network-ensemble .handle__x .indicator:after{
-			background-image: url('../svg/arrow-right-white.svg');
-			opacity: 1;
-		}
-		body.dc_tax_topics-network-ensemble .handle__x .indicator:before{
-			background-image: url('../svg/arrow-left-white.svg');
-			opacity: 1;
-		}
-		body.dc_tax_topics-network-ensemble .handle__y .indicator:after{
-			background-image: url('../svg/arrow-down-white.svg');
-			opacity: 1;
-		}
-		body.dc_tax_topics-network-ensemble .handle__y .indicator:before{
-			background-image: url('../svg/arrow-up-white.svg');
-			opacity: 1;
-		}
-
-		body.single-dc_project .handle:hover .indicator:before,
-		body.single-dc_project .handle:hover .indicator:after{
-			filter: blur( 1.5px );
-		}
-
-		.handle{
-			cursor: none;
-		}
-
 
 /* SCROLLBAR HIDING */
 .theme:nth-child(2){
