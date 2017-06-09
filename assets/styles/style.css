@@ -799,19 +799,23 @@ html, body, .dc-site-contents, .layer{
 		body.single-dc_project .handle__x .indicator:after{
 			background-image: url('../svg/arrow-right.svg');
 		}
-		body.dc_tax_topics-network-ensemble .handle__x .indicator:after{
+		body.dc_tax_topics-network-ensemble .handle__x .indicator:after,
+		body.page-template-page-about .handle__x .indicator:after{
 			background-image: url('../svg/arrow-right-white.svg');
 			opacity: 1;
 		}
-		body.dc_tax_topics-network-ensemble .handle__x .indicator:before{
+		body.dc_tax_topics-network-ensemble .handle__x .indicator:before,
+		body.page-template-page-about .handle__x .indicator:before{
 			background-image: url('../svg/arrow-left-white.svg');
 			opacity: 1;
 		}
-		body.dc_tax_topics-network-ensemble .handle__y .indicator:after{
+		body.dc_tax_topics-network-ensemble .handle__y .indicator:after,
+		body.page-template-page-about .handle__y .indicator:after{
 			background-image: url('../svg/arrow-down-white.svg');
 			opacity: 1;
 		}
-		body.dc_tax_topics-network-ensemble .handle__y .indicator:before{
+		body.dc_tax_topics-network-ensemble .handle__y .indicator:before,
+		body.page-template-page-about .handle__y .indicator:before{
 			background-image: url('../svg/arrow-up-white.svg');
 			opacity: 1;
 		}
