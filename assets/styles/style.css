@@ -1341,14 +1341,15 @@ body.page-template-page-about .committee-header{
 		}
 
 		.handle{
-			cursor: -moz-grab;
+			/*cursor: -moz-grab;
 			cursor: -webkit-grab;
-			cursor: grab;
+			cursor: grab;*/
+			cursor: none;
 		}
 			.handle__active{
-				cursor: -moz-grabbing;
+				/*cursor: -moz-grabbing;
 				cursor: -webkit-grabbing;
-				cursor: grabbing;
+				cursor: grabbing;*/
 			}
 
 /* SCROLLBAR HIDING */
