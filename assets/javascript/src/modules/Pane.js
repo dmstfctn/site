@@ -40,9 +40,9 @@ proto.setConstraints = function(){
 proto.calculateProportion = function(){
 	this.proportion = this.width / this.maxWidth;
 	this.proportionName = 'large';
-	if( this.proportion < 0.15 || this.width < 200 ){
+	if( this.proportion < 0.20 || this.width < 200 ){
 		this.proportionName = 'tiny';
-	} else if( this.proportion < 0.3 ){
+	} else if( this.proportion < 0.37 ){
 		this.proportionName = 'small';
 	} else if( this.proportion < 0.7 ){
 		this.proportionName = 'normal';
