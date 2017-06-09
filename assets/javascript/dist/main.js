@@ -93,224 +93,207 @@ process.umask = function() { return 0; };
 
 },{}],2:[function(require,module,exports){
 var $ = require( 'jquery' );
-var Handle = require( './modules/Handle.js' );
-var Pane = require( './modules/Pane.js' );
-var Project = require( './modules/Project.js' );
-var Post = require( './modules/Post.js' );
-var About = require( './modules/About.js' );
-var HoverImg = require('./modules/HoverImg.js' );
-var Loader = require('./modules/Loader.js' );
-var Slideshow = require('./modules/Slideshow.js' );
-var Video = require('./modules/Video.js' );
-//var Header = require('./modules/Header.js');
+var Site = require( './modules/Site' );
+
+var site = new Site();
 
 
-var project;
-var post;
-var about;
-var slideshows = [];
-var hoverImgs = [];
-var videos = [];
 
-
-var sizePanes = function(){
-	var leftW = Math.round(handleX.pos.x);
-	var rightW = $(window).width() - leftW;
-	paneLeft.setWidth( leftW );
-	paneRight.setWidth( rightW );
-}
-
-var sizeAbout = function(){
-	var leftW = Math.round(handleX.pos.x);
-	var rightW = $(window).width() - leftW;
-	about.setWidth( leftW, rightW );
-}
-
-// var sizeHeader = function(){
+// var $ = require( 'jquery' );
+// var Handle = require( './modules/Handle.js' );
+// var Pane = require( './modules/Pane.js' );
+// var Project = require( './modules/Project.js' );
+// var Post = require( './modules/Post.js' );
+// var About = require( './modules/About.js' );
+// var HoverImg = require('./modules/HoverImg.js' );
+// var Loader = require('./modules/Loader.js' );
+// var Slideshow = require('./modules/Slideshow.js' );
+// var Video = require('./modules/Video.js' );
+// //var Header = require('./modules/Header.js');
+//
+//
+// var project;
+// var post;
+// var about;
+// var slideshows = [];
+// var hoverImgs = [];
+// var videos = [];
+//
+//
+// var sizePanes = function(){
 // 	var leftW = Math.round(handleX.pos.x);
-// 	header.setWidth( leftW );
+// 	var rightW = $(window).width() - leftW;
+// 	paneLeft.setWidth( leftW );
+// 	paneRight.setWidth( rightW );
 // }
+//
+// var sizeAbout = function(){
+// 	var leftW = Math.round(handleX.pos.x);
+// 	var rightW = $(window).width() - leftW;
+// 	about.setWidth( leftW, rightW );
+// }
+//
+// // var sizeHeader = function(){
+// // 	var leftW = Math.round(handleX.pos.x);
+// // 	header.setWidth( leftW );
+// // }
+//
+// var sizeVideos = function(){
+// 	for( var i = 0; i < videos.length; i++ ){
+// 		videos[i].setSize();
+// 	}
+// }
+//
+// var moveGrid = function(){
+// 	var center = {
+// 		x: handleX.pos.x,
+// 		y: handleY.pos.y
+// 	};
+// 	project.setCenter( center );
+// 	post.setCenter( center );
+// }
+//
+// var init = function( config ){
+// 	console.log ('INIT. CONFIG: ', config );
+// 	paneLeft = new Pane( $('.theme:first-child') );
+// 	paneRight = new Pane( $('.theme:nth-child(2)') );
+// 	project = new Project( $('.layer__project') );
+// 	post = new Post( $('.layer__post') );
+// 	about = new About( $('.about-wrapper') );
+// 	slideshows = [];
+// 	hoverImgs = [];
+// 	videos = [];
+//
+// 	$('.dc-slideshow').each(function(){
+// 		slideshows.push( new Slideshow( $(this) ) );
+// 	});
+//
+// 	$('.dc-hoverimg-img').each(function(){
+// 		hoverImgs.push( new HoverImg( $(this) ) );
+// 	});
+//
+// 	$('.dc-video').each(function(){
+// 		videos.push( new Video( $(this) ) );
+// 	});
+//
+// 	handleX.setConstraints({
+// 		x: {
+// 			min: paneLeft.minWidth,
+// 			max: paneLeft.maxWidth
+// 		},
+// 		y: {
+// 			min: 0,
+// 			max: $(window).width()
+// 		}
+// 	});
+// 	handleY.setConstraints({
+// 		x: {
+// 			min: 0,
+// 			max: $(window).height()
+// 		},
+// 		y: {
+// 			min: $(window).height() * 0.2,
+// 			max: $(window).height() * 0.8
+// 		}
+// 	});
+//
+// 	handleX.onMove = function( pos ){
+// 		sizePanes();
+// 		sizeAbout();
+// 		//sizeHeader();
+// 		sizeVideos();
+// 		handleY.setCrossPoint( handleX.pos.x );
+// 		moveGrid();
+// 	}
+// 	handleY.onMove = function( pos ){
+// 		sizeVideos();
+// 		moveGrid();
+// 	}
+//
+// 	sizePanes();
+// 	sizeAbout();
+// 	moveGrid();
+// 	//sizeHeader();
+// 	sizeVideos();
+//
+// 	if( $('body').hasClass('single-dc_project') ){
+// 		project.setReorderable( false );
+// 	}
+// 	if( $('body').hasClass('single-post') ){
+// 		post.setReorderable( false );
+// 	}
+//
+// 	if( config && config.name === 'note' ){
+// 		handleY.setCrossPoint( handleX.pos.x );
+// 		if( handleX.pos.x > $(window).width()/2 ){
+// 			handleY.setCroppedPart( 1 );
+// 		}	else {
+// 			handleY.setCroppedPart( 2 );
+// 		}
+// 	} else {
+// 		handleY.setCroppedPart( 0 );
+// 	}
+// 	if( config && config.name === 'home' ){
+// 		// paneLeft.onHover = function(){
+// 		// 	handleX.animatePos({ x: $(window).width() * 0.66 });
+// 		// };
+// 		// paneRight.onHover = function(){
+// 		// 	handleX.animatePos({ x: $(window).width() * 0.33 });
+// 		// };
+// 		// header.onHover = function(){
+// 		// 	handleX.animatePos({ x: $(window).width() * 0.5 });
+// 		// }
+// 	}
+// 	// if( config && config.name === 'about' ){
+// 	// 	header.setResizable();
+// 	// 	sizeHeader();
+// 	// } else {
+// 	// 	header.cancelResizable();
+// 	// 	header.clearSizing();
+// 	// 	header.render();
+// 	// }
+// 	handleY.render();
+// };
+//
+//
+//
+// //var header = new Header( $('.committee-header') );
+//
+// var loader = new Loader();
+//
+// var pWinW = $(window).width();
+// var pWinH = $(window).height();
+//
+// $(window).on('resize', function(){
+// 	var handleXProportion = handleX.pos.x / pWinW;
+// 	var handleYProportion = handleY.pos.y / pWinH;
+// 	var winW = $(window).width();
+// 	var winH = $(window).height()
+// 	handleX.setPos( { x: winW * handleXProportion } );
+// 	handleY.setPos( { y: winH * handleYProportion } );
+//
+// 	handleX.constraints.y.max = $(window).height();
+// 	handleY.constraints.x.max = $(window).width();
+//
+// 	sizeVideos();
+//
+// 	pWinW = winW;
+// 	pWinH = winH;
+// });
+//
+// loader.onInit = function( config ){
+// 	handleY.setPos({
+// 		y: $(window).height() * 0.7
+// 	});
+// 	init( config );
+// }
+//
+// loader.onLoaded = function( config ){
+// 	console.log('loader loaded -> init()')
+// 	init( config );
+// };
 
-var sizeVideos = function(){
-	for( var i = 0; i < videos.length; i++ ){
-		videos[i].setSize();
-	}
-}
-
-var moveGrid = function(){
-	var center = {
-		x: handleX.pos.x,
-		y: handleY.pos.y
-	};
-	project.setCenter( center );
-	post.setCenter( center );
-}
-
-var init = function( config ){
-	console.log ('INIT. CONFIG: ', config );
-	paneLeft = new Pane( $('.theme:first-child') );
-	paneRight = new Pane( $('.theme:nth-child(2)') );
-	project = new Project( $('.layer__project') );
-	post = new Post( $('.layer__post') );
-	about = new About( $('.about-wrapper') );
-	slideshows = [];
-	hoverImgs = [];
-	videos = [];
-
-	$('.dc-slideshow').each(function(){
-		slideshows.push( new Slideshow( $(this) ) );
-	});
-
-	$('.dc-hoverimg-img').each(function(){
-		hoverImgs.push( new HoverImg( $(this) ) );
-	});
-
-	$('.dc-video').each(function(){
-		videos.push( new Video( $(this) ) );
-	});
-
-	handleX.setConstraints({
-		x: {
-			min: paneLeft.minWidth,
-			max: paneLeft.maxWidth
-		},
-		y: {
-			min: 0,
-			max: $(window).width()
-		}
-	});
-	handleY.setConstraints({
-		x: {
-			min: 0,
-			max: $(window).height()
-		},
-		y: {
-			min: $(window).height() * 0.2,
-			max: $(window).height() * 0.8
-		}
-	});
-
-	handleX.onMove = function( pos ){
-		sizePanes();
-		sizeAbout();
-		//sizeHeader();
-		sizeVideos();
-		handleY.setCrossPoint( handleX.pos.x );
-		moveGrid();
-	}
-	handleY.onMove = function( pos ){
-		sizeVideos();
-		moveGrid();
-	}
-
-	sizePanes();
-	sizeAbout();
-	moveGrid();
-	//sizeHeader();
-	sizeVideos();
-
-	if( $('body').hasClass('single-dc_project') ){
-		project.setReorderable( false );
-	}
-	if( $('body').hasClass('single-post') ){
-		post.setReorderable( false );
-	}
-
-	if( config && config.name === 'note' ){
-		handleY.setCrossPoint( handleX.pos.x );
-		if( handleX.pos.x > $(window).width()/2 ){
-			handleY.setCroppedPart( 1 );
-		}	else {
-			handleY.setCroppedPart( 2 );
-		}
-	} else {
-		handleY.setCroppedPart( 0 );
-	}
-	if( config && config.name === 'home' ){
-		// paneLeft.onHover = function(){
-		// 	handleX.animatePos({ x: $(window).width() * 0.66 });
-		// };
-		// paneRight.onHover = function(){
-		// 	handleX.animatePos({ x: $(window).width() * 0.33 });
-		// };
-		// header.onHover = function(){
-		// 	handleX.animatePos({ x: $(window).width() * 0.5 });
-		// }
-	}
-	// if( config && config.name === 'about' ){
-	// 	header.setResizable();
-	// 	sizeHeader();
-	// } else {
-	// 	header.cancelResizable();
-	// 	header.clearSizing();
-	// 	header.render();
-	// }
-	handleY.render();
-};
-
-var paneLeft = new Pane( $('.theme:first-child') );
-var paneRight = new Pane( $('.theme:nth-child(2)') );
-var handleX = new Handle( '#handle-x', { x: true } );
-var handleY = new Handle( '#handle-y', { y: true } );
-
-handleX.setConstraints({
-	x: {
-		min: paneLeft.minWidth,
-		max: paneLeft.maxWidth
-	},
-	y: {
-		min: 0,
-		max: $(window).width()
-	}
-});
-handleY.setConstraints({
-	x: {
-		min: 0,
-		max: $(window).height()
-	},
-	y: {
-		min: $(window).height() * 0.2,
-		max: $(window).height() * 0.8
-	}
-});
-
-//var header = new Header( $('.committee-header') );
-
-var loader = new Loader();
-
-var pWinW = $(window).width();
-var pWinH = $(window).height();
-
-$(window).on('resize', function(){
-	var handleXProportion = handleX.pos.x / pWinW;
-	var handleYProportion = handleY.pos.y / pWinH;
-	var winW = $(window).width();
-	var winH = $(window).height()
-	handleX.setPos( { x: winW * handleXProportion } );
-	handleY.setPos( { y: winH * handleYProportion } );
-
-	handleX.constraints.y.max = $(window).height();
-	handleY.constraints.x.max = $(window).width();
-
-	sizeVideos();
-
-	pWinW = winW;
-	pWinH = winH;
-});
-
-loader.onInit = function( config ){
-	handleY.setPos({
-		y: $(window).height() * 0.7
-	});
-	init( config );
-}
-
-loader.onLoaded = function( config ){
-	console.log('loader loaded -> init()')
-	init( config );
-};
-
-},{"./modules/About.js":3,"./modules/Handle.js":5,"./modules/HoverImg.js":6,"./modules/Loader.js":7,"./modules/Pane.js":8,"./modules/Post.js":9,"./modules/Project.js":10,"./modules/Slideshow.js":12,"./modules/Video.js":13,"jquery":16}],3:[function(require,module,exports){
+},{"./modules/Site":12,"jquery":17}],3:[function(require,module,exports){
 var $ = require('jquery');
 
 var About = function( _ele ){
@@ -373,7 +356,7 @@ proto.render = function(){
 
 module.exports = About;
 
-},{"jquery":16}],4:[function(require,module,exports){
+},{"jquery":17}],4:[function(require,module,exports){
 var $ = require('jquery');
 
 var Grid = function( _ele ){
@@ -461,7 +444,7 @@ proto.setCenter = function( to ){
 
 module.exports = Grid;
 
-},{"jquery":16}],5:[function(require,module,exports){
+},{"jquery":17}],5:[function(require,module,exports){
 var $ = require('jquery');
 var Unidragger = require( 'unidragger' );
 var TWEEN = require('tween.js');
@@ -740,7 +723,7 @@ proto._onMove = function(){
 
 module.exports = Handle;
 
-},{"jquery":16,"tween.js":17,"unidragger":18}],6:[function(require,module,exports){
+},{"jquery":17,"tween.js":18,"unidragger":19}],6:[function(require,module,exports){
 var $ = require('jquery');
 
 var HoverImg = function( _ele ){
@@ -798,7 +781,7 @@ proto.setSrc = function(){
 
 module.exports = HoverImg;
 
-},{"jquery":16}],7:[function(require,module,exports){
+},{"jquery":17}],7:[function(require,module,exports){
 var $ = require('jquery');
 
 var Loader = function( context ){
@@ -968,7 +951,7 @@ proto._onInit = function( config ){
 
 module.exports = Loader;
 
-},{"jquery":16}],8:[function(require,module,exports){
+},{"jquery":17}],8:[function(require,module,exports){
 var $ = require('jquery');
 
 var Pane = function( _ele ){
@@ -1163,7 +1146,7 @@ proto._onHover = function(){
 
 module.exports = Pane;
 
-},{"jquery":16}],9:[function(require,module,exports){
+},{"jquery":17}],9:[function(require,module,exports){
 var $ = require('jquery');
 var Quadrant = require( './Quadrant.js' );
 
@@ -1220,7 +1203,7 @@ proto.calculateHierarchy = function(){
 
 module.exports = Post;
 
-},{"./Quadrant.js":11,"jquery":16}],10:[function(require,module,exports){
+},{"./Quadrant.js":11,"jquery":17}],10:[function(require,module,exports){
 var $ = require('jquery');
 var Quadrant = require( './Quadrant.js' );
 
@@ -1260,7 +1243,7 @@ proto.render = function(){
 
 module.exports = Project;
 
-},{"./Quadrant.js":11,"jquery":16}],11:[function(require,module,exports){
+},{"./Quadrant.js":11,"jquery":17}],11:[function(require,module,exports){
 var $ = require('jquery');
 var Grid = require( './Grid.js' );
 
@@ -1342,7 +1325,224 @@ proto.setReorderable = function( to ){
 
 module.exports = Quadrant;
 
-},{"./Grid.js":4,"jquery":16}],12:[function(require,module,exports){
+},{"./Grid.js":4,"jquery":17}],12:[function(require,module,exports){
+var $ = require( 'jquery' );
+var Handle = require( './Handle.js' );
+var Pane = require( './Pane.js' );
+var Project = require( './Project.js' );
+var Post = require( './Post.js' );
+var About = require( './About.js' );
+var HoverImg = require('./HoverImg.js' );
+var Loader = require('./Loader.js' );
+var Slideshow = require('./Slideshow.js' );
+var Video = require('./Video.js' );
+
+var Site = function(){
+	this.project = null;
+	this.post = null;
+	this.about = null;
+	this.slideshows = [];
+	this.hoverImgs = [];
+	this.videos = [];
+
+	this.pWinW = $(window).width();
+	this.pWinH = $(window).height();
+
+	this.setupPanes();
+	this.setupHandles();
+	this.setupLoader();
+
+	this.addListeners();
+}
+
+var proto = Site.prototype;
+
+proto.setupPanes = function(){
+	this.paneLeft = new Pane( $('.theme:first-child') );
+	this.paneRight = new Pane( $('.theme:nth-child(2)') );
+}
+
+proto.setupHandles = function(){
+	this.handleX = new Handle( '#handle-x', { x: true } );
+	this.handleY = new Handle( '#handle-y', { y: true } );
+
+	this.handleX.setConstraints({
+		x: {
+			min: this.paneLeft.minWidth,
+			max: this.paneLeft.maxWidth
+		},
+		y: {
+			min: 0,
+			max: $(window).width()
+		}
+	});
+	this.handleY.setConstraints({
+		x: {
+			min: 0,
+			max: $(window).height()
+		},
+		y: {
+			min: $(window).height() * 0.2,
+			max: $(window).height() * 0.8
+		}
+	});
+}
+
+proto.setupLoader = function(){
+	var that = this;
+	this.loader = new Loader();
+
+	this.loader.onInit = function( config ){
+		that.handleY.setPos({
+			y: $(window).height() * 0.7
+		});
+		that.init( config );
+	}
+
+	this.loader.onLoaded = function( config ){
+		console.log('loader loaded -> init()')
+		that.init( config );
+	};
+}
+
+
+proto.calculateResize = function(){
+	var handleXProportion = this.handleX.pos.x / this.pWinW;
+	var handleYProportion = this.handleY.pos.y / this.pWinH;
+	var winW = $(window).width();
+	var winH = $(window).height()
+	this.handleX.setPos( { x: winW * handleXProportion } );
+	this.handleY.setPos( { y: winH * handleYProportion } );
+
+	this.handleX.constraints.y.max = $(window).height();
+	this.handleY.constraints.x.max = $(window).width();
+
+	this.sizeVideos();
+
+	this.pWinW = winW;
+	this.pWinH = winH;
+}
+
+proto.addListeners = function(){
+	var that = this;
+	$(window).on('resize', function(){
+		that.calculateResize();
+	});
+}
+
+proto.sizePanes = function(){
+	var leftW = Math.round( this.handleX.pos.x );
+	var rightW = $(window).width() - leftW;
+	this.paneLeft.setWidth( leftW );
+	this.paneRight.setWidth( rightW );
+}
+
+proto.sizeAbout = function(){
+	var leftW = Math.round( this.handleX.pos.x );
+	var rightW = $(window).width() - leftW;
+	this.about.setWidth( leftW, rightW );
+}
+
+proto.sizeVideos = function(){
+	for( var i = 0; i < this.videos.length; i++ ){
+		this.videos[i].setSize();
+	}
+}
+
+proto.moveGrid = function(){
+	var center = {
+		x: this.handleX.pos.x,
+		y: this.handleY.pos.y
+	};
+	this.project.setCenter( center );
+	this.post.setCenter( center );
+}
+
+proto.init = function( config ){
+	var that = this;
+	this.paneLeft = new Pane( $('.theme:first-child') );
+	this.paneRight = new Pane( $('.theme:nth-child(2)') );
+	this.project = new Project( $('.layer__project') );
+	this.post = new Post( $('.layer__post') );
+	this.about = new About( $('.about-wrapper') );
+	this.slideshows = [];
+	this.hoverImgs = [];
+	this.videos = [];
+
+	$('.dc-slideshow').each(function(){
+		that.slideshows.push( new Slideshow( $(this) ) );
+	});
+
+	$('.dc-hoverimg-img').each(function(){
+		that.hoverImgs.push( new HoverImg( $(this) ) );
+	});
+
+	$('.dc-video').each(function(){
+		that.videos.push( new Video( $(this) ) );
+	});
+
+	this.handleX.setConstraints({
+		x: {
+			min: this.paneLeft.minWidth,
+			max: this.paneLeft.maxWidth
+		},
+		y: {
+			min: 0,
+			max: $(window).width()
+		}
+	});
+	this.handleY.setConstraints({
+		x: {
+			min: 0,
+			max: $(window).height()
+		},
+		y: {
+			min: $(window).height() * 0.2,
+			max: $(window).height() * 0.8
+		}
+	});
+
+	this.handleX.onMove = function( pos ){
+		that.sizePanes();
+		that.sizeAbout();
+		that.sizeVideos();
+		that.handleY.setCrossPoint( that.handleX.pos.x );
+		that.moveGrid();
+	}
+	this.handleY.onMove = function( pos ){
+		that.sizeVideos();
+		that.moveGrid();
+	}
+
+	this.sizePanes();
+	this.sizeAbout();
+	this.moveGrid();
+	this.sizeVideos();
+
+	if( $('body').hasClass('single-dc_project') ){
+		this.project.setReorderable( false );
+	}
+	if( $('body').hasClass('single-post') ){
+		this.post.setReorderable( false );
+	}
+
+	if( config && config.name === 'note' ){
+		this.handleY.setCrossPoint( this.handleX.pos.x );
+		if( this.handleX.pos.x > $(window).width()/2 ){
+			this.handleY.setCroppedPart( 1 );
+		}	else {
+			this.handleY.setCroppedPart( 2 );
+		}
+	} else {
+		this.handleY.setCroppedPart( 0 );
+	}
+
+	this.handleY.render();
+};
+
+module.exports = Site;
+
+},{"./About.js":3,"./Handle.js":5,"./HoverImg.js":6,"./Loader.js":7,"./Pane.js":8,"./Post.js":9,"./Project.js":10,"./Slideshow.js":13,"./Video.js":14,"jquery":17}],13:[function(require,module,exports){
 var $ = require('jquery');
 
 var Slideshow = function( _ele ){
@@ -1400,7 +1600,7 @@ proto.addListeners = function(){
 
 module.exports = Slideshow;
 
-},{"jquery":16}],13:[function(require,module,exports){
+},{"jquery":17}],14:[function(require,module,exports){
 var $ = require('jquery');
 var VimeoPlayer = require('@vimeo/player');
 
@@ -1500,7 +1700,7 @@ proto.render = function(){
 
 module.exports = Video;
 
-},{"@vimeo/player":14,"jquery":16}],14:[function(require,module,exports){
+},{"@vimeo/player":15,"jquery":17}],15:[function(require,module,exports){
 (function (global){
 /*! @vimeo/player v2.1.0 | (c) 2017 Vimeo | MIT License | https://github.com/vimeo/player.js */
 (function (global, factory) {
@@ -3586,7 +3786,7 @@ return Player;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 /**
  * EvEmitter v1.0.3
  * Lil' event emitter
@@ -3697,7 +3897,7 @@ return EvEmitter;
 
 }));
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.2.1
  * https://jquery.com/
@@ -13952,7 +14152,7 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 (function (process){
 /**
  * Tween.js - Licensed under the MIT license
@@ -14838,7 +15038,7 @@ TWEEN.Interpolation = {
 })(this);
 
 }).call(this,require('_process'))
-},{"_process":1}],18:[function(require,module,exports){
+},{"_process":1}],19:[function(require,module,exports){
 /*!
  * Unidragger v2.1.0
  * Draggable base class
@@ -15124,7 +15324,7 @@ return Unidragger;
 
 }));
 
-},{"unipointer":19}],19:[function(require,module,exports){
+},{"unipointer":20}],20:[function(require,module,exports){
 /*!
  * Unipointer v2.1.0
  * base class for doing one thing with pointer event
@@ -15429,4 +15629,4 @@ return Unipointer;
 
 }));
 
-},{"ev-emitter":15}]},{},[2]);
+},{"ev-emitter":16}]},{},[2]);
