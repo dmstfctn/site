@@ -683,6 +683,7 @@ html, body, .dc-site-contents, .layer{
 .quadrant-wrapper .quadrant-section.post-section__title{
 	margin-top: 3.5rem;
 }
+.post-section__title h1,
 .project-section__title h1{
 	margin-bottom: 0;
 }

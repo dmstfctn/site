@@ -1,4 +1,5 @@
 var $ = require( 'jquery' );
+var fitVids = require( '../lib/fitVids' )( $ )
 
 var HoverImg = require('./HoverImg.js' );
 var Slideshow = require('./Slideshow.js' );
@@ -24,6 +25,8 @@ var SimpleSite = function(){
 	$('.dc-video').each(function(){
 		that.videos.push( new Video( $(this) ) );
 	});
+
+	$('.wysiwyg').fitVids();
 
 	if( this.$body.hasClass('home') ){
 		this.homeFunctionality();

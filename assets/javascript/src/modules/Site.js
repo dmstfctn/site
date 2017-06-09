@@ -1,4 +1,5 @@
 var $ = require( 'jquery' );
+var fitVids = require( '../lib/fitVids' )( $ );
 var Handle = require( './Handle.js' );
 var Pane = require( './Pane.js' );
 var Project = require( './Project.js' );
@@ -8,6 +9,7 @@ var HoverImg = require('./HoverImg.js' );
 var Loader = require('./Loader.js' );
 var Slideshow = require('./Slideshow.js' );
 var Video = require('./Video.js' );
+
 
 var Site = function(){
 	this.type = 'full';
@@ -153,6 +155,8 @@ proto.init = function( config ){
 	$('.dc-video').each(function(){
 		that.videos.push( new Video( $(this) ) );
 	});
+
+	$('.wysiwyg').fitVids();
 
 	this.handleX.setConstraints({
 		x: {
