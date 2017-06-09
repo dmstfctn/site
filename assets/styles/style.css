@@ -19,6 +19,10 @@ a{
 	color: inherit;
 }
 
+body.no-js ::-webkit-scrollbar{
+	display: block !important;
+}
+
 /* site styles */
 
 html, body, .dc-site-contents, .layer{
@@ -36,6 +40,7 @@ html, body, .dc-site-contents, .layer{
 			font-size: 2.1vw;
 		}
 	}
+	
 	.layer{
 		position: absolute;
 		top: 0;
@@ -140,7 +145,7 @@ html, body, .dc-site-contents, .layer{
 	display: inline-block;
 	box-sizing: border-box;
 	overflow-x: hidden;
-	overflow-y: scroll;
+	overflow-y: hidden;
 	position: relative;
 	background-color: #FFFFFF;
 	color: #000000;
@@ -214,6 +219,9 @@ html, body, .dc-site-contents, .layer{
 		.theme.locked .theme--content .theme--follower{
 			overflow-y: scroll;
 		}
+		.theme.locked .theme--content .theme--follower ::-webkit-scrollbar{
+			display: none;
+		}
 	.theme .theme--section{
 		margin-bottom: 3em;
 	}
@@ -222,12 +230,15 @@ html, body, .dc-site-contents, .layer{
 			margin-bottom: .4em;
 			position: relative;
 		}
+			.theme .theme--section__work > h2{
+				display: none;
+			}
 			.theme .theme--section > h2:after{
 				content: '';
 				display: block;
 				height: 1px;
 				width: 140%;
-				width: calc(100% + 4.2rem);
+				width: calc(100% + 2.4rem);
 				position: absolute;
 				bottom: 0;
 				background: #000000;
@@ -324,16 +335,16 @@ html, body, .dc-site-contents, .layer{
 		.theme-item__work img{
 			display: block;
 			width: 100%;
-			-webkit-box-shadow: 8px -10px 54px 15px #ffffff, -8px -10px 54px 15px #ffffff,0px 3px 10px -1px #000000;
-				 -moz-box-shadow: 8px -10px 54px 15px #ffffff, -8px -10px 54px 15px #ffffff,0px 3px 10px -1px #000000;
-					 		box-shadow: 8px -10px 54px 15px #ffffff, -8px -10px 54px 15px #ffffff,0px 3px 10px -1px #000000;
+			-webkit-box-shadow: 8px -10px 48px 15px #ffffff, -8px -10px 48px 15px #ffffff,0px 3px 10px -1px #000000;
+				 -moz-box-shadow: 8px -10px 48px 15px #ffffff, -8px -10px 48px 15px #ffffff,0px 3px 10px -1px #000000;
+					 		box-shadow: 8px -10px 48px 15px #ffffff, -8px -10px 48px 15px #ffffff,0px 3px 10px -1px #000000;
 		}
 			.theme__network-ensemble .theme-item__work img{
 				display: block;
 				width: 100%;
-				-webkit-box-shadow: 8px -17px 54px 15px #000000, -8px -17px 54px 15px #000000, 0px 8px 18px -6px rgba(255,255,255,0.9);
-					 -moz-box-shadow: 8px -17px 54px 15px #000000, -8px -17px 54px 15px #000000, 0px 8px 18px -6px rgba(255,255,255,0.9);
-								box-shadow: 8px -17px 54px 15px #000000, -8px -17px 54px 15px #000000, 0px 8px 18px -6px rgba(255,255,255,0.9);
+				-webkit-box-shadow: 8px -17px 48px 15px #000000, -8px -17px 48px 15px #000000, 0px 8px 18px -6px rgba(255,255,255,0.9);
+					 -moz-box-shadow: 8px -17px 48px 15px #000000, -8px -17px 48px 15px #000000, 0px 8px 18px -6px rgba(255,255,255,0.9);
+								box-shadow: 8px -17px 48px 15px #000000, -8px -17px 48px 15px #000000, 0px 8px 18px -6px rgba(255,255,255,0.9);
 			}
 		.theme-item__work h2{
 			margin: .3em 0 0 0;
@@ -400,7 +411,9 @@ html, body, .dc-site-contents, .layer{
 }
 	.theme[data-proportion="large"] .theme-item__work img{
 		box-sizing: border-box;
-		padding-left: 1.4em;
+		position: relative;
+		left: 1.4em;
+		width: calc(100% - 1.4em);
 	}
 	.theme[data-proportion="large"] .theme-item__work h2{
 		position: absolute;
@@ -430,19 +443,51 @@ html, body, .dc-site-contents, .layer{
 		transform: translate( -50%, 0 );
 	}
 
-.theme[data-proportion="tiny"] .theme-item__work,
 .theme[data-proportion="tiny"] .theme--section{
-	margin-bottom: 1.75rem;
+	margin-bottom: 1.4rem;
 }
+
+.theme[data-proportion="tiny"] .theme-item__work{
+	margin-bottom: 0.2rem;
+}
+
 .theme[data-proportion="tiny"] .theme--section__description,
-.theme[data-proportion="tiny"] .theme-item__work h2{
+.theme[data-proportion="tiny"] .theme-item__work img{
 	display: none;
+	pointer-events: none;
 }
-	.theme[data-proportion="tiny"]  .theme--section__research ul li h3,
+	.theme[data-proportion="tiny"] .theme-item__work:hover{
+		filter: blur(0px);
+		z-index: 2;
+	}
+
+	.theme[data-proportion="tiny"] .theme-item__work:hover img{
+		display: block;
+		position: absolute;
+		left: -1.2rem;
+		max-width: none;
+		width: calc(100% + 2.4rem);
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	.theme[data-proportion="tiny"] .theme--section__work > h2{
+		display: block;
+		margin-bottom: .4em;
+		margin-top: .6rem;
+	}
+	/*.theme[data-proportion="tiny"]  .theme--section__research ul li h3,
 	.theme[data-proportion="tiny"]  .theme--section__notes ul li h3{
 		font-size: 0;
 		height: 1rem;
 		white-space: nowrap;
+	}*/
+	.theme[data-proportion="tiny"]  .theme--section__research ul li h3,
+	.theme[data-proportion="tiny"]  .theme--section__notes ul li h3,
+	.theme[data-proportion="tiny"] .theme-item__work h2{
+		white-space: nowrap;
+		width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 	.theme[data-proportion="tiny"]  .theme--section__notes ul {
 		padding-left: 1em;
@@ -452,7 +497,7 @@ html, body, .dc-site-contents, .layer{
 	}
 	.theme[data-proportion="tiny"] .theme-item__hasimg .theme-item--hoverimg{
 		padding: 0;
-		display: none;
+		//display: none;
 	}
 		.theme[data-proportion="tiny"] .theme-item__hasimg h3{
 			cursor: default;
@@ -460,20 +505,11 @@ html, body, .dc-site-contents, .layer{
 		.theme[data-proportion="tiny"] .dc-hoverimg-trigger{
 			display: none;
 		}
-		.theme[data-proportion="tiny"]  .theme--section__notes ul li:after,
-		.theme[data-proportion="tiny"]  .theme--section__research ul li a:after{
-			content: 'Note';
-			display: inline-block;
-    	position: absolute;
-    	left: 0;
-			top: 0;
-		}
+		.
 			.theme[data-proportion="tiny"]  .theme--section__research ul li{
 				position: relative;
 			}
-			.theme[data-proportion="tiny"]  .theme--section__research ul li a:after{
-				content: 'Rsrch';
-			}
+
 
 	.theme[data-proportion="tiny"] .theme--leader h1{
 		text-align: left;
@@ -586,6 +622,8 @@ html, body, .dc-site-contents, .layer{
 
 	.quadrant-section.project-section__description{
 		overflow-y: scroll;
+		z-index: 2;
+		position: relative;
 	}
 
 	/* post specifics */
@@ -1283,19 +1321,27 @@ body.page-template-page-about .committee-header{
 	padding: 1.3em 0 10em 1.2rem;
 }
 .theme .theme--section {
-	padding-right: 3.5rem;
+	padding-right: 2.4rem;
 }
 .theme{
 	overflow-y: hidden;
 }
 .theme-scroller-wrapper{
 	position: relative;
+	//width: 102%;
+	//width: calc(100% + 16px);
 	width: 100%;
 	padding: 0;
 	height: 100%;
-	padding-right: 2rem;
+	//padding-right: 2rem;
 	overflow-y: scroll;
 }
+	.theme-scroller-wrapper::-webkit-scrollbar{
+		display: none;
+	}
+	.theme.locked .theme--content .theme--follower::-webkit-scrollbar{
+		display: none;
+	}
 	.theme-scroller-wrapper .theme--content{
 		height: auto;
 	}

@@ -94,8 +94,23 @@ process.umask = function() { return 0; };
 },{}],2:[function(require,module,exports){
 var $ = require( 'jquery' );
 var Site = require( './modules/Site' );
+var site = false;
 
-var site = new Site();
+if( $(window).width() > 640 ){
+	$('body').removeClass('no-js');
+	site = new Site();
+}
+
+
+ $(window).on('resize', function(){
+	 if( site ){
+		 return false;
+	 }
+	 if( $(window).width() > 640 ){
+	 	$('body').removeClass('no-js');
+	 	site = new Site();
+	 }
+ })
 
 },{"./modules/Site":12,"jquery":17}],3:[function(require,module,exports){
 var $ = require('jquery');

@@ -22,7 +22,7 @@
 	<?php include 'inc/dc_piwik_trackingcode.php'; ?>
 </head>
 
-<body <?php body_class(); ?>>
+<body <?php body_class( 'no-js' ); ?>>
 	<header class="committee-header">
 			<a href="<?php echo home_url( 'about' ); ?>">
 				<h1>

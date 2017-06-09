@@ -21,6 +21,7 @@
 					</p>
 				</section>
 				<section class="theme--section theme--section__work">
+					<h2>Projects</h2>
 					<ul>
 						<?php
 							$projects = dc_get_theme_projects( $theme->slug );
