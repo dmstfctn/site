@@ -46,15 +46,17 @@
 						<?php
 							$research = dc_get_theme_research( $theme->slug );
 							if( $research->have_posts() ):
+								$index = $research->post_count;
 								while( $research->have_posts() ):
 									$research->the_post();
 						?>
-							<li class="theme-item theme-item__post">
+							<li class="theme-item theme-item__post" data-li-number="<?php echo $index; ?> ">
 								<a href="<?php the_permalink(); ?>">
 									<h3><?php the_title(); ?></h3>
 								</a>
 							</li>
 						<?php
+								$index--;
 								endwhile;
 							endif;
 						?>
