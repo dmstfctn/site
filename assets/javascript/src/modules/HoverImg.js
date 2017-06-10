@@ -1,5 +1,7 @@
 var $ = require('jquery');
 
+var GLOBAL_TOUCHEXISTS = ("ontouchstart" in document.documentElement);
+
 var HoverImg = function( _ele ){
 	this.$ele = $( _ele );
   this.ele = this.$ele.get(0);
@@ -13,12 +15,14 @@ var proto = HoverImg.prototype;
 
 proto.addListeners = function(){
 	var that = this;
-	this.$trigger.on( 'mouseenter', function(){
-		that.activate();
-	});
-	this.$trigger.on( 'mouseleave', function(){
-		that.deactivate();
-	});
+	if( !GLOBAL_TOUCHEXISTS ){
+		this.$trigger.on( 'mouseenter', function(){
+			that.activate();
+		});
+		this.$trigger.on( 'mouseleave', function(){
+			that.deactivate();
+		});
+	}
 	this.$trigger.on( 'click', function(){
 		that.toggle();
 	});
