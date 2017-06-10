@@ -665,6 +665,19 @@ proto.activate = function(){
 	this.$ele.addClass('active');
 	this.$ele.parent().addClass('hoverimg-active');
 	this.setSrc();
+	if( this.$ele.closest('.theme').attr('data-proportion') === 'tiny' ){
+		var $theme = this.$ele.closest('.theme');
+		var imgGap = 0;
+		var imgW =  $theme.width() - (imgGap * 2);
+		this.$ele.css({
+			'position': 'fixed',
+			'left': $theme.offset().left + (imgW/2) + imgGap,
+			'width': imgW,
+			'top': this.$ele.parent().offset().top
+		})
+	} else {
+		this.$ele.attr('style','');
+	}
 	this.active = true;
 }
 
