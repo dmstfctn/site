@@ -179,9 +179,9 @@ var slideshows = [];
 var hoverImgs = [];
 var videos = [];
 
-var BREAK_POINT = 720;
+var BREAK_POINT = 721;
 
-if( $(window).width() > BREAK_POINT ){
+if( $(window).width() >= BREAK_POINT ){
 	$('body').removeClass('no-js');
 	site = new Site();
 } else {
