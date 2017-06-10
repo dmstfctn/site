@@ -1041,24 +1041,24 @@ proto.setupScrollbar = function(){
 }
 
 proto.scrollbarDrag = function(e){
-	console.log( 'scrollbarDrag', this );
 	e.preventDefault();
-
-
 	// Calculate how far the user's mouse is from the top/left of the scrollbar (minus the dragOffset).
-	var dragPos = e.pageY - this.$scrollBar.height() - this.scrollbar.dragOffset;
+	var dragPos = e.pageY - this.$scrollBar.height() - this.scrollbar.dragOffset - this.scrollbar.positionOffset;
 	// Convert the mouse position into a percentage of the scrollbar height/width.
 	var dragPerc = dragPos / this.$scrollBar.height();
-	console.log( 'scroll % ', dragPerc );
+	if( dragPerc < -0.9995 ){
+		dragPerc = -0.9995;
+	}
+	if( dragPerc > 0 ){
+		dragPerc = 0;
+	}
 	// Scroll the content by the same percentage.
 	var scrollPos = this.$inner[0].scrollHeight - (dragPerc * this.$inner[0].scrollHeight * -1);
-	console.log( 'scrollPos', scrollPos );
 	this.$inner.scrollTop( scrollPos );
 }
 
 proto.scrollbarOnEndDrag = function(e){
 	var that = this;
-	console.log( "scrollbarOnEndDrag" );
 	$(document).off( 'mousemove.' + this.namespace );
 	$(document).off('mouseup.' + this.namespace );
 }
@@ -1067,8 +1067,10 @@ proto.scrollbarStartDrag = function(e){
 	var that = this;
   e.preventDefault();
 
-	this.scrollbar.dragOffset = e.pageY - this.$scrollBarHandle.height();
-
+	//this.scrollbar.dragOffset = e.pageY - this.$scrollBarHandle.height();
+	this.scrollbar.dragOffset = e.pageY - this.$scrollBarHandle.offset().top; // - (this.$scrollBarHandle.height()/2)
+	this.scrollbar.positionOffset = $(window).height() - this.$scrollBar.height();
+	console.log( 'scrollbar offset: ', this.scrollbar.dragOffset )
   $(document).on('mousemove.' + this.namespace , function(e){
 		that.scrollbarDrag(e);
 	});
