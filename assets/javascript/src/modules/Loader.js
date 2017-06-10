@@ -74,7 +74,6 @@ proto.getLoadConfig = function( path ){
 proto.isLoadingBlack = function( classes, html ){
 	var isAboutPage = (classes.indexOf( 'page-template-page-about' ) !== -1);
 	var hasNetworkQuadrant = $( $(html)[0] ).hasClass( '.quadrant-wrapper__network-ensemble' );
-	console.log( $(html), hasNetworkQuadrant );
 	return isAboutPage || hasNetworkQuadrant;
 }
 

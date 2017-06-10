@@ -36,15 +36,21 @@ var SimpleSite = function(){
 var proto = SimpleSite.prototype;
 
 proto.homeFunctionality = function(){
-	var $paneNE = $('#pane-network-ensemble');
+	// var $paneNE = $('#pane-network-ensemble');
+	// $('.committee-header').addClass('invert');
+	// $('.layer__themes').on('scroll', function(){
+	// 	if( $paneNE.offset().top <= 24 ){
+	// 		$('.committee-header').removeClass('invert');
+	// 	} else {
+	// 		$('.committee-header').addClass('invert');
+	// 	}
+	// });
+	 $('.theme--leader').click(function(){
+		 console.log( 'click' );
+		 $('.tabs--top-theme').removeClass('tabs--top-theme');
+		 $(this).closest('.theme').addClass('tabs--top-theme');
+	 })
 	$('.committee-header').addClass('invert');
-	$('.layer__themes').on('scroll', function(){
-		if( $paneNE.offset().top <= 24 ){
-			$('.committee-header').removeClass('invert');
-		} else {
-			$('.committee-header').addClass('invert');
-		}
-	});
 }
 
 proto.destroy = function(){

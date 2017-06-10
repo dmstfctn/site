@@ -34,11 +34,9 @@ var proto = Site.prototype;
 
 proto.setupPanes = function(){
 	if( this.paneLeft ){
-		console.log( 'destroy pane left' );
 		this.paneLeft.destroy();
 	}
 	if( this.paneRight ){
-		console.log( 'destroy pane right' );
 		this.paneRight.destroy();
 	}
 	this.paneLeft = new Pane( $('.theme:first-child') );
@@ -80,7 +78,6 @@ proto.setupLoader = function(){
 	}
 
 	this.loader.onLoaded = function( config ){
-		console.log('loader loaded -> init()')
 		that.init( config );
 	};
 }

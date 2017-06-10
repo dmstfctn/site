@@ -103,7 +103,6 @@ proto.animatePos = function( to, _time ){
 		return;
 	}
 	var time = _time || 200;
-	console.log( time );
 	var that = this;
 	var pos = {};
 	if( to.x ){
@@ -190,13 +189,11 @@ proto.render = function(){
 				right: 0
 			});
 		} else if( this.crop === 1 ){
-			console.log( 'rendering handle from ', this.crossPoint, ' to ', 0 );
 			this.$ele.css({
 				left: this.crossPoint,
 				right: 0
 			});
 		} else if( this.crop === 2 ){
-			console.log( 'rendering handle from ', 0, ' to ', this.crossPoint );
 			this.$ele.css({
 				left: 0,
 				right: $(window).width() - this.crossPoint

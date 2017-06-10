@@ -11,7 +11,9 @@ var slideshows = [];
 var hoverImgs = [];
 var videos = [];
 
-if( $(window).width() > 640 ){
+var BREAK_POINT = 720;
+
+if( $(window).width() > BREAK_POINT ){
 	$('body').removeClass('no-js');
 	site = new Site();
 } else {
@@ -19,11 +21,10 @@ if( $(window).width() > 640 ){
 }
 
 $(window).on('resize', function(){
-	console.log('WINDOW RESIZE')
 	if( site.type === 'full' ){
 		return false;
 	}
-	if( $(window).width() > 640 ){
+	if( $(window).width() > BREAK_POINT ){
 		site.destroy();
 	 	$('body').removeClass('no-js');
 	 	site = new Site();

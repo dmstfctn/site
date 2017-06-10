@@ -44,7 +44,6 @@ proto.setSlide = function( to ){
 
 proto.addListeners = function(){
 	var that = this;
-	console.log( this.$prev );
 	this.$prev.on('click', function(){
 		that.previousSlide();
 	});

@@ -23,7 +23,6 @@ var Pane = function( _ele ){
 	this.render();
 	this.addListeners();
 	this.setupScrollbar();
-	console.log( 'NEW PANE', _ele );
 }
 
 var proto = Pane.prototype;
@@ -87,12 +86,11 @@ proto.toggleLock = function(){
 }
 
 proto.scrollMainBy = function( by ){
-	var mainMaxScroll = this.$scrollwrapper[0].scrollHeight// - this.$ele.height();
-	var innerMaxScroll = this.$inner[0].scrollHeight// - this.$inner.innerHeight();
-	var ratio = (innerMaxScroll / mainMaxScroll) / 3 // 7.5;
+	var mainMaxScroll = this.$scrollwrapper[0].scrollHeight;
+	var innerMaxScroll = this.$inner[0].scrollHeight;
+	var ratio = (innerMaxScroll / mainMaxScroll) / 3;
 	var mappedScroll = by * ratio;
-	//mappedScroll = Math.min( mappedScroll, 10 );
-	console.log( mappedScroll );
+
 	var currentScroll = this.$scrollwrapper.scrollTop();
 	this.$scrollwrapper.scrollTop( currentScroll + mappedScroll );
 };
@@ -137,7 +135,6 @@ proto.scrollInner = function( by ){
 	var scroll = this.$inner.scrollTop();
 	var scrollMax = Math.round( this.$inner[0].scrollHeight - this.$inner.innerHeight() );
 	this.scrollPercent = (scroll/scrollMax) * 100;
-	console.log( 'scroll percent: ', this.scrollPercent );
 	if( scroll + by <= scrollMax - 1 ){
 		this.$inner.scrollTop( scroll + by );
 	}
@@ -208,10 +205,8 @@ proto.scrollbarStartDrag = function(e){
 	var that = this;
   e.preventDefault();
 
-	//this.scrollbar.dragOffset = e.pageY - this.$scrollBarHandle.height();
-	this.scrollbar.dragOffset = e.pageY - this.$scrollBarHandle.offset().top; // - (this.$scrollBarHandle.height()/2)
+	this.scrollbar.dragOffset = e.pageY - this.$scrollBarHandle.offset().top;
 	this.scrollbar.positionOffset = $(window).height() - this.$scrollBar.height();
-	console.log( 'scrollbar offset: ', this.scrollbar.dragOffset )
   $(document).on('mousemove.' + this.namespace , function(e){
 		that.scrollbarDrag(e);
 	});
