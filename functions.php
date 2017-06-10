@@ -5,7 +5,7 @@ require_once( 'inc/dc_acf.php' );
 require_once( 'inc/dc_social.php' );
 
 function dc_styles(){
-	wp_enqueue_style( 'font-source', '//cloud.webtype.com/css/d15347f5-e8a1-436a-9775-9427c520c1e1.css' );
+	//wp_enqueue_style( 'font-source', '//cloud.webtype.com/css/d15347f5-e8a1-436a-9775-9427c520c1e1.css' );
 	wp_enqueue_style( 'styles', get_template_directory_uri() . '/assets/styles/style.css', 'font-source', '80000000026' );
 }
 
