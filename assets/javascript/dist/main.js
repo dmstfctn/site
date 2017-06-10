@@ -859,8 +859,14 @@ module.exports = Loader;
 },{"jquery":19}],9:[function(require,module,exports){
 var $ = require('jquery');
 
+var ID = 0;
+
 var Pane = function( _ele ){
 	this.$ele = (_ele) ? $( _ele ) : this.$ele;
+
+	this.namespace = 'Pane-' + ID;
+	ID++;
+
   this.ele = this.$ele.get(0);
 	this.$scrollwrapper = this.$ele.find('.theme-scroller-wrapper');
 	this.$scrollBar = this.$ele.find('.dc-scrollbar');
@@ -1029,16 +1035,15 @@ proto.addListeners = function(){
 proto.setupScrollbar = function(){
 	var that = this;
 	this.scrollbar = {};
-	this.$scrollBarHandle.on( 'mousedown', function( e ){
+	this.$scrollBarHandle.on( 'mousedown.' + this.namespace , function( e ){
 		that.scrollbarStartDrag( e );
 	});
 }
 
 proto.scrollbarDrag = function(e){
-	console.log( 'scrollbarDrag' );
+	console.log( 'scrollbarDrag', this );
 	e.preventDefault();
-	var track = this.trackY;
-	var scrollEl = this.scrollContentEl;
+
 
 	// Calculate how far the user's mouse is from the top/left of the scrollbar (minus the dragOffset).
 	var dragPos = e.pageY - this.$scrollBar.height() - this.scrollbar.dragOffset;
@@ -1052,20 +1057,24 @@ proto.scrollbarDrag = function(e){
 }
 
 proto.scrollbarOnEndDrag = function(e){
+	var that = this;
 	console.log( "scrollbarOnEndDrag" );
-	$('window').off('mousemove', this.scrollbarDrag );
-	$('window').off('mouseup', this.scrollbarOnEndDrag );
+	$(document).off( 'mousemove.' + this.namespace );
+	$(document).off('mouseup.' + this.namespace );
 }
 
 proto.scrollbarStartDrag = function(e){
-	console.log( 'scrollbarStartDrag' )
 	var that = this;
   e.preventDefault();
 
 	this.scrollbar.dragOffset = e.pageY - this.$scrollBarHandle.height();
 
-  $('window').on('mousemove', this.scrollbarDrag );
-	$('window').on('mouseup', this.scrollbarOnEndDrag );
+  $(document).on('mousemove.' + this.namespace , function(e){
+		that.scrollbarDrag(e);
+	});
+	$(document).on('mouseup.' + this.namespace , function(e){
+		that.scrollbarOnEndDrag(e);
+	});
 
 
 }
