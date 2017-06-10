@@ -31,8 +31,8 @@
 						?>
 							<li class="theme-item theme-item__work">
 								<a href="<?php the_permalink(); ?>">
-									<?php the_post_thumbnail(); ?>
 									<h2><?php the_title(); ?></h2>
+									<?php the_post_thumbnail(); ?>
 								</a>
 							</li>
 						<?php
