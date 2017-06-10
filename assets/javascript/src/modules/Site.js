@@ -20,11 +20,11 @@ var Site = function(){
 	this.hoverImgs = [];
 	this.videos = [];
 
+	this.firstTime = true;
+
 	this.pWinW = $(window).width();
 	this.pWinH = $(window).height();
 
-	this.setupPanes();
-	this.setupHandles();
 	this.setupLoader();
 
 	this.addListeners();
@@ -33,6 +33,14 @@ var Site = function(){
 var proto = Site.prototype;
 
 proto.setupPanes = function(){
+	if( this.paneLeft ){
+		console.log( 'destroy pane left' );
+		this.paneLeft.destroy();
+	}
+	if( this.paneRight ){
+		console.log( 'destroy pane right' );
+		this.paneRight.destroy();
+	}
 	this.paneLeft = new Pane( $('.theme:first-child') );
 	this.paneRight = new Pane( $('.theme:nth-child(2)') );
 }
@@ -68,9 +76,6 @@ proto.setupLoader = function(){
 	this.loader = new Loader();
 
 	this.loader.onInit = function( config ){
-		that.handleY.setPos({
-			y: $(window).height() * 0.7
-		});
 		that.init( config );
 	}
 
@@ -135,8 +140,16 @@ proto.moveGrid = function(){
 
 proto.init = function( config ){
 	var that = this;
-	this.paneLeft = new Pane( $('.theme:first-child') );
-	this.paneRight = new Pane( $('.theme:nth-child(2)') );
+	this.setupPanes();
+	this.setupHandles();
+	if( this.firstTime ){
+		that.handleY.setPos({
+			y: $(window).height() * 0.7
+		});
+		this.firstTime = false;
+	}
+	// this.paneLeft = new Pane( $('.theme:first-child') );
+	// this.paneRight = new Pane( $('.theme:nth-child(2)') );
 	this.project = new Project( $('.layer__project') );
 	this.post = new Post( $('.layer__post') );
 	this.about = new About( $('.about-wrapper') );

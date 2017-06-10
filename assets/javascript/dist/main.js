@@ -187,6 +187,7 @@ if( $(window).width() > 640 ){
 }
 
 $(window).on('resize', function(){
+	console.log('WINDOW RESIZE')
 	if( site.type === 'full' ){
 		return false;
 	}
@@ -875,6 +876,7 @@ var Pane = function( _ele ){
 	this.render();
 	this.addListeners();
 	this.setupScrollbar();
+	console.log( 'NEW PANE', _ele );
 }
 
 var proto = Pane.prototype;
@@ -1026,38 +1028,46 @@ proto.addListeners = function(){
 
 proto.setupScrollbar = function(){
 	var that = this;
-	this.scrollbarState = {
-		dragging: false,
-		pMouse: 0,
-		height: this.$scrollBar.height()
-	};
+	this.scrollbar = {};
 	this.$scrollBarHandle.on( 'mousedown', function( e ){
-		that.scrollbarState.dragging = true;
-		that.scrollbarState.pMouse = e.pageX;
-		that.scrollbarState.height = that.$scrollBar.height();
+		that.scrollbarStartDrag( e );
 	});
-	$(window).on('mouseup', function(){
-		if( that.scrollbarState.dragging ){
-			that.scrollbarState.dragging = false;
-		}
-	});
-	$(window).on( 'mousemove', function( e ){
-		if( !that.scrollbarState.dragging ){
-			return false;
-		}
-		var currentScroll = that.$inner.scrollTop();
-		var winH = $(window).height();
-		var scrollLength = that.$inner[0].scrollHeight;
-		var ratio = scrollLength / winH;
-		var deltaX = e.pageX - that.scrollbarState.pMouse;
-		var scrollDistance = deltaX * ratio;
-		console.log( 'delta: ', deltaX, 'ratio: ', ratio, 'dist: ', scrollDistance );
-		var scrollTo = currentScroll - scrollDistance;
-		if( scrollTo >= 0 ){
-			that.$inner.scrollTop( scrollTo );
-		}
-		that.scrollbarState.pMouse = e.pageX;
-	});
+}
+
+proto.scrollbarDrag = function(e){
+	console.log( 'scrollbarDrag' );
+	e.preventDefault();
+	var track = this.trackY;
+	var scrollEl = this.scrollContentEl;
+
+	// Calculate how far the user's mouse is from the top/left of the scrollbar (minus the dragOffset).
+	var dragPos = e.pageY - this.$scrollBar.height() - this.scrollbar.dragOffset;
+	// Convert the mouse position into a percentage of the scrollbar height/width.
+	var dragPerc = dragPos / this.$scrollBar.height();
+	console.log( 'scroll % ', dragPerc );
+	// Scroll the content by the same percentage.
+	var scrollPos = this.$inner[0].scrollHeight - (dragPerc * this.$inner[0].scrollHeight * -1);
+	console.log( 'scrollPos', scrollPos );
+	this.$inner.scrollTop( scrollPos );
+}
+
+proto.scrollbarOnEndDrag = function(e){
+	console.log( "scrollbarOnEndDrag" );
+	$('window').off('mousemove', this.scrollbarDrag );
+	$('window').off('mouseup', this.scrollbarOnEndDrag );
+}
+
+proto.scrollbarStartDrag = function(e){
+	console.log( 'scrollbarStartDrag' )
+	var that = this;
+  e.preventDefault();
+
+	this.scrollbar.dragOffset = e.pageY - this.$scrollBarHandle.height();
+
+  $('window').on('mousemove', this.scrollbarDrag );
+	$('window').on('mouseup', this.scrollbarOnEndDrag );
+
+
 }
 
 proto.renderScrollBar = function(){
@@ -1071,6 +1081,10 @@ proto.render = function(){
 	this.$ele.css({
     'width': this.width
   });
+}
+
+proto.destroy = function(){
+	this.scrollbarOnEndDrag();
 }
 
 proto._onHover = function(){
@@ -1342,11 +1356,11 @@ var Site = function(){
 	this.hoverImgs = [];
 	this.videos = [];
 
+	this.firstTime = true;
+
 	this.pWinW = $(window).width();
 	this.pWinH = $(window).height();
 
-	this.setupPanes();
-	this.setupHandles();
 	this.setupLoader();
 
 	this.addListeners();
@@ -1355,6 +1369,14 @@ var Site = function(){
 var proto = Site.prototype;
 
 proto.setupPanes = function(){
+	if( this.paneLeft ){
+		console.log( 'destroy pane left' );
+		this.paneLeft.destroy();
+	}
+	if( this.paneRight ){
+		console.log( 'destroy pane right' );
+		this.paneRight.destroy();
+	}
 	this.paneLeft = new Pane( $('.theme:first-child') );
 	this.paneRight = new Pane( $('.theme:nth-child(2)') );
 }
@@ -1390,9 +1412,6 @@ proto.setupLoader = function(){
 	this.loader = new Loader();
 
 	this.loader.onInit = function( config ){
-		that.handleY.setPos({
-			y: $(window).height() * 0.7
-		});
 		that.init( config );
 	}
 
@@ -1457,8 +1476,16 @@ proto.moveGrid = function(){
 
 proto.init = function( config ){
 	var that = this;
-	this.paneLeft = new Pane( $('.theme:first-child') );
-	this.paneRight = new Pane( $('.theme:nth-child(2)') );
+	this.setupPanes();
+	this.setupHandles();
+	if( this.firstTime ){
+		that.handleY.setPos({
+			y: $(window).height() * 0.7
+		});
+		this.firstTime = false;
+	}
+	// this.paneLeft = new Pane( $('.theme:first-child') );
+	// this.paneRight = new Pane( $('.theme:nth-child(2)') );
 	this.project = new Project( $('.layer__project') );
 	this.post = new Post( $('.layer__post') );
 	this.about = new About( $('.about-wrapper') );

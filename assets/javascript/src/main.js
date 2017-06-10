@@ -19,6 +19,7 @@ if( $(window).width() > 640 ){
 }
 
 $(window).on('resize', function(){
+	console.log('WINDOW RESIZE')
 	if( site.type === 'full' ){
 		return false;
 	}
