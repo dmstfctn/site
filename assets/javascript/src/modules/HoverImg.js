@@ -2,12 +2,18 @@ var $ = require('jquery');
 
 var GLOBAL_TOUCHEXISTS = ("ontouchstart" in document.documentElement);
 
+var ID = 0;
+
 var HoverImg = function( _ele ){
 	this.$ele = $( _ele );
   this.ele = this.$ele.get(0);
 	this.$trigger = this.$ele.parent().find('.dc-hoverimg-trigger');
 	this.replaced = false;
 	this.active = false;
+
+	this.namespace = 'HoverImg-' + ID;
+	ID++;
+
 	this.addListeners();
 }
 
@@ -16,14 +22,14 @@ var proto = HoverImg.prototype;
 proto.addListeners = function(){
 	var that = this;
 	if( !GLOBAL_TOUCHEXISTS ){
-		this.$trigger.on( 'mouseenter', function(){
+		this.$trigger.on( 'mouseenter.' + this.namespace, function(){
 			that.activate();
 		});
-		this.$trigger.on( 'mouseleave', function(){
+		this.$trigger.on( 'mouseleave.' + this.namespace, function(){
 			that.deactivate();
 		});
 	}
-	this.$trigger.on( 'click', function(){
+	this.$trigger.on( 'click.' + this.namespace, function(){
 		that.toggle();
 	});
 }
@@ -68,6 +74,13 @@ proto.setSrc = function(){
 	}
 	this.$ele.attr( 'src', this.$ele.attr('data-src') );
 	this.replaced = true;
+}
+
+this.destroy = function(){
+	this.deactivate();
+	this.$trigger.off( 'mouseenter.' + this.namespace );
+	this.$trigger.off( 'mouseleave.' + this.namespace );
+	this.$trigger.off( 'click.' + this.namespace );
 }
 
 module.exports = HoverImg;

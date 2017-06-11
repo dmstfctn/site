@@ -142,29 +142,29 @@ proto.scrollInner = function( by ){
 proto.addListeners = function(){
 	var that = this;
 	var firstClick = false;
-	this.$ele.on('click', function(){
+	this.$ele.on('click.' + this.namespace, function(){
 		if( that.locked || firstClick ){
 			return false;
 		}
 		firstClick = true;
 		that.toggleLock();
 	});
-	this.$ele.find('.theme--leader').on('click', function(){
+	this.$ele.find('.theme--leader').on('click.' + this.namespace, function(){
 		that.toggleLock();
 	});
-	this.$scrollwrapper.on('scroll', function(e){
+	this.$scrollwrapper.on('scroll.' + this.namespace, function(e){
 		that.scrollMainResponse();
 		that.scrollInnerResponse();
 		return false;
 	});
-	this.$inner.on('scroll', function( e ){
+	this.$inner.on('scroll.' + this.namespace, function( e ){
 		if( that.locked ){
 			e.stopPropagation();
 		}
 		that.scrollInnerResponse();
 		that.renderScrollBar();
 	});
-	this.$ele.on( 'mouseenter', function(){
+	this.$ele.on( 'mouseenter.' + this.namespace, function(){
 		that._onHover();
 	});
 };
@@ -230,7 +230,16 @@ proto.render = function(){
 }
 
 proto.destroy = function(){
+	console.log( 'DESTROY: ', this.namespace );
 	this.scrollbarOnEndDrag();
+	this.$ele.off( 'click.' + this.namespace );
+	this.$ele.find('.theme--leader').off( 'click.' + this.namespace );
+	this.$scrollwrapper.off( 'scroll.' + this.namespace );
+	this.$inner.off( 'scroll.' + this.namespace );
+	this.$ele.off( 'mouseenter.' + this.namespace );
+	this.$ele.attr('data-proportion', this.proportionName );
+	this.$ele.attr('data-proportion', '' );
+	this.$ele.attr( 'style', '' );
 }
 
 proto._onHover = function(){

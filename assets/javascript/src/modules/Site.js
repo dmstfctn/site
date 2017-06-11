@@ -10,6 +10,7 @@ var Loader = require('./Loader.js' );
 var Slideshow = require('./Slideshow.js' );
 var Video = require('./Video.js' );
 
+var ID = 0;
 
 var Site = function(){
 	this.type = 'full';
@@ -19,6 +20,9 @@ var Site = function(){
 	this.slideshows = [];
 	this.hoverImgs = [];
 	this.videos = [];
+
+	this.namespace = 'Site-' + ID;
+	ID++;
 
 	this.firstTime = true;
 
@@ -102,7 +106,7 @@ proto.calculateResize = function(){
 
 proto.addListeners = function(){
 	var that = this;
-	$(window).on('resize', function(){
+	$(window).on('resize.' + this.namespace, function(){
 		that.calculateResize();
 		clearTimeout( that.resizeTimeout );
 		that.resizeTimeout = setTimeout(function(){
@@ -141,6 +145,7 @@ proto.moveGrid = function(){
 
 proto.init = function( config ){
 	var that = this;
+	$('.committee-header').removeClass('invert');
 	this.setupPanes();
 	this.setupHandles();
 	if( this.firstTime ){
@@ -232,7 +237,21 @@ proto.init = function( config ){
 };
 
 proto.destroy = function(){
-	
+	$( window ).off( 'resize.' + this.namespace );
+	clearTimeout( this.resizeTimeout );
+
+	this.loader.destroy();
+	this.handleX.destroy();
+	this.handleY.destroy();
+	this.paneLeft.destroy();
+	this.paneRight.destroy();
+	this.post.destroy();
+	this.project.destroy();
+	this.about.destroy();
+	this.slideshows = [];
+	this.hoverImgs = [];
+	this.videos = [];
+
 }
 
 module.exports = Site;

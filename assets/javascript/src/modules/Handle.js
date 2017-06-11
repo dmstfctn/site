@@ -2,6 +2,8 @@ var $ = require('jquery');
 var Unidragger = require( 'unidragger' );
 var TWEEN = require('tween.js');
 
+var ID = 0;
+
 var Handle = function( _ele, _movement ){
   this.$ele = (_ele) ? $( _ele ) : this.$ele;
   this.ele = this.$ele.get(0);
@@ -9,6 +11,9 @@ var Handle = function( _ele, _movement ){
   this.$ele.css({
     'position': 'absolute'
   });
+
+	this.namespace = 'Handle-' + ID;
+	ID++;
 
 	_movement = _movement || {};
 
@@ -209,7 +214,7 @@ proto.setIndicator = function(){
 		left: 0,
 		top: 0
 	};
-	$('body').on('mousemove', function( e ){
+	$('body').on('mousemove.' + this.namespace, function( e ){
 		var x = e.pageX;
 		var y = e.pageY;
 		if( that.movement.x && that.crop === 1){
@@ -269,6 +274,12 @@ proto._onMove = function(){
 	if( typeof this.onMove === 'function' ){
 		this.onMove( this.pos );
 	}
+}
+
+proto.destroy = function(){
+	$('body').off( 'mousemove.' + this.namespace );
+	this.onMove = function(){};
+	this.$ele.removeClass('handle__active');
 }
 
 module.exports = Handle;

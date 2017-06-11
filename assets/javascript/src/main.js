@@ -21,12 +21,20 @@ if( $(window).width() >= BREAK_POINT ){
 }
 
 $(window).on('resize', function(){
-	if( site.type === 'full' ){
-		return false;
-	}
+	// if( site.type === 'full' ){
+	// 	return false;
+	// }
 	if( $(window).width() > BREAK_POINT ){
-		site.destroy();
-	 	$('body').removeClass('no-js');
-	 	site = new Site();
+		if( site.type !== 'full' ){
+			site.destroy();
+	 		$('body').removeClass('no-js');
+	 		site = new Site();
+		}
+	} else {
+		if( site.type === 'full' ){
+			site.destroy();
+			$('body').addClass('no-js');
+			site = new SimpleSite();
+		}
 	}
 });

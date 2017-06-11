@@ -35,4 +35,22 @@ proto.render = function(){
 		.attr('data-section-location', this.sections[3].name );
 }
 
+proto.destroy = function(){
+	this.$images
+		.attr('style','')
+		.attr('data-section-location', '' );
+
+	this.$description
+		.attr('style','')
+		.attr('data-section-location', '' );
+
+	this.$title
+		.attr('style','')
+		.attr('data-section-location', '' );
+
+	this.$close
+		.attr('style','')
+		.attr('data-section-location', '' );
+}
+
 module.exports = Project;

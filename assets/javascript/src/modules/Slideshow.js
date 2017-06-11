@@ -1,10 +1,16 @@
 var $ = require('jquery');
 
+var ID = 0;
+
 var Slideshow = function( _ele ){
 	this.$ele = $( _ele );
 	this.$slides = this.$ele.children();
 	this.total = this.$slides.length
 	this.current = 0;
+
+	this.namespace = 'Slideshow-' + ID;
+	ID++;
+
 	this.createDom();
 	this.addListeners();
 }
@@ -44,12 +50,20 @@ proto.setSlide = function( to ){
 
 proto.addListeners = function(){
 	var that = this;
-	this.$prev.on('click', function(){
+	this.$prev.on('click.' + this.namespace, function(){
 		that.previousSlide();
 	});
-	this.$next.on('click', function(){
+	this.$next.on('click.' + this.namespace, function(){
 		that.nextSlide();
 	});
+}
+
+proto.destroy = function(){
+	this.$next.off( 'click.' + this.namespace );
+	this.$prev.off( 'click.' + this.namespace );
+	this.$prev.remove();
+	this.$next.remove();
+
 }
 
 module.exports = Slideshow;

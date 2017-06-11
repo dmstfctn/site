@@ -608,7 +608,6 @@ html, body, .dc-site-contents, .layer{
 		.theme-item__hasimg h3{
 			position: relative;
 			z-index: 2;
-			cursor: crosshair;
 		}
 		.theme-item__hasimg .theme-item--hoverimg{
 			opacity: 0;
@@ -656,6 +655,7 @@ html, body, .dc-site-contents, .layer{
 			position: absolute;
 			right: 100%;
     	margin-right: 0.4em;
+			cursor: crosshair;
 		}
 			.dc-hoverimg-trigger:after{
 				content: 'IMG';
@@ -724,8 +724,9 @@ html, body, .dc-site-contents, .layer{
 	display: inline-block;
 	position: absolute;
 	left: -1.6rem;
-	top: -0.25rem;
+	top: -0.3rem;
 	font-size: 1.6em;
+	line-height: 1;
 }
 	.theme .theme--section__notes ul li.theme-item__hasimg:before{
 		display: none;
@@ -900,6 +901,8 @@ html, body, .dc-site-contents, .layer{
 				left: 50%;
 				top: 50%;
 				transform: translateX(-50%) translateY(-50%);
+				margin-left: 2px;
+				margin-top: 2px;
 			}
 				.theme[data-proportion="tiny"].theme__network-ensemble .theme--section__notes ul li:before{
 					background: #FFFFFF;

@@ -1,7 +1,8 @@
 var $ = require('jquery');
 var VimeoPlayer = require('@vimeo/player');
 
-//var fitVids = require( '../lib/fitVids.js' )( $ );
+var ID = 0;
+
 var Video = function( _ele ){
 	this.$ele = $(_ele);
 	this.$video = this.$ele.find('iframe');
@@ -10,6 +11,9 @@ var Video = function( _ele ){
 	this.vidW = this.$video.attr('width') || 16;
 	this.vidH = this.$video.attr('height') || 9;
 	this.vidRatio = this.vidH / this.vidW;
+
+	this.namespace = 'Video-' + ID;
+	ID++;
 
 	this.w = this.vidW;
 	this.h = this.vidH;
@@ -47,25 +51,23 @@ proto.toggleVideo = function(){
 
 proto.addListeners = function(){
 	var that = this;
-	this.$cover.on('click', function(){
+	this.$cover.on( 'click.' + this.namespace, function(){
 		that.toggleVideo();
 		that.render();
 	});
 
-	this.player.on('play', function(){
+	this.player.on('play.' + this.namespace, function(){
 		that.playing = true;
 		that.render();
 	});
-	this.player.on('pause', function(){
+	this.player.on('pause.' + this.namespace, function(){
 		that.playing = false;
 		that.render();
 	});
-	this.player.on('ended', function(){
+	this.player.on('ended.' + this.namespace, function(){
 		that.playing = false;
 		that.render();
 	});
-
-
 }
 
 proto.setSize = function(){
@@ -93,6 +95,18 @@ proto.render = function(){
 	this.$video.width( this.w ).height( this.h );
 	this.$cover.width( this.w ).height( this.h );
 	this.$img.width( this.w ).height( this.h );
+}
+
+proto.destroy = function(){
+	this.$video.width( '' ).height( '' );
+	this.$cover.width( '' ).height( '' );
+	this.$img.width( '' ).height( '' );
+	this.$ele.removeClass('playing');
+	this.$cover.off( 'click.' + this.namespace );
+	this.player.off('play.' + this.namespace );
+	this.player.off('pause.' + this.namespace );
+	this.player.off('ended.' + this.namespace );
+	this.$cover.remove();
 }
 
 module.exports = Video;

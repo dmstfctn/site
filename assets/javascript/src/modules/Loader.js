@@ -1,7 +1,13 @@
 var $ = require('jquery');
 
+var ID = 0;
+
 var Loader = function( context ){
 	var that = this;
+
+	this.namespace = 'Loader-' + ID;
+	ID++;
+
 	this.$context = (context) ? $(context) : $('html');
 	this.loadTime = 300;
 	this.setupPaths();
@@ -51,7 +57,7 @@ proto.setupPaths = function(){
 
 proto.addListeners = function(){
 	var that = this;
-	$(window).on( 'popstate', function(e){
+	$(window).on( 'popstate.' + this.namespace, function(e){
 		var state = history.state;
 		if( state ){
 			that.load( state );
@@ -144,7 +150,7 @@ proto.isExternalLink = function( url ){
 proto.prepareLinks = function( _$context ){
 	var that = this;
 	var $context = _$context || this.$context;
-	$('a', $context ).on( 'click', function( e ){
+	$('a', $context ).on( 'click.' + this.namespace, function( e ){
 		var isTargetBlank = ( $(this).attr('target') === '_blank' );
 		if( !that.isExternalLink( this.href ) && !isTargetBlank ){
 			that.historyChange( this.href, this.pathname, this.hash, this.search );
@@ -162,6 +168,12 @@ proto._onInit = function( config ){
 	if( typeof this.onInit === 'function' ){
 		this.onInit( config );
 	}
+}
+
+proto.destroy = function(){
+	$(window).off( 'popstate.' + this.namespace );
+	$('a').off( 'click.' + this.namespace );
+
 }
 
 module.exports = Loader;

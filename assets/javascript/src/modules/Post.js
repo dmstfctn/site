@@ -49,7 +49,20 @@ proto.calculateHierarchy = function(){
 			this.renderSections.push( this.sections[i] );
 		}
 	}
-
 };
+
+proto.destroy = function(){
+	this.$content.attr('style','')
+		.attr( 'data-section-location', '' )
+		.attr( 'data-section-span', '' );
+
+	this.$title
+		.attr('style','')
+		.attr( 'data-section-location', '' );
+
+	this.$close
+		.attr('style','')
+		.attr( 'data-section-location', '' );
+}
 
 module.exports = Post;

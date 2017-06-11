@@ -189,13 +189,21 @@ if( $(window).width() >= BREAK_POINT ){
 }
 
 $(window).on('resize', function(){
-	if( site.type === 'full' ){
-		return false;
-	}
+	// if( site.type === 'full' ){
+	// 	return false;
+	// }
 	if( $(window).width() > BREAK_POINT ){
-		site.destroy();
-	 	$('body').removeClass('no-js');
-	 	site = new Site();
+		if( site.type !== 'full' ){
+			site.destroy();
+	 		$('body').removeClass('no-js');
+	 		site = new Site();
+		}
+	} else {
+		if( site.type === 'full' ){
+			site.destroy();
+			$('body').addClass('no-js');
+			site = new SimpleSite();
+		}
 	}
 });
 
@@ -212,7 +220,6 @@ var About = function( _ele ){
 	this.setConstraints();
 	this.calculateProportion();
 	this.render();
-	this.addListeners();
 }
 
 var proto = About.prototype;
@@ -246,10 +253,6 @@ proto.calculateProportion = function(){
 	}
 }
 
-proto.addListeners = function(){
-	var that = this;
-};
-
 proto.render = function(){
 	this.$content.attr('data-proportion', this.proportionName );
 	this.$content.css({
@@ -258,6 +261,13 @@ proto.render = function(){
 	this.$extra.css({
     'width': this.widthR
   });
+}
+
+proto.destroy = function(){
+	this.$content.attr( 'data-proportion', '' );
+	this.$content.attr( 'style', '' );
+	this.$extra.attr( 'style', '' );
+	
 }
 
 module.exports = About;
@@ -355,6 +365,8 @@ var $ = require('jquery');
 var Unidragger = require( 'unidragger' );
 var TWEEN = require('tween.js');
 
+var ID = 0;
+
 var Handle = function( _ele, _movement ){
   this.$ele = (_ele) ? $( _ele ) : this.$ele;
   this.ele = this.$ele.get(0);
@@ -362,6 +374,9 @@ var Handle = function( _ele, _movement ){
   this.$ele.css({
     'position': 'absolute'
   });
+
+	this.namespace = 'Handle-' + ID;
+	ID++;
 
 	_movement = _movement || {};
 
@@ -562,7 +577,7 @@ proto.setIndicator = function(){
 		left: 0,
 		top: 0
 	};
-	$('body').on('mousemove', function( e ){
+	$('body').on('mousemove.' + this.namespace, function( e ){
 		var x = e.pageX;
 		var y = e.pageY;
 		if( that.movement.x && that.crop === 1){
@@ -624,6 +639,12 @@ proto._onMove = function(){
 	}
 }
 
+proto.destroy = function(){
+	$('body').off( 'mousemove.' + this.namespace );
+	this.onMove = function(){};
+	this.$ele.removeClass('handle__active');
+}
+
 module.exports = Handle;
 
 },{"jquery":19,"tween.js":20,"unidragger":21}],7:[function(require,module,exports){
@@ -631,12 +652,18 @@ var $ = require('jquery');
 
 var GLOBAL_TOUCHEXISTS = ("ontouchstart" in document.documentElement);
 
+var ID = 0;
+
 var HoverImg = function( _ele ){
 	this.$ele = $( _ele );
   this.ele = this.$ele.get(0);
 	this.$trigger = this.$ele.parent().find('.dc-hoverimg-trigger');
 	this.replaced = false;
 	this.active = false;
+
+	this.namespace = 'HoverImg-' + ID;
+	ID++;
+
 	this.addListeners();
 }
 
@@ -645,14 +672,14 @@ var proto = HoverImg.prototype;
 proto.addListeners = function(){
 	var that = this;
 	if( !GLOBAL_TOUCHEXISTS ){
-		this.$trigger.on( 'mouseenter', function(){
+		this.$trigger.on( 'mouseenter.' + this.namespace, function(){
 			that.activate();
 		});
-		this.$trigger.on( 'mouseleave', function(){
+		this.$trigger.on( 'mouseleave.' + this.namespace, function(){
 			that.deactivate();
 		});
 	}
-	this.$trigger.on( 'click', function(){
+	this.$trigger.on( 'click.' + this.namespace, function(){
 		that.toggle();
 	});
 }
@@ -699,13 +726,26 @@ proto.setSrc = function(){
 	this.replaced = true;
 }
 
+this.destroy = function(){
+	this.deactivate();
+	this.$trigger.off( 'mouseenter.' + this.namespace );
+	this.$trigger.off( 'mouseleave.' + this.namespace );
+	this.$trigger.off( 'click.' + this.namespace );
+}
+
 module.exports = HoverImg;
 
 },{"jquery":19}],8:[function(require,module,exports){
 var $ = require('jquery');
 
+var ID = 0;
+
 var Loader = function( context ){
 	var that = this;
+
+	this.namespace = 'Loader-' + ID;
+	ID++;
+
 	this.$context = (context) ? $(context) : $('html');
 	this.loadTime = 300;
 	this.setupPaths();
@@ -755,7 +795,7 @@ proto.setupPaths = function(){
 
 proto.addListeners = function(){
 	var that = this;
-	$(window).on( 'popstate', function(e){
+	$(window).on( 'popstate.' + this.namespace, function(e){
 		var state = history.state;
 		if( state ){
 			that.load( state );
@@ -848,7 +888,7 @@ proto.isExternalLink = function( url ){
 proto.prepareLinks = function( _$context ){
 	var that = this;
 	var $context = _$context || this.$context;
-	$('a', $context ).on( 'click', function( e ){
+	$('a', $context ).on( 'click.' + this.namespace, function( e ){
 		var isTargetBlank = ( $(this).attr('target') === '_blank' );
 		if( !that.isExternalLink( this.href ) && !isTargetBlank ){
 			that.historyChange( this.href, this.pathname, this.hash, this.search );
@@ -866,6 +906,12 @@ proto._onInit = function( config ){
 	if( typeof this.onInit === 'function' ){
 		this.onInit( config );
 	}
+}
+
+proto.destroy = function(){
+	$(window).off( 'popstate.' + this.namespace );
+	$('a').off( 'click.' + this.namespace );
+
 }
 
 module.exports = Loader;
@@ -1015,29 +1061,29 @@ proto.scrollInner = function( by ){
 proto.addListeners = function(){
 	var that = this;
 	var firstClick = false;
-	this.$ele.on('click', function(){
+	this.$ele.on('click.' + this.namespace, function(){
 		if( that.locked || firstClick ){
 			return false;
 		}
 		firstClick = true;
 		that.toggleLock();
 	});
-	this.$ele.find('.theme--leader').on('click', function(){
+	this.$ele.find('.theme--leader').on('click.' + this.namespace, function(){
 		that.toggleLock();
 	});
-	this.$scrollwrapper.on('scroll', function(e){
+	this.$scrollwrapper.on('scroll.' + this.namespace, function(e){
 		that.scrollMainResponse();
 		that.scrollInnerResponse();
 		return false;
 	});
-	this.$inner.on('scroll', function( e ){
+	this.$inner.on('scroll.' + this.namespace, function( e ){
 		if( that.locked ){
 			e.stopPropagation();
 		}
 		that.scrollInnerResponse();
 		that.renderScrollBar();
 	});
-	this.$ele.on( 'mouseenter', function(){
+	this.$ele.on( 'mouseenter.' + this.namespace, function(){
 		that._onHover();
 	});
 };
@@ -1103,7 +1149,16 @@ proto.render = function(){
 }
 
 proto.destroy = function(){
+	console.log( 'DESTROY: ', this.namespace );
 	this.scrollbarOnEndDrag();
+	this.$ele.off( 'click.' + this.namespace );
+	this.$ele.find('.theme--leader').off( 'click.' + this.namespace );
+	this.$scrollwrapper.off( 'scroll.' + this.namespace );
+	this.$inner.off( 'scroll.' + this.namespace );
+	this.$ele.off( 'mouseenter.' + this.namespace );
+	this.$ele.attr('data-proportion', this.proportionName );
+	this.$ele.attr('data-proportion', '' );
+	this.$ele.attr( 'style', '' );
 }
 
 proto._onHover = function(){
@@ -1166,8 +1221,21 @@ proto.calculateHierarchy = function(){
 			this.renderSections.push( this.sections[i] );
 		}
 	}
-
 };
+
+proto.destroy = function(){
+	this.$content.attr('style','')
+		.attr( 'data-section-location', '' )
+		.attr( 'data-section-span', '' );
+
+	this.$title
+		.attr('style','')
+		.attr( 'data-section-location', '' );
+
+	this.$close
+		.attr('style','')
+		.attr( 'data-section-location', '' );
+}
 
 module.exports = Post;
 
@@ -1207,6 +1275,24 @@ proto.render = function(){
 	this.$close
 		.css( this.sections[3].css )
 		.attr('data-section-location', this.sections[3].name );
+}
+
+proto.destroy = function(){
+	this.$images
+		.attr('style','')
+		.attr('data-section-location', '' );
+
+	this.$description
+		.attr('style','')
+		.attr('data-section-location', '' );
+
+	this.$title
+		.attr('style','')
+		.attr('data-section-location', '' );
+
+	this.$close
+		.attr('style','')
+		.attr('data-section-location', '' );
 }
 
 module.exports = Project;
@@ -1371,6 +1457,7 @@ var Loader = require('./Loader.js' );
 var Slideshow = require('./Slideshow.js' );
 var Video = require('./Video.js' );
 
+var ID = 0;
 
 var Site = function(){
 	this.type = 'full';
@@ -1380,6 +1467,9 @@ var Site = function(){
 	this.slideshows = [];
 	this.hoverImgs = [];
 	this.videos = [];
+
+	this.namespace = 'Site-' + ID;
+	ID++;
 
 	this.firstTime = true;
 
@@ -1463,7 +1553,7 @@ proto.calculateResize = function(){
 
 proto.addListeners = function(){
 	var that = this;
-	$(window).on('resize', function(){
+	$(window).on('resize.' + this.namespace, function(){
 		that.calculateResize();
 		clearTimeout( that.resizeTimeout );
 		that.resizeTimeout = setTimeout(function(){
@@ -1502,6 +1592,7 @@ proto.moveGrid = function(){
 
 proto.init = function( config ){
 	var that = this;
+	$('.committee-header').removeClass('invert');
 	this.setupPanes();
 	this.setupHandles();
 	if( this.firstTime ){
@@ -1593,7 +1684,21 @@ proto.init = function( config ){
 };
 
 proto.destroy = function(){
-	
+	$( window ).off( 'resize.' + this.namespace );
+	clearTimeout( this.resizeTimeout );
+
+	this.loader.destroy();
+	this.handleX.destroy();
+	this.handleY.destroy();
+	this.paneLeft.destroy();
+	this.paneRight.destroy();
+	this.post.destroy();
+	this.project.destroy();
+	this.about.destroy();
+	this.slideshows = [];
+	this.hoverImgs = [];
+	this.videos = [];
+
 }
 
 module.exports = Site;
@@ -1601,11 +1706,17 @@ module.exports = Site;
 },{"../lib/fitVids":2,"./About.js":4,"./Handle.js":6,"./HoverImg.js":7,"./Loader.js":8,"./Pane.js":9,"./Post.js":10,"./Project.js":11,"./Slideshow.js":15,"./Video.js":16,"jquery":19}],15:[function(require,module,exports){
 var $ = require('jquery');
 
+var ID = 0;
+
 var Slideshow = function( _ele ){
 	this.$ele = $( _ele );
 	this.$slides = this.$ele.children();
 	this.total = this.$slides.length
 	this.current = 0;
+
+	this.namespace = 'Slideshow-' + ID;
+	ID++;
+
 	this.createDom();
 	this.addListeners();
 }
@@ -1645,12 +1756,20 @@ proto.setSlide = function( to ){
 
 proto.addListeners = function(){
 	var that = this;
-	this.$prev.on('click', function(){
+	this.$prev.on('click.' + this.namespace, function(){
 		that.previousSlide();
 	});
-	this.$next.on('click', function(){
+	this.$next.on('click.' + this.namespace, function(){
 		that.nextSlide();
 	});
+}
+
+proto.destroy = function(){
+	this.$next.off( 'click.' + this.namespace );
+	this.$prev.off( 'click.' + this.namespace );
+	this.$prev.remove();
+	this.$next.remove();
+
 }
 
 module.exports = Slideshow;
@@ -1659,7 +1778,8 @@ module.exports = Slideshow;
 var $ = require('jquery');
 var VimeoPlayer = require('@vimeo/player');
 
-//var fitVids = require( '../lib/fitVids.js' )( $ );
+var ID = 0;
+
 var Video = function( _ele ){
 	this.$ele = $(_ele);
 	this.$video = this.$ele.find('iframe');
@@ -1668,6 +1788,9 @@ var Video = function( _ele ){
 	this.vidW = this.$video.attr('width') || 16;
 	this.vidH = this.$video.attr('height') || 9;
 	this.vidRatio = this.vidH / this.vidW;
+
+	this.namespace = 'Video-' + ID;
+	ID++;
 
 	this.w = this.vidW;
 	this.h = this.vidH;
@@ -1705,25 +1828,23 @@ proto.toggleVideo = function(){
 
 proto.addListeners = function(){
 	var that = this;
-	this.$cover.on('click', function(){
+	this.$cover.on( 'click.' + this.namespace, function(){
 		that.toggleVideo();
 		that.render();
 	});
 
-	this.player.on('play', function(){
+	this.player.on('play.' + this.namespace, function(){
 		that.playing = true;
 		that.render();
 	});
-	this.player.on('pause', function(){
+	this.player.on('pause.' + this.namespace, function(){
 		that.playing = false;
 		that.render();
 	});
-	this.player.on('ended', function(){
+	this.player.on('ended.' + this.namespace, function(){
 		that.playing = false;
 		that.render();
 	});
-
-
 }
 
 proto.setSize = function(){
@@ -1751,6 +1872,18 @@ proto.render = function(){
 	this.$video.width( this.w ).height( this.h );
 	this.$cover.width( this.w ).height( this.h );
 	this.$img.width( this.w ).height( this.h );
+}
+
+proto.destroy = function(){
+	this.$video.width( '' ).height( '' );
+	this.$cover.width( '' ).height( '' );
+	this.$img.width( '' ).height( '' );
+	this.$ele.removeClass('playing');
+	this.$cover.off( 'click.' + this.namespace );
+	this.player.off('play.' + this.namespace );
+	this.player.off('pause.' + this.namespace );
+	this.player.off('ended.' + this.namespace );
+	this.$cover.remove();
 }
 
 module.exports = Video;

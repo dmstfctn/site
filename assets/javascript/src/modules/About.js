@@ -10,7 +10,6 @@ var About = function( _ele ){
 	this.setConstraints();
 	this.calculateProportion();
 	this.render();
-	this.addListeners();
 }
 
 var proto = About.prototype;
@@ -44,10 +43,6 @@ proto.calculateProportion = function(){
 	}
 }
 
-proto.addListeners = function(){
-	var that = this;
-};
-
 proto.render = function(){
 	this.$content.attr('data-proportion', this.proportionName );
 	this.$content.css({
@@ -56,6 +51,13 @@ proto.render = function(){
 	this.$extra.css({
     'width': this.widthR
   });
+}
+
+proto.destroy = function(){
+	this.$content.attr( 'data-proportion', '' );
+	this.$content.attr( 'style', '' );
+	this.$extra.attr( 'style', '' );
+	
 }
 
 module.exports = About;
