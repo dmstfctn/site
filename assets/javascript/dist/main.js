@@ -196,7 +196,7 @@ $(window).on('resize', function(){
 		site.destroy();
 	 	$('body').removeClass('no-js');
 	 	site = new Site();
-	 }
+	}
 });
 
 },{"./modules/HoverImg.js":7,"./modules/SimpleSite":13,"./modules/Site":14,"./modules/Slideshow.js":15,"./modules/Video.js":16,"jquery":19}],4:[function(require,module,exports){
@@ -907,7 +907,6 @@ proto.setWidth = function( to ){
 	} else if( this.width < this.minWidth ){
 		this.width = this.minWidth;
 	}
-
 	this.calculateProportion();
 	this.render();
 }
@@ -1466,6 +1465,10 @@ proto.addListeners = function(){
 	var that = this;
 	$(window).on('resize', function(){
 		that.calculateResize();
+		clearTimeout( that.resizeTimeout );
+		that.resizeTimeout = setTimeout(function(){
+			that.calculateResize();
+		}, 150);
 	});
 }
 
@@ -1588,6 +1591,10 @@ proto.init = function( config ){
 
 	this.handleY.render();
 };
+
+proto.destroy = function(){
+	
+}
 
 module.exports = Site;
 

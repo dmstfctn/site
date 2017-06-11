@@ -104,6 +104,10 @@ proto.addListeners = function(){
 	var that = this;
 	$(window).on('resize', function(){
 		that.calculateResize();
+		clearTimeout( that.resizeTimeout );
+		that.resizeTimeout = setTimeout(function(){
+			that.calculateResize();
+		}, 150);
 	});
 }
 
@@ -226,5 +230,9 @@ proto.init = function( config ){
 
 	this.handleY.render();
 };
+
+proto.destroy = function(){
+	
+}
 
 module.exports = Site;

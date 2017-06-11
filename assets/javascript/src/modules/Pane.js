@@ -34,7 +34,6 @@ proto.setWidth = function( to ){
 	} else if( this.width < this.minWidth ){
 		this.width = this.minWidth;
 	}
-
 	this.calculateProportion();
 	this.render();
 }

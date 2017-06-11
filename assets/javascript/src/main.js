@@ -28,5 +28,5 @@ $(window).on('resize', function(){
 		site.destroy();
 	 	$('body').removeClass('no-js');
 	 	site = new Site();
-	 }
+	}
 });
