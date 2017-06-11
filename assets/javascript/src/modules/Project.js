@@ -24,7 +24,8 @@ proto.render = function(){
 
 	this.$description
 		.css( this.sections[1].css )
-		.attr('data-section-location', this.sections[1].name );
+		.attr('data-section-location', this.sections[1].name )
+		.attr('data-proportion', this.calculateQuadrantProportion( this.sections[1].css ) )
 
 	this.$title
 		.css( this.sections[2].css )

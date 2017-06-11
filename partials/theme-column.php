@@ -1,4 +1,4 @@
-<article id="pane-<?php echo $theme->slug; ?>" class="theme theme__<?php echo $theme->slug; ?>" >
+<article id="<?php echo $theme->slug; ?>" class="theme theme__<?php echo $theme->slug; ?>" >
 	<div class="theme--image-cover" style="background-image: url('<?php echo $theme->image ?>')"></div>
 	<div class="dc-scrollbar">
 		<div class="dc-scrollbar--handle"></div>
@@ -16,7 +16,7 @@
 			</header>
 			<div class="theme--follower">
 				<section class="theme--section theme--section__description">
-					<p>
+					<p class="wysiwyg">
 						<?php echo $theme->description; ?>
 					</p>
 				</section>

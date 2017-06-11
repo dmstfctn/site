@@ -232,4 +232,26 @@
 		return $notes_query;
 	}
 
+	function dc_get_news(){
+		$all_themes = get_terms('dc_tax_topics');
+		$slugs = array();
+		foreach( $all_themes as $theme ){
+			$slugs[] = $theme->slug;
+		}
+		$news_query = new WP_Query( array(
+			'posts_per_page'	=>	-1,
+			'post_type'				=>	array( 'dc_social_twitter', 'dc_social_instagram', 'post' ),
+			'post_status'			=>	'publish',
+			'tax_query'				=>	array(
+					array(
+						'taxonomy'		=>	'dc_tax_topics',
+						'field'				=>	'slug',
+						'terms'				=>	$slugs,
+						'operator'		=>	'NOT IN'
+					)
+			)
+		));
+		return $news_query;
+	}
+
 ?>

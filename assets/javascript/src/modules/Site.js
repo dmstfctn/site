@@ -9,6 +9,7 @@ var HoverImg = require('./HoverImg.js' );
 var Loader = require('./Loader.js' );
 var Slideshow = require('./Slideshow.js' );
 var Video = require('./Video.js' );
+var CollapsiblePanel = require('./CollapsiblePanel.js' );
 
 var ID = 0;
 
@@ -20,6 +21,7 @@ var Site = function(){
 	this.slideshows = [];
 	this.hoverImgs = [];
 	this.videos = [];
+	this.panels = [];
 
 	this.namespace = 'Site-' + ID;
 	ID++;
@@ -162,6 +164,7 @@ proto.init = function( config ){
 	this.slideshows = [];
 	this.hoverImgs = [];
 	this.videos = [];
+	this.panels = [];
 
 	$('.dc-slideshow').each(function(){
 		that.slideshows.push( new Slideshow( $(this) ) );
@@ -173,6 +176,10 @@ proto.init = function( config ){
 
 	$('.dc-video').each(function(){
 		that.videos.push( new Video( $(this) ) );
+	});
+
+	$('.collapsible-panel').each(function(){
+		that.panels.push( new CollapsiblePanel( $(this) ) );
 	});
 
 	$('.wysiwyg').fitVids();
@@ -233,6 +240,26 @@ proto.init = function( config ){
 		this.handleY.setCroppedPart( 0 );
 	}
 
+	if( config && config.name === 'about' ){
+		console.log( 'ABOUT' );
+		this.handleX.setConstraints({
+			x: {
+				min: this.about.minWidth,
+				max: this.about.maxWidth
+			},
+			y: {
+				min: 0,
+				max: $(window).width()
+			}
+		});
+	}
+
+	// if( config && config.name === 'home' ){
+	// 	if( window.location.hash ){
+	// 		$( '.theme' + window.location.hash ).find('.theme--leader').click();
+	// 	}
+	// }
+
 	this.handleY.render();
 };
 
@@ -248,6 +275,7 @@ proto.destroy = function(){
 	this.post.destroy();
 	this.project.destroy();
 	this.about.destroy();
+	this.panels = [];
 	this.slideshows = [];
 	this.hoverImgs = [];
 	this.videos = [];

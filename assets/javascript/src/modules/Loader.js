@@ -84,6 +84,13 @@ proto.isLoadingBlack = function( classes, html ){
 }
 
 proto.load = function( state ){
+	if( this.goingBack ){
+		this.goingBack = false;
+		if( state.path === this.pPath ){
+			this.historyChange( window.location.origin + this.pathBase, this.pathBase );
+			return;
+		}
+	}
 	var that = this;
 	var config = this.getLoadConfig( state.path );
 	$('body').attr('class','loading');
@@ -92,8 +99,13 @@ proto.load = function( state ){
 		var $html = $(data).find( config.selector ).html();
 		var title = $(data).filter("title").text();
 
+		var logoLink = $(data).filter('.committee-header').find('a').attr('href');
+
+
 		document.title = title;
 		config.destination.html( $html );
+
+		$('.committee-header a').attr('href',logoLink);
 
 		that.prepareLinks( config.destination );
 
@@ -131,6 +143,13 @@ proto.historyChange = function( href, pathname, hash, search ){
 		window.history.pushState(stateObj, "", pathname );
 		this.load( stateObj );
 	}
+
+}
+
+proto.historyBack = function(){
+	this.goingBack = true;
+	this.pPath = window.location.pathname;
+	window.history.back();
 }
 
 proto.isExternalLink = function( url ){
@@ -153,7 +172,11 @@ proto.prepareLinks = function( _$context ){
 	$('a', $context ).on( 'click.' + this.namespace, function( e ){
 		var isTargetBlank = ( $(this).attr('target') === '_blank' );
 		if( !that.isExternalLink( this.href ) && !isTargetBlank ){
-			that.historyChange( this.href, this.pathname, this.hash, this.search );
+			if( $(this).hasClass('quadrant-close-link') ){
+				that.historyBack();
+			} else {
+				that.historyChange( this.href, this.pathname, this.hash, this.search );
+			}
 			e.preventDefault();
 		}
 	});

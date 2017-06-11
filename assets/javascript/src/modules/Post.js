@@ -21,7 +21,8 @@ proto.render = function(){
 	this.$content
 		.css( this.renderSections[0].css )
 		.attr( 'data-section-location', this.renderSections[0].name )
-		.attr( 'data-section-span', this.largestColumn );
+		.attr( 'data-section-span', this.largestColumn )
+		.attr('data-proportion', this.calculateQuadrantProportion( this.sections[0].css ) )
 
 	this.$title
 		.css( this.renderSections[1].css )

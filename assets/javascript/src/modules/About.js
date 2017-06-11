@@ -27,24 +27,30 @@ proto.setWidth = function( widthL, widthR ){
 }
 
 proto.setConstraints = function(){
-	this.minWidth = this.$ele.parent().width() / 16;
+	this.minWidth = this.$ele.parent().width() / 8;
 	this.maxWidth = this.$ele.parent().width() - this.minWidth;
 }
 
 proto.calculateProportion = function(){
-	this.proportion = this.width / this.maxWidth;
-	this.proportionName = 'large';
-	if( this.proportion < 0.15 ){
-		this.proportionName = 'tiny';
-	} else if( this.proportion < 0.3 ){
-		this.proportionName = 'small';
-	} else if( this.proportion < 0.7 ){
-		this.proportionName = 'normal';
+	this.proportionL = this.widthL / this.maxWidth;
+	this.proportionNameL = 'large';
+	if( this.proportionL < 0.4 ){
+		this.proportionNameL = 'small';
+	} else if( this.proportionL < 0.7 ){
+		this.proportionNameL = 'normal';
+	}
+	this.proportionR = this.widthR / this.maxWidth;
+	this.proportionNameR = 'large';
+	if( this.proportionR < 0.4 ){
+		this.proportionNameR = 'small';
+	} else if( this.proportionR < 0.7 ){
+		this.proportionNameR = 'normal';
 	}
 }
 
 proto.render = function(){
-	this.$content.attr('data-proportion', this.proportionName );
+	this.$content.attr('data-proportion', this.proportionNameL );
+	this.$extra.attr('data-proportion', this.proportionNameR );
 	this.$content.css({
     'width': this.widthL
   });
@@ -56,8 +62,9 @@ proto.render = function(){
 proto.destroy = function(){
 	this.$content.attr( 'data-proportion', '' );
 	this.$content.attr( 'style', '' );
+	this.$extra.attr( 'data-proportion', '' );
 	this.$extra.attr( 'style', '' );
-	
+
 }
 
 module.exports = About;

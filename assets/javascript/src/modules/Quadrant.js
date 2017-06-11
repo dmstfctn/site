@@ -44,6 +44,16 @@ proto.calculateHierarchy = function(){
 	});
 };
 
+proto.calculateQuadrantProportion = function( css ){
+	var max = $(window).width();
+	var proportion = css.width / max;
+	if( proportion <= 0.35 ){
+		return 'small';
+	} else {
+		return 'normal';
+	}
+}
+
 proto.render = function(){
 	this.$one
 		.css( this.sections[0].css )

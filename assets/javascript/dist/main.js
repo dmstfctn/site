@@ -207,7 +207,7 @@ $(window).on('resize', function(){
 	}
 });
 
-},{"./modules/HoverImg.js":7,"./modules/SimpleSite":13,"./modules/Site":14,"./modules/Slideshow.js":15,"./modules/Video.js":16,"jquery":19}],4:[function(require,module,exports){
+},{"./modules/HoverImg.js":8,"./modules/SimpleSite":14,"./modules/Site":15,"./modules/Slideshow.js":16,"./modules/Video.js":17,"jquery":20}],4:[function(require,module,exports){
 var $ = require('jquery');
 
 var About = function( _ele ){
@@ -237,24 +237,30 @@ proto.setWidth = function( widthL, widthR ){
 }
 
 proto.setConstraints = function(){
-	this.minWidth = this.$ele.parent().width() / 16;
+	this.minWidth = this.$ele.parent().width() / 8;
 	this.maxWidth = this.$ele.parent().width() - this.minWidth;
 }
 
 proto.calculateProportion = function(){
-	this.proportion = this.width / this.maxWidth;
-	this.proportionName = 'large';
-	if( this.proportion < 0.15 ){
-		this.proportionName = 'tiny';
-	} else if( this.proportion < 0.3 ){
-		this.proportionName = 'small';
-	} else if( this.proportion < 0.7 ){
-		this.proportionName = 'normal';
+	this.proportionL = this.widthL / this.maxWidth;
+	this.proportionNameL = 'large';
+	if( this.proportionL < 0.4 ){
+		this.proportionNameL = 'small';
+	} else if( this.proportionL < 0.7 ){
+		this.proportionNameL = 'normal';
+	}
+	this.proportionR = this.widthR / this.maxWidth;
+	this.proportionNameR = 'large';
+	if( this.proportionR < 0.4 ){
+		this.proportionNameR = 'small';
+	} else if( this.proportionR < 0.7 ){
+		this.proportionNameR = 'normal';
 	}
 }
 
 proto.render = function(){
-	this.$content.attr('data-proportion', this.proportionName );
+	this.$content.attr('data-proportion', this.proportionNameL );
+	this.$extra.attr('data-proportion', this.proportionNameR );
 	this.$content.css({
     'width': this.widthL
   });
@@ -266,13 +272,70 @@ proto.render = function(){
 proto.destroy = function(){
 	this.$content.attr( 'data-proportion', '' );
 	this.$content.attr( 'style', '' );
+	this.$extra.attr( 'data-proportion', '' );
 	this.$extra.attr( 'style', '' );
-	
+
 }
 
 module.exports = About;
 
-},{"jquery":19}],5:[function(require,module,exports){
+},{"jquery":20}],5:[function(require,module,exports){
+var $ = require('jquery');
+
+var ID = 0;
+
+var CollapsiblePanel = function( _ele ){
+	this.$ele = $( _ele );
+  this.ele = this.$ele.get(0);
+	this.$trigger = this.$ele.find('.collapsible-panel--toggle');
+	this.isOpen = ( $(this).hasClass('collapsed') ) ? true : false;
+	console.log( 'PANEL IS ONPEN? ', this.isOpen );
+	this.namespace = 'CollapsiblePanel-' + ID;
+	ID++;
+
+	console.log( 'new panel: ' + this.namespace );
+
+	this.addListeners();
+}
+
+var proto = CollapsiblePanel.prototype;
+
+proto.addListeners = function(){
+	var that = this;
+
+	this.$trigger.on( 'click.' + this.namespace, function(){
+		that.toggle();
+	});
+}
+
+proto.toggle = function(){
+	if( this.isOpen ){
+		console.log( 'close panel')
+		this.close();
+	} else {
+		console.log( 'open panel')
+		this.open();
+	}
+}
+
+proto.open = function(){
+	this.$ele.removeClass('collapsed');
+	this.isOpen = true;
+}
+
+proto.close = function(){
+	this.$ele.addClass('collapsed');
+	this.isOpen = false;
+}
+
+this.destroy = function(){
+	this.close();
+	this.$trigger.off( 'click.' + this.namespace );
+}
+
+module.exports = CollapsiblePanel;
+
+},{"jquery":20}],6:[function(require,module,exports){
 var $ = require('jquery');
 
 var Grid = function( _ele ){
@@ -360,7 +423,7 @@ proto.setCenter = function( to ){
 
 module.exports = Grid;
 
-},{"jquery":19}],6:[function(require,module,exports){
+},{"jquery":20}],7:[function(require,module,exports){
 var $ = require('jquery');
 var Unidragger = require( 'unidragger' );
 var TWEEN = require('tween.js');
@@ -425,6 +488,7 @@ proto.setConstraints = function( constraints ){
 			max: constraints.y.max || Infinity
 		}
 	};
+	console.log( this.constraints );
 };
 
 proto.adjustPos = function( by ){
@@ -647,7 +711,7 @@ proto.destroy = function(){
 
 module.exports = Handle;
 
-},{"jquery":19,"tween.js":20,"unidragger":21}],7:[function(require,module,exports){
+},{"jquery":20,"tween.js":21,"unidragger":22}],8:[function(require,module,exports){
 var $ = require('jquery');
 
 var GLOBAL_TOUCHEXISTS = ("ontouchstart" in document.documentElement);
@@ -735,7 +799,7 @@ this.destroy = function(){
 
 module.exports = HoverImg;
 
-},{"jquery":19}],8:[function(require,module,exports){
+},{"jquery":20}],9:[function(require,module,exports){
 var $ = require('jquery');
 
 var ID = 0;
@@ -822,6 +886,13 @@ proto.isLoadingBlack = function( classes, html ){
 }
 
 proto.load = function( state ){
+	if( this.goingBack ){
+		this.goingBack = false;
+		if( state.path === this.pPath ){
+			this.historyChange( window.location.origin + this.pathBase, this.pathBase );
+			return;
+		}
+	}
 	var that = this;
 	var config = this.getLoadConfig( state.path );
 	$('body').attr('class','loading');
@@ -830,8 +901,13 @@ proto.load = function( state ){
 		var $html = $(data).find( config.selector ).html();
 		var title = $(data).filter("title").text();
 
+		var logoLink = $(data).filter('.committee-header').find('a').attr('href');
+
+
 		document.title = title;
 		config.destination.html( $html );
+
+		$('.committee-header a').attr('href',logoLink);
 
 		that.prepareLinks( config.destination );
 
@@ -869,6 +945,13 @@ proto.historyChange = function( href, pathname, hash, search ){
 		window.history.pushState(stateObj, "", pathname );
 		this.load( stateObj );
 	}
+
+}
+
+proto.historyBack = function(){
+	this.goingBack = true;
+	this.pPath = window.location.pathname;
+	window.history.back();
 }
 
 proto.isExternalLink = function( url ){
@@ -891,7 +974,11 @@ proto.prepareLinks = function( _$context ){
 	$('a', $context ).on( 'click.' + this.namespace, function( e ){
 		var isTargetBlank = ( $(this).attr('target') === '_blank' );
 		if( !that.isExternalLink( this.href ) && !isTargetBlank ){
-			that.historyChange( this.href, this.pathname, this.hash, this.search );
+			if( $(this).hasClass('quadrant-close-link') ){
+				that.historyBack();
+			} else {
+				that.historyChange( this.href, this.pathname, this.hash, this.search );
+			}
 			e.preventDefault();
 		}
 	});
@@ -916,7 +1003,7 @@ proto.destroy = function(){
 
 module.exports = Loader;
 
-},{"jquery":19}],9:[function(require,module,exports){
+},{"jquery":20}],10:[function(require,module,exports){
 var $ = require('jquery');
 
 var ID = 0;
@@ -1169,7 +1256,7 @@ proto._onHover = function(){
 
 module.exports = Pane;
 
-},{"jquery":19}],10:[function(require,module,exports){
+},{"jquery":20}],11:[function(require,module,exports){
 var $ = require('jquery');
 var Quadrant = require( './Quadrant.js' );
 
@@ -1193,7 +1280,8 @@ proto.render = function(){
 	this.$content
 		.css( this.renderSections[0].css )
 		.attr( 'data-section-location', this.renderSections[0].name )
-		.attr( 'data-section-span', this.largestColumn );
+		.attr( 'data-section-span', this.largestColumn )
+		.attr('data-proportion', this.calculateQuadrantProportion( this.sections[0].css ) )
 
 	this.$title
 		.css( this.renderSections[1].css )
@@ -1239,7 +1327,7 @@ proto.destroy = function(){
 
 module.exports = Post;
 
-},{"./Quadrant.js":12,"jquery":19}],11:[function(require,module,exports){
+},{"./Quadrant.js":13,"jquery":20}],12:[function(require,module,exports){
 var $ = require('jquery');
 var Quadrant = require( './Quadrant.js' );
 
@@ -1266,7 +1354,8 @@ proto.render = function(){
 
 	this.$description
 		.css( this.sections[1].css )
-		.attr('data-section-location', this.sections[1].name );
+		.attr('data-section-location', this.sections[1].name )
+		.attr('data-proportion', this.calculateQuadrantProportion( this.sections[1].css ) )
 
 	this.$title
 		.css( this.sections[2].css )
@@ -1297,7 +1386,7 @@ proto.destroy = function(){
 
 module.exports = Project;
 
-},{"./Quadrant.js":12,"jquery":19}],12:[function(require,module,exports){
+},{"./Quadrant.js":13,"jquery":20}],13:[function(require,module,exports){
 var $ = require('jquery');
 var Grid = require( './Grid.js' );
 
@@ -1344,6 +1433,16 @@ proto.calculateHierarchy = function(){
 	});
 };
 
+proto.calculateQuadrantProportion = function( css ){
+	var max = $(window).width();
+	var proportion = css.width / max;
+	if( proportion <= 0.35 ){
+		return 'small';
+	} else {
+		return 'normal';
+	}
+}
+
 proto.render = function(){
 	this.$one
 		.css( this.sections[0].css )
@@ -1379,13 +1478,15 @@ proto.setReorderable = function( to ){
 
 module.exports = Quadrant;
 
-},{"./Grid.js":5,"jquery":19}],13:[function(require,module,exports){
+},{"./Grid.js":6,"jquery":20}],14:[function(require,module,exports){
 var $ = require( 'jquery' );
 var fitVids = require( '../lib/fitVids' )( $ )
 
 var HoverImg = require('./HoverImg.js' );
 var Slideshow = require('./Slideshow.js' );
 var Video = require('./Video.js' );
+
+var ID = 0;
 
 var SimpleSite = function(){
 	var that = this;
@@ -1394,7 +1495,10 @@ var SimpleSite = function(){
 	this.slideshows = [];
 	this.hoverImgs = [];
 	this.videos = [];
+	this.panels = []
 
+	this.namespace = 'SimpleSite-' + ID;
+	ID++;
 
 	$('.dc-slideshow').each(function(){
 		that.slideshows.push( new Slideshow( $(this) ) );
@@ -1408,6 +1512,10 @@ var SimpleSite = function(){
 		that.videos.push( new Video( $(this) ) );
 	});
 
+	$('.collapsible-panel').each(function(){
+		that.panels.push( new CollapsiblePanel( $(this) ) );
+	});
+
 	$('.wysiwyg').fitVids();
 
 	if( this.$body.hasClass('home') ){
@@ -1418,17 +1526,7 @@ var SimpleSite = function(){
 var proto = SimpleSite.prototype;
 
 proto.homeFunctionality = function(){
-	// var $paneNE = $('#pane-network-ensemble');
-	// $('.committee-header').addClass('invert');
-	// $('.layer__themes').on('scroll', function(){
-	// 	if( $paneNE.offset().top <= 24 ){
-	// 		$('.committee-header').removeClass('invert');
-	// 	} else {
-	// 		$('.committee-header').addClass('invert');
-	// 	}
-	// });
-	 $('.theme--leader').click(function(){
-		 console.log( 'click' );
+	 $('.theme--leader').on( 'click.' + this.namespace, function(){
 		 $('.tabs--top-theme').removeClass('tabs--top-theme');
 		 $(this).closest('.theme').addClass('tabs--top-theme');
 	 })
@@ -1436,15 +1534,17 @@ proto.homeFunctionality = function(){
 }
 
 proto.destroy = function(){
+	$('.theme--leader').off( 'click.' + this.namespace );
 	this.slideshows = [];
 	this.hoverImgs = [];
 	this.videos = [];
+	this.panels = [];
 }
 
 
 module.exports = SimpleSite;
 
-},{"../lib/fitVids":2,"./HoverImg.js":7,"./Slideshow.js":15,"./Video.js":16,"jquery":19}],14:[function(require,module,exports){
+},{"../lib/fitVids":2,"./HoverImg.js":8,"./Slideshow.js":16,"./Video.js":17,"jquery":20}],15:[function(require,module,exports){
 var $ = require( 'jquery' );
 var fitVids = require( '../lib/fitVids' )( $ );
 var Handle = require( './Handle.js' );
@@ -1456,6 +1556,7 @@ var HoverImg = require('./HoverImg.js' );
 var Loader = require('./Loader.js' );
 var Slideshow = require('./Slideshow.js' );
 var Video = require('./Video.js' );
+var CollapsiblePanel = require('./CollapsiblePanel.js' );
 
 var ID = 0;
 
@@ -1467,6 +1568,7 @@ var Site = function(){
 	this.slideshows = [];
 	this.hoverImgs = [];
 	this.videos = [];
+	this.panels = [];
 
 	this.namespace = 'Site-' + ID;
 	ID++;
@@ -1609,6 +1711,7 @@ proto.init = function( config ){
 	this.slideshows = [];
 	this.hoverImgs = [];
 	this.videos = [];
+	this.panels = [];
 
 	$('.dc-slideshow').each(function(){
 		that.slideshows.push( new Slideshow( $(this) ) );
@@ -1620,6 +1723,10 @@ proto.init = function( config ){
 
 	$('.dc-video').each(function(){
 		that.videos.push( new Video( $(this) ) );
+	});
+
+	$('.collapsible-panel').each(function(){
+		that.panels.push( new CollapsiblePanel( $(this) ) );
 	});
 
 	$('.wysiwyg').fitVids();
@@ -1680,6 +1787,26 @@ proto.init = function( config ){
 		this.handleY.setCroppedPart( 0 );
 	}
 
+	if( config && config.name === 'about' ){
+		console.log( 'ABOUT' );
+		this.handleX.setConstraints({
+			x: {
+				min: this.about.minWidth,
+				max: this.about.maxWidth
+			},
+			y: {
+				min: 0,
+				max: $(window).width()
+			}
+		});
+	}
+
+	// if( config && config.name === 'home' ){
+	// 	if( window.location.hash ){
+	// 		$( '.theme' + window.location.hash ).find('.theme--leader').click();
+	// 	}
+	// }
+
 	this.handleY.render();
 };
 
@@ -1695,6 +1822,7 @@ proto.destroy = function(){
 	this.post.destroy();
 	this.project.destroy();
 	this.about.destroy();
+	this.panels = [];
 	this.slideshows = [];
 	this.hoverImgs = [];
 	this.videos = [];
@@ -1703,7 +1831,7 @@ proto.destroy = function(){
 
 module.exports = Site;
 
-},{"../lib/fitVids":2,"./About.js":4,"./Handle.js":6,"./HoverImg.js":7,"./Loader.js":8,"./Pane.js":9,"./Post.js":10,"./Project.js":11,"./Slideshow.js":15,"./Video.js":16,"jquery":19}],15:[function(require,module,exports){
+},{"../lib/fitVids":2,"./About.js":4,"./CollapsiblePanel.js":5,"./Handle.js":7,"./HoverImg.js":8,"./Loader.js":9,"./Pane.js":10,"./Post.js":11,"./Project.js":12,"./Slideshow.js":16,"./Video.js":17,"jquery":20}],16:[function(require,module,exports){
 var $ = require('jquery');
 
 var ID = 0;
@@ -1774,7 +1902,7 @@ proto.destroy = function(){
 
 module.exports = Slideshow;
 
-},{"jquery":19}],16:[function(require,module,exports){
+},{"jquery":20}],17:[function(require,module,exports){
 var $ = require('jquery');
 var VimeoPlayer = require('@vimeo/player');
 
@@ -1888,7 +2016,7 @@ proto.destroy = function(){
 
 module.exports = Video;
 
-},{"@vimeo/player":17,"jquery":19}],17:[function(require,module,exports){
+},{"@vimeo/player":18,"jquery":20}],18:[function(require,module,exports){
 (function (global){
 /*! @vimeo/player v2.1.0 | (c) 2017 Vimeo | MIT License | https://github.com/vimeo/player.js */
 (function (global, factory) {
@@ -3974,7 +4102,7 @@ return Player;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 /**
  * EvEmitter v1.0.3
  * Lil' event emitter
@@ -4085,7 +4213,7 @@ return EvEmitter;
 
 }));
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.2.1
  * https://jquery.com/
@@ -14340,7 +14468,7 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 (function (process){
 /**
  * Tween.js - Licensed under the MIT license
@@ -15226,7 +15354,7 @@ TWEEN.Interpolation = {
 })(this);
 
 }).call(this,require('_process'))
-},{"_process":1}],21:[function(require,module,exports){
+},{"_process":1}],22:[function(require,module,exports){
 /*!
  * Unidragger v2.1.0
  * Draggable base class
@@ -15512,7 +15640,7 @@ return Unidragger;
 
 }));
 
-},{"unipointer":22}],22:[function(require,module,exports){
+},{"unipointer":23}],23:[function(require,module,exports){
 /*!
  * Unipointer v2.1.0
  * base class for doing one thing with pointer event
@@ -15817,4 +15945,4 @@ return Unipointer;
 
 }));
 
-},{"ev-emitter":18}]},{},[3]);
+},{"ev-emitter":19}]},{},[3]);

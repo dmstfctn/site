@@ -5,6 +5,8 @@ var HoverImg = require('./HoverImg.js' );
 var Slideshow = require('./Slideshow.js' );
 var Video = require('./Video.js' );
 
+var ID = 0;
+
 var SimpleSite = function(){
 	var that = this;
 	this.type = 'simple';
@@ -12,7 +14,10 @@ var SimpleSite = function(){
 	this.slideshows = [];
 	this.hoverImgs = [];
 	this.videos = [];
+	this.panels = []
 
+	this.namespace = 'SimpleSite-' + ID;
+	ID++;
 
 	$('.dc-slideshow').each(function(){
 		that.slideshows.push( new Slideshow( $(this) ) );
@@ -26,6 +31,10 @@ var SimpleSite = function(){
 		that.videos.push( new Video( $(this) ) );
 	});
 
+	$('.collapsible-panel').each(function(){
+		that.panels.push( new CollapsiblePanel( $(this) ) );
+	});
+
 	$('.wysiwyg').fitVids();
 
 	if( this.$body.hasClass('home') ){
@@ -36,17 +45,7 @@ var SimpleSite = function(){
 var proto = SimpleSite.prototype;
 
 proto.homeFunctionality = function(){
-	// var $paneNE = $('#pane-network-ensemble');
-	// $('.committee-header').addClass('invert');
-	// $('.layer__themes').on('scroll', function(){
-	// 	if( $paneNE.offset().top <= 24 ){
-	// 		$('.committee-header').removeClass('invert');
-	// 	} else {
-	// 		$('.committee-header').addClass('invert');
-	// 	}
-	// });
-	 $('.theme--leader').click(function(){
-		 console.log( 'click' );
+	 $('.theme--leader').on( 'click.' + this.namespace, function(){
 		 $('.tabs--top-theme').removeClass('tabs--top-theme');
 		 $(this).closest('.theme').addClass('tabs--top-theme');
 	 })
@@ -54,9 +53,11 @@ proto.homeFunctionality = function(){
 }
 
 proto.destroy = function(){
+	$('.theme--leader').off( 'click.' + this.namespace );
 	this.slideshows = [];
 	this.hoverImgs = [];
 	this.videos = [];
+	this.panels = [];
 }
 
 

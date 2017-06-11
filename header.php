@@ -24,9 +24,13 @@
 
 <body <?php body_class( 'no-js' ); ?>>
 	<header class="committee-header">
-			<a href="<?php echo home_url( 'about' ); ?>">
+			<?php if( is_page_template( 'page-about.php') ): ?>
+				<a href="<?php echo home_url(); ?>">
+			<?php else: ?>
+				<a href="<?php echo home_url( 'about' ); ?>">
+			<?php endif; ?>
 				<h1>
-					<span>Demystification Committee</span>					
+					<span>Demystification Committee</span>
 				</h1>
 			</a>
 	</header>
