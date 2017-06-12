@@ -3,7 +3,25 @@
 <?php get_header(); ?>
 
 
-	<div class="layer layer__committee">
+	<div class="layer layer__committee tabs--top-theme">
+		<div class="about-fake-tabs">
+			<div class="theme">
+				<div class="theme--leader">
+					<h1>
+						<a href="<?php echo home_url('#offshore-studies'); ?>">
+							Offshore
+						</a>
+					</h1>
+				</div>
+			</div>
+			<div class="theme theme__network-ensemble">
+				<div class="theme--leader">
+					<a href="<?php echo home_url('#network-ensemble'); ?>">
+						<h1>Network</h1>
+					</a>
+				</div>
+			</div>
+		</div>
 		<article class="about-wrapper" id="about">
 			<?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 				<section class="about--content about--pane">

@@ -20,6 +20,26 @@ var SimpleSite = function(){
 	this.namespace = 'SimpleSite-' + ID;
 	ID++;
 
+
+	if( this.$body.hasClass('home') ){
+		this.loadAbout( function(){
+			that.init();
+			that.initTabs();
+		});
+	}
+	if( this.$body.hasClass('page-template-page-about') ){
+		$('.about-fake-tabs').find('h1').unwrap('a');
+		this.loadHome(function(){
+			that.init();
+			that.initTabs();
+		});
+	}
+}
+
+var proto = SimpleSite.prototype;
+
+proto.init = function(){
+	var that = this;
 	$('.dc-slideshow').each(function(){
 		that.slideshows.push( new Slideshow( $(this) ) );
 	});
@@ -37,24 +57,50 @@ var SimpleSite = function(){
 	});
 
 	$('.wysiwyg').fitVids();
-
-	if( this.$body.hasClass('home') ){
-		this.homeFunctionality();
-	}
 }
 
-var proto = SimpleSite.prototype;
+proto.loadAbout = function( callback ){
+	var that = this;
+	$.get('/mmittee/about', function( data ){
+		var $content = $(data).filter('.dc-site-contents').find('.layer__committee').html();
+		$('.layer__committee').html( $content );
+		if( typeof callback === 'function' ){
+			callback();
+		}
+	})
+};
 
-proto.homeFunctionality = function(){
-	 $('.theme--leader').on( 'click.' + this.namespace, function(){
+proto.loadHome = function( callback ){
+	var that = this;
+	$.get('/mmittee', function( data ){
+		var $content = $(data).filter('.dc-site-contents').find('.layer__themes').html();
+		$('.layer__themes').html( $content );
+		if( typeof callback === 'function' ){
+			callback();
+		}
+	})
+}
+
+proto.initTabs = function(){
+	 $('.theme--leader').on( 'click.' + this.namespace, function( e ){
+		 e.preventDefault();
 		 $('.tabs--top-theme').removeClass('tabs--top-theme');
-		 $(this).closest('.theme').addClass('tabs--top-theme');
-	 })
-	$('.committee-header').addClass('invert');
+		 if( $(this).closest('.theme').hasClass('theme__network-ensemble') ){
+			 $('.layer__themes').find('.theme__network-ensemble').addClass('tabs--top-theme');
+		 } else {
+			 $('.layer__themes').find('.theme__offshore-studies').addClass('tabs--top-theme');
+		 }
+	 });
+	 $('.committee-header a').on( 'click.' + this.namespace, function( e ){
+		 e.preventDefault();
+		 $('.tabs--top-theme').removeClass('tabs--top-theme');
+		 $('.layer__committee').addClass('tabs--top-theme');
+	 });
 }
 
 proto.destroy = function(){
 	$('.theme--leader').off( 'click.' + this.namespace );
+	$('.committee-header a').off( 'click.' + this.namespace );
 	this.slideshows = [];
 	this.hoverImgs = [];
 	this.videos = [];

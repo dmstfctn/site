@@ -1,4 +1,4 @@
-	<?php if( !is_front_page() ): ?>
+	<?php if( !is_front_page() && !is_archive() ): ?>
 		<div class="layer layer__themes themes">
 			<!-- replaced by theme columns when they're loaded -->
 			<article  class="theme">

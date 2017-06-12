@@ -1,4 +1,10 @@
-<article class="quadrant-wrapper post-wrapper quadrant-wrapper__<?php echo dc_get_post_theme( get_the_ID() )->slug; ?>">
+<?php
+	$theme_slug = dc_get_post_theme( get_the_ID() )->slug;
+	if( strlen( $theme_slug ) <= 0 ){
+		$theme_slug = 'committee';
+	}
+?>
+<article class="quadrant-wrapper post-wrapper quadrant-wrapper__<?php echo $theme_slug; ?>">
 	<header class="quadrant-section post-section post-section__title" data-section-location="nw">
 		<h1>
 			<?php the_title(); ?>

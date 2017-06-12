@@ -154,12 +154,13 @@ proto.historyBack = function(){
 
 proto.isExternalLink = function( url ){
 	//see: http://stackoverflow.com/a/28054735
+	console.log( 'proto.isExternalLink() ', url );
 	var check = function(url) {
 		if ( url.indexOf('//') === 0 ) { url = location.protocol + url; }
 		return url.toLowerCase().replace(/([a-z])?:\/\//,'$1').split('/')[0];
 	}
 	var ext = ( ( url.indexOf(':') > -1 || url.indexOf('//') > -1 ) && check(location.href) !== check(url) );
-	if( url.indexOf('/wp-content/uploads/') !== -1 ){
+	if( url.indexOf('/wp-content/uploads/') !== -1 ||  url.indexOf('/downloads/') !== -1 ){
 		return true;
 	} else {
 		return ext;

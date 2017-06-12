@@ -147,28 +147,28 @@ html, body, .dc-site-contents, .layer{
 	}
 
 	body.page-template-page-about .committee-header h1 {
-		background-position: -30px top;
+		background-position: -1.6rem top;
 	}
 
 	@media (min-width: 721px){
 		.committee-header:hover h1{
-			background-position: 0px -22px;
+			background-position: 0px -1rem;
 		}
 		.committee-header:hover{
 			display: block;
 			height: 17rem;
 		}
 		.committee-header:hover h1{
-			background-position: 0px -25px;
+			background-position: 0px -1rem;
 		}
 			.committee-header.invert:hover h1{
-				background-position: -1.6rem -15px;
+				background-position: -1.6rem -1rem;
 			}
 			body.page-template-page-about .committee-header h1{
-				background-position: -47px top;
+				background-position: -1.6rem top;
 			}
 				body.page-template-page-about .committee-header:hover h1{
-					background-position: -47px -25px;
+					background-position: -1.6rem -1rem;
 				}
 	}
 
@@ -457,10 +457,6 @@ html, body, .dc-site-contents, .layer{
 		}
 		.theme:nth-child(2){
 			z-index: 2;
-		}
-
-		.theme.tabs--top-theme{
-			z-index: 5;
 		}
 
 		.theme,
@@ -1012,6 +1008,7 @@ html, body, .dc-site-contents, .layer{
 .about-wrapper{
 	overflow-y: scroll;
 	height: 100%;
+	box-sizing: border-box;
 }
 .about-wrapper .about--extra,
 .about-wrapper .about--content{
@@ -1029,12 +1026,16 @@ html, body, .dc-site-contents, .layer{
 		}
 		.about-wrapper .about--content{
 			padding-right: 2rem;
+			padding-top: 1.55rem;
 		}
 
 		.news-items{
 			padding-left: 1.7em;
 			padding-right: 1rem;
 			list-style-type: none;
+		}
+		.about--section{
+		  padding-bottom: 1.4rem;
 		}
 		.about--section__contact{
 			padding-bottom: 0.4rem;
@@ -1048,7 +1049,14 @@ html, body, .dc-site-contents, .layer{
 .about--section__news .theme-item__type-post h3{
 	text-decoration: underline;
 	text-decoration-skip: ink;
+	filter: blur( 0px );
+	transition: filter .3s ease-in;
 }
+	@media ( min-width: 720px ){
+		.about--section__news .theme-item__type-post h3:hover{
+			filter: blur( 3px );
+		}
+	}
 
 @media ( max-width: 720px ){
 	.about-wrapper{
@@ -1079,6 +1087,17 @@ html, body, .dc-site-contents, .layer{
     		bottom: -1.05em;
     		top: auto;
 			}
+
+	.about-wrapper .about--extra{
+		padding-top: 0;
+	}
+	.about--section__contact {
+  	padding-bottom: 1rem;
+	}
+	.about--section__news{
+		padding-bottom: 0;
+	}
+
 }
 @media ( min-width: 721px ){
 	.about-wrapper .about--extra,
@@ -1105,8 +1124,11 @@ html, body, .dc-site-contents, .layer{
 		max-width: 600px;
 	}
 	.about--section{
-		padding-bottom: 2.4rem;
+		padding-bottom: 1.4rem;
 	}
+		.about--section:last-child{
+			padding-bottom: 0;
+		}
 	.about-wrapper 	.about--extra a.layer-close-link:after{
 		content: '→ ';
 		background: transparent;
@@ -1120,7 +1142,9 @@ html, body, .dc-site-contents, .layer{
 		padding-bottom: 0;
 		padding-bottom: 1.08rem;
 	}
-
+	.about-fake-tabs{
+		display: none;
+	}
 }
 
 /* quadrant page */
@@ -1135,6 +1159,10 @@ html, body, .dc-site-contents, .layer{
 		background: #000000;
 		color: #FFFFFF;
 	}
+	.quadrant-wrapper__committee{
+		background: #FF0000;
+		color: #000000;
+	}
 	.quadrant-wrapper .quadrant-section{
 		box-sizing: border-box;
 		padding: 1.2rem;
@@ -1145,6 +1173,14 @@ html, body, .dc-site-contents, .layer{
 												 inset 0px 0px 15px 3px rgba(163,163,163,0.85);
 					 box-shadow: inset 0px 0px 0.5px 0.25px rgba( 200, 200, 200, 0.9 ),
 												 inset 0px 0px 15px 3px rgba(163,163,163,0.85);
+	}
+	.quadrant-wrapper__committee .quadrant-section{
+		-webkit-box-shadow: inset 0px 0px 0.5px 0.25px rgba( 75, 75, 75, 0.1 ),
+												inset 0px 0px 15px 3px rgba(90,90,90,0.5);
+			-moz-box-shadow: inset 0px 0px 0.5px 0.25px rgba( 75, 75, 75, 0.1),
+											 inset 0px 0px 15px 3px rgba(90,90,90,0.5);
+					 box-shadow: inset 0px 0px 0.5px 0.25px rgba( 75, 75, 75, 0.1 ),
+			 								 inset 0px 0px 15px 3px rgba(90,90,90,0.5);
 	}
 
 @media ( min-width: 721px ){
@@ -1201,20 +1237,11 @@ html, body, .dc-site-contents, .layer{
 .quadrant-wrapper .project-section__close,
 .quadrant-wrapper .post-section__close{
 	position: fixed;
-	background: #ffffff;
+	/*background: #ffffff;*/
 	z-index: 99;
 	top: 0;
 	left: 0;
 	width: 100%;
-	-webkit-box-shadow: inset 0px 0px 0.5px 0.25px rgba( 200, 200, 200, 0.9 ),
-											 inset 0px 0px 15px 3px rgba(163,163,163,0.85),
-											 0 0 15px 3px rgba(163,163,163,0.85)	;
-		-moz-box-shadow: inset 0px 0px 0.5px 0.25px rgba( 200, 200, 200, 0.9 ),
-											 inset 0px 0px 15px 3px rgba(163,163,163,0.85),
-											 0 0 15px 3px rgba(163,163,163,0.85);
-				 box-shadow: inset 0px 0px 0.5px 0.25px rgba( 200, 200, 200, 0.9 ),
-											 inset 0px 0px 15px 3px rgba(163,163,163,0.85),
-											 0 0 15px 3px rgba(163,163,163,0.85);
 }
 	.quadrant-wrapper__network-ensemble .project-section__close,
 	.quadrant-wrapper__network-ensemble .post-section__close{
@@ -1228,6 +1255,21 @@ html, body, .dc-site-contents, .layer{
 		.project-section__close a{
 			margin-left: -.8em;
 		}
+
+@media ( max-width: 721px ){
+	.quadrant-wrapper .project-section__close,
+	.quadrant-wrapper .post-section__close{
+		-webkit-box-shadow: inset 0px 0px 0.5px 0.25px rgba( 200, 200, 200, 0.9 ),
+												 inset 0px 0px 15px 3px rgba(163,163,163,0.85),
+												 0 0 15px 3px rgba(163,163,163,0.85)	;
+			-moz-box-shadow: inset 0px 0px 0.5px 0.25px rgba( 200, 200, 200, 0.9 ),
+												 inset 0px 0px 15px 3px rgba(163,163,163,0.85),
+												 0 0 15px 3px rgba(163,163,163,0.85);
+					 box-shadow: inset 0px 0px 0.5px 0.25px rgba( 200, 200, 200, 0.9 ),
+												 inset 0px 0px 15px 3px rgba(163,163,163,0.85),
+												 0 0 15px 3px rgba(163,163,163,0.85);
+	}
+}
 
 @media ( min-width: 721px ){
 	.project-section__images[data-section-location="nw"] img{
@@ -1738,9 +1780,6 @@ a.text-link{
 	.collapsible-panel--content{
 		overflow: visible;
 	}
-	.collapsible-panel.collapsed{
-		overflow: hidden;
-	}
 	.collapsible-panel.collapsed .collapsible-panel--content{
 		height: 0;
 		overflow: hidden;
@@ -1748,7 +1787,13 @@ a.text-link{
 	.collapsible-panel--toggle{
 		/*font-size: 0.75em;*/
 		cursor: pointer;
+		transition: filter .3s ease-in-out;
 	}
+		@media (min-width: 721px){
+			.collapsible-panel--toggle:hover{
+				filter: blur(3px);
+			}
+		}
 	.collapsible-panel .collapsible-panel--toggle:after{
 		content: 'Less ↑';
 	}
@@ -1775,10 +1820,6 @@ body.loading .dc-site-loader{
 body.loading .committee-header{
 	opacity: 0;
 }
-	.committee-header{
-		transition: opacity .3s ease-in-out;
-		transition-delay: .05s;
-	}
 
 body.loading .dc-site-contents,
 body.loading .layer{
@@ -1813,35 +1854,30 @@ body.loading .layer{
 				transition: filter .3s ease-in;
 			}
 }
-	/*.about-wrapper{
-		overflow: hidden;
-	}*/
-	/*.about-wrapper .about--content,
-	.about-wrapper .about--extra{
-		border-left: none;
-		-webkit-box-shadow: 0 0 15px 3px rgba( 255, 255, 255, 0.4 ),
-												inset 0 0 15px 3px rgba( 255, 255, 255, 0.4 ),
-												0 0 15px 3px rgba( 255, 255, 255, 0.01 );
-			 -moz-box-shadow: 0 0 15px 3px rgba( 255, 255, 255, 0.4 ),
-												inset 0 0 15px 3px rgba( 255, 255, 255, 0.4 ),
-												0 0 15px 3px rgba( 255, 255, 255, 0.01 );
-						box-shadow: 0 0 15px 2px rgba( 255, 255, 255, 0.4 ),
-												inset 0 0 15px 3px rgba( 255, 255, 255, 0.4 ),
-												0 0 15px 3px rgba( 255, 255, 255, 0.01 );
+
+
+/* simplesite tabs */
+@media (max-width: 720px ){
+	.theme  .theme--follower{
+		pointer-events: none;
 	}
-		@media (min-width: 721px){
-			.about-wrapper .about--content,
-			.about-wrapper .about--extra{
-				border-left: none;
-				-webkit-box-shadow: 0 0 15px 3px rgba( 255, 255, 255, 0.4 ),
-														inset 0 0 15px 3px rgba( 255, 255, 255, 0.4 );
-					 -moz-box-shadow: 0 0 15px 3px rgba( 255, 255, 255, 0.4 ),
-														inset 0 0 15px 3px rgba( 255, 255, 255, 0.4 );
-								box-shadow: 0 0 15px 2px rgba( 255, 255, 255, 0.4 ),
-														inset 0 0 15px 3px rgba( 255, 255, 255, 0.4 );
-			}
-		}*/
-			/*.theme{
-				background-color: #000000;
-			}*/
-.
+	.theme.tabs--top-theme{
+		z-index: 5;
+	}
+	.theme.tabs--top-theme .theme--follower{
+		pointer-events: all;
+	}
+		.layer__committee{
+			pointer-events: none;
+			transition: none;
+		}
+		.layer__committee.tabs--top-theme{
+			z-index: 10;
+			opacity: 1 !important;
+			pointer-events: all !important;
+		}
+
+	.about-fake-tabs .theme{
+		height: 2.4rem;
+	}
+}
