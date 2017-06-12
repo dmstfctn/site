@@ -95,7 +95,7 @@ proto.load = function( state ){
 	var config = this.getLoadConfig( state.path );
 	$('body').attr('class','loading');
 	$.get( state.path, function( data ){
-		var newBodyClasses = $( data.replace('<body', '<div id="was-body"') ).filter('#was-body').attr('class');
+		var newBodyClasses = $( data.replace('<body', '<div id="was-body"') ).filter('#was-body').attr('class').replace('no-js','')
 		var $html = $(data).find( config.selector ).html();
 		var title = $(data).filter("title").text();
 
