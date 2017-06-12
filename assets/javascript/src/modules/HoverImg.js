@@ -1,7 +1,7 @@
 var $ = require('jquery');
 
 var GLOBAL_TOUCHEXISTS = ("ontouchstart" in document.documentElement);
-
+console.log( 'GLOBAL_TOUCHEXISTS? ', GLOBAL_TOUCHEXISTS  );
 var ID = 0;
 
 var HoverImg = function( _ele ){
@@ -28,21 +28,30 @@ proto.addListeners = function(){
 		this.$trigger.on( 'mouseleave.' + this.namespace, function(){
 			that.deactivate();
 		});
+		this.$trigger.on( 'click.' + this.namespace, function(){
+			console.log('trigger click')
+			that.toggle();
+		});
 	}
-	this.$trigger.on( 'click.' + this.namespace, function(){
+	this.$trigger.on( 'touchend.' + this.namespace, function(){
+		console.log('trigger click')
 		that.toggle();
 	});
+
 }
 
 proto.toggle = function(){
 	if( this.active ){
+		console.log('deactivate');
 		this.deactivate();
 	} else {
+		console.log('activate');
 		this.activate();
 	}
 }
 
 proto.activate = function(){
+	console.log( 'proto.activate()' );
 	this.$ele.addClass('active');
 	this.$ele.parent().addClass('hoverimg-active');
 	this.setSrc();
@@ -69,9 +78,12 @@ proto.deactivate = function(){
 }
 
 proto.setSrc = function(){
+	console.log( 'proto.setSrc()' );
+	console.log( 'replaced? ', this.replaced )
 	if( this.replaced ){
 		return;
 	}
+	console.log( 'src: ', this.$ele.attr('data-src') );
 	this.$ele.attr( 'src', this.$ele.attr('data-src') );
 	this.replaced = true;
 }
@@ -81,6 +93,7 @@ this.destroy = function(){
 	this.$trigger.off( 'mouseenter.' + this.namespace );
 	this.$trigger.off( 'mouseleave.' + this.namespace );
 	this.$trigger.off( 'click.' + this.namespace );
+	this.$trigger.off( 'touchend.' + this.namespace );
 }
 
 module.exports = HoverImg;

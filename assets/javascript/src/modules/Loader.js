@@ -171,13 +171,14 @@ proto.prepareLinks = function( _$context ){
 	var $context = _$context || this.$context;
 	$('a', $context ).on( 'click.' + this.namespace, function( e ){
 		var isTargetBlank = ( $(this).attr('target') === '_blank' );
+		//console.log( 'LINK: is external? ', that.isExternalLink( this.href ), 'is target blank? ', isTargetBlank );
 		if( !that.isExternalLink( this.href ) && !isTargetBlank ){
+			e.preventDefault();
 			if( $(this).hasClass('quadrant-close-link') ){
 				that.historyBack();
 			} else {
 				that.historyChange( this.href, this.pathname, this.hash, this.search );
 			}
-			e.preventDefault();
 		}
 	});
 }

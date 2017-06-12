@@ -49,14 +49,14 @@ proto.calculateProportion = function(){
 }
 
 proto.render = function(){
-	this.$content.attr('data-proportion', this.proportionNameL );
-	this.$extra.attr('data-proportion', this.proportionNameR );
-	this.$content.css({
-    'width': this.widthL
-  });
-	this.$extra.css({
-    'width': this.widthR
-  });
+	// this.$content.attr('data-proportion', this.proportionNameL );
+	// this.$extra.attr('data-proportion', this.proportionNameR );
+	// this.$content.css({
+  //   'width': this.widthL
+  // });
+	// this.$extra.css({
+  //   'width': this.widthR
+  // });
 }
 
 proto.destroy = function(){

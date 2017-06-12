@@ -259,14 +259,14 @@ proto.calculateProportion = function(){
 }
 
 proto.render = function(){
-	this.$content.attr('data-proportion', this.proportionNameL );
-	this.$extra.attr('data-proportion', this.proportionNameR );
-	this.$content.css({
-    'width': this.widthL
-  });
-	this.$extra.css({
-    'width': this.widthR
-  });
+	// this.$content.attr('data-proportion', this.proportionNameL );
+	// this.$extra.attr('data-proportion', this.proportionNameR );
+	// this.$content.css({
+  //   'width': this.widthL
+  // });
+	// this.$extra.css({
+  //   'width': this.widthR
+  // });
 }
 
 proto.destroy = function(){
@@ -715,7 +715,7 @@ module.exports = Handle;
 var $ = require('jquery');
 
 var GLOBAL_TOUCHEXISTS = ("ontouchstart" in document.documentElement);
-
+console.log( 'GLOBAL_TOUCHEXISTS? ', GLOBAL_TOUCHEXISTS  );
 var ID = 0;
 
 var HoverImg = function( _ele ){
@@ -742,21 +742,30 @@ proto.addListeners = function(){
 		this.$trigger.on( 'mouseleave.' + this.namespace, function(){
 			that.deactivate();
 		});
+		this.$trigger.on( 'click.' + this.namespace, function(){
+			console.log('trigger click')
+			that.toggle();
+		});
 	}
-	this.$trigger.on( 'click.' + this.namespace, function(){
+	this.$trigger.on( 'touchend.' + this.namespace, function(){
+		console.log('trigger click')
 		that.toggle();
 	});
+
 }
 
 proto.toggle = function(){
 	if( this.active ){
+		console.log('deactivate');
 		this.deactivate();
 	} else {
+		console.log('activate');
 		this.activate();
 	}
 }
 
 proto.activate = function(){
+	console.log( 'proto.activate()' );
 	this.$ele.addClass('active');
 	this.$ele.parent().addClass('hoverimg-active');
 	this.setSrc();
@@ -783,9 +792,12 @@ proto.deactivate = function(){
 }
 
 proto.setSrc = function(){
+	console.log( 'proto.setSrc()' );
+	console.log( 'replaced? ', this.replaced )
 	if( this.replaced ){
 		return;
 	}
+	console.log( 'src: ', this.$ele.attr('data-src') );
 	this.$ele.attr( 'src', this.$ele.attr('data-src') );
 	this.replaced = true;
 }
@@ -795,6 +807,7 @@ this.destroy = function(){
 	this.$trigger.off( 'mouseenter.' + this.namespace );
 	this.$trigger.off( 'mouseleave.' + this.namespace );
 	this.$trigger.off( 'click.' + this.namespace );
+	this.$trigger.off( 'touchend.' + this.namespace );
 }
 
 module.exports = HoverImg;
@@ -973,13 +986,14 @@ proto.prepareLinks = function( _$context ){
 	var $context = _$context || this.$context;
 	$('a', $context ).on( 'click.' + this.namespace, function( e ){
 		var isTargetBlank = ( $(this).attr('target') === '_blank' );
+		//console.log( 'LINK: is external? ', that.isExternalLink( this.href ), 'is target blank? ', isTargetBlank );
 		if( !that.isExternalLink( this.href ) && !isTargetBlank ){
+			e.preventDefault();
 			if( $(this).hasClass('quadrant-close-link') ){
 				that.historyBack();
 			} else {
 				that.historyChange( this.href, this.pathname, this.hash, this.search );
 			}
-			e.preventDefault();
 		}
 	});
 }
@@ -1150,10 +1164,11 @@ proto.addListeners = function(){
 	var firstClick = false;
 	this.$ele.on('click.' + this.namespace, function(){
 		if( that.locked || firstClick ){
-			return false;
+			//return false;
+		} else {
+			firstClick = true;
+			that.toggleLock();
 		}
-		firstClick = true;
-		that.toggleLock();
 	});
 	this.$ele.find('.theme--leader').on('click.' + this.namespace, function(){
 		that.toggleLock();
@@ -1485,6 +1500,7 @@ var fitVids = require( '../lib/fitVids' )( $ )
 var HoverImg = require('./HoverImg.js' );
 var Slideshow = require('./Slideshow.js' );
 var Video = require('./Video.js' );
+var CollapsiblePanel = require('./CollapsiblePanel.js');
 
 var ID = 0;
 
@@ -1544,7 +1560,7 @@ proto.destroy = function(){
 
 module.exports = SimpleSite;
 
-},{"../lib/fitVids":2,"./HoverImg.js":8,"./Slideshow.js":16,"./Video.js":17,"jquery":20}],15:[function(require,module,exports){
+},{"../lib/fitVids":2,"./CollapsiblePanel.js":5,"./HoverImg.js":8,"./Slideshow.js":16,"./Video.js":17,"jquery":20}],15:[function(require,module,exports){
 var $ = require( 'jquery' );
 var fitVids = require( '../lib/fitVids' )( $ );
 var Handle = require( './Handle.js' );

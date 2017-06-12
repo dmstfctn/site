@@ -144,10 +144,11 @@ proto.addListeners = function(){
 	var firstClick = false;
 	this.$ele.on('click.' + this.namespace, function(){
 		if( that.locked || firstClick ){
-			return false;
+			//return false;
+		} else {
+			firstClick = true;
+			that.toggleLock();
 		}
-		firstClick = true;
-		that.toggleLock();
 	});
 	this.$ele.find('.theme--leader').on('click.' + this.namespace, function(){
 		that.toggleLock();

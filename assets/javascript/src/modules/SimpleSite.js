@@ -4,6 +4,7 @@ var fitVids = require( '../lib/fitVids' )( $ )
 var HoverImg = require('./HoverImg.js' );
 var Slideshow = require('./Slideshow.js' );
 var Video = require('./Video.js' );
+var CollapsiblePanel = require('./CollapsiblePanel.js');
 
 var ID = 0;
 
