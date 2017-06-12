@@ -394,7 +394,7 @@ html, body, .dc-site-contents, .layer{
 
 			.dc-scrollbar:hover .dc-scrollbar--handle,
 			.dc-scrollbar--handle:hover{
-				height: 27px;
+				height: 33px;
 			}
 				.dc-scrollbar:hover .dc-scrollbar--handle,
 				.dc-scrollbar.mouse-near .dc-scrollbar--handle{
@@ -1037,12 +1037,18 @@ html, body, .dc-site-contents, .layer{
 			list-style-type: none;
 		}
 		.about--section__contact{
+			padding-bottom: 0.4rem;
 			padding-right: 1.7em;
 		}
 
 		.about--section__news h2{
 			line-height: 1.05;
 		}
+
+.about--section__news .theme-item__type-post h3{
+	text-decoration: underline;
+	text-decoration-skip: ink;
+}
 
 @media ( max-width: 720px ){
 	.about-wrapper{
@@ -1054,7 +1060,7 @@ html, body, .dc-site-contents, .layer{
 	.about--section__news .dc-hoverimg-trigger{
 		top: 100%;
 		left: 0;
-		margin-top: .5em;
+		margin-top: .25em;
 	}
 	.about--section__news .theme-item__dc_social_twitter.theme-item__hasimg,
 	.about--section__news .theme-item__dc_social_instagram.theme-item__hasimg{
@@ -1070,7 +1076,7 @@ html, body, .dc-site-contents, .layer{
 			.about--section__news .theme-item__type-post:before{
 				position: absolute;
 				left: 0;
-    		bottom: -1.2em;
+    		bottom: -1.05em;
     		top: auto;
 			}
 }
@@ -1116,6 +1122,7 @@ html, body, .dc-site-contents, .layer{
 	}
 	.about--section__contact{
 		padding-bottom: 0;
+		padding-bottom: 1.08rem;
 	}
 
 }
