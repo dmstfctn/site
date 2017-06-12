@@ -56,8 +56,8 @@ html, body, .dc-site-contents, .layer{
 		background: #FFFFFF;
 	}
 	.layer__committee{
-		background: #000000;
-		color: #ffffff;
+		background: #FF0000;
+		color: #000000;
 		z-index: 5;
 		overflow: hidden;
 		width: 100%;
@@ -146,6 +146,10 @@ html, body, .dc-site-contents, .layer{
 		display: none;
 	}
 
+	body.page-template-page-about .committee-header h1 {
+		background-position: -30px top;
+	}
+
 	@media (min-width: 721px){
 		.committee-header:hover h1{
 			background-position: 0px -22px;
@@ -160,7 +164,12 @@ html, body, .dc-site-contents, .layer{
 			.committee-header.invert:hover h1{
 				background-position: -1.6rem -15px;
 			}
-
+			body.page-template-page-about .committee-header h1{
+				background-position: -47px top;
+			}
+				body.page-template-page-about .committee-header:hover h1{
+					background-position: -47px -25px;
+				}
 	}
 
 .theme{
@@ -525,11 +534,13 @@ html, body, .dc-site-contents, .layer{
 			right: 0;
 			top: 0;
 			height: 2.4rem;
+			background: #FF0000;
 		}
 			.committee-header h1{
-				width: 1.6rem;
+				width: 1.4rem;
 				height: 0.9rem;
 				margin: 0.85rem auto;
+				background-position: -1.6rem top;
 			}
 
 }
@@ -685,8 +696,7 @@ html, body, .dc-site-contents, .layer{
 			}
 
 
-			.theme__network-ensemble .dc-hoverimg-trigger,
-			body.page-template-page-about .dc-hoverimg-trigger{
+			.theme__network-ensemble .dc-hoverimg-trigger{
 				border-color: #FFFFFF;
 			}
 
@@ -759,10 +769,6 @@ html, body, .dc-site-contents, .layer{
 	.theme[data-proportion="tiny"] .news-items li:before{
 		left: -0.85rem;
 		top: -0.2rem;
-	}
-
-	.news-items li:before{
-		color: #ffffff;
 	}
 	.news-items .theme-item__post:before{
 		content: '→ ';
@@ -1014,12 +1020,6 @@ html, body, .dc-site-contents, .layer{
 	padding: 0.75rem 1.2rem;
 	box-sizing: border-box;
 }
-	.about-wrapper .about--extra{
-		left: 0;
-		//position: fixed;
-		background: #000000;
-		//overflow-y: scroll;
-	}
 		.about-wrapper .about--extra a.layer-close-link{
 			border-bottom: none;
 			margin-left: -.8em;
@@ -1084,13 +1084,9 @@ html, body, .dc-site-contents, .layer{
 	.about-wrapper .about--extra,
 	.about-wrapper .about--content{
 		width: 50%;
-		//height: 100%;
 		padding: 0.75rem 1.2rem;
 		float: left;
 		box-sizing: border-box;
-	}
-	.about-wrapper .about--extra{
-		//padding-top: 4rem;
 	}
 	.about-wrapper .about--content{
 		width: 60%;
@@ -1704,11 +1700,6 @@ a.text-link{
 	display: block;
 }
 
-.about-wrapper .wysiwyg a,
-.about-wrapper a.text-link{
-	color: #ffffff;
-	border-color: #ffffff;
-}
 	a.no-decoration-link{
 		text-decoration: none;
 	}
