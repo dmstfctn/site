@@ -23,6 +23,9 @@
 </head>
 
 <body <?php body_class( 'no-js' ); ?>>
+	<script>
+		document.body.className = document.body.className.replace('no-js', '');
+	</script>
 	<header class="committee-header">
 			<?php if( is_page_template( 'page-about.php') ): ?>
 				<a href="<?php echo home_url(); ?>">
