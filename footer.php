@@ -22,7 +22,7 @@
 			<!-- replaced by projects when they're loaded -->
 		</div>
 	<?php endif; ?>
-	<?php if( !is_singular('post') ): ?>
+	<?php if( !is_singular('post') && !is_singular('page') ): ?>
 		<div class="layer layer__post post">
 			<!-- replaced by posts when they're loaded -->
 		</div>
