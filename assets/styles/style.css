@@ -1228,21 +1228,27 @@ html, body, .dc-site-contents, .layer{
 }
 .quadrant-wrapper .quadrant-section.project-section__title,
 .quadrant-wrapper .quadrant-section.post-section__title{
-	position: fixed;
+	position: sticky;
 	z-index: 98;
 	top: 0;
 	left: 0;
 	width: 100%;
 	background: #FFFFFF;
 }
-.quadrant-wrapper .quadrant-section.project-section__images,
+
 .quadrant-wrapper .quadrant-section.post-section__contents{
-	margin-top: 3.4rem;
+	min-height: 100%;
 }
-.quadrant-wrapper__network-ensemble  .quadrant-section.project-section__title,
-.quadrant-wrapper__network-ensemble  .quadrant-section.post-section__title{
-	background: #000000;
-}
+	.quadrant-wrapper__network-ensemble  .quadrant-section.project-section__title,
+	.quadrant-wrapper__network-ensemble  .quadrant-section.post-section__title{
+		background: #000000;
+	}
+	.quadrant-wrapper__committee  .quadrant-section.project-section__title,
+	.quadrant-wrapper__committee  .quadrant-section.post-section__title{
+		background: #FF0000;
+	}
+
+
 .post-section__title h1,
 .project-section__title h1{
 	margin-bottom: 0;
@@ -1260,23 +1266,8 @@ html, body, .dc-site-contents, .layer{
 	width: 30%;
 	max-width: 100px;
 	text-align: right;
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	box-shadow: none;
 	background: transparent;
 }
-	.quadrant-wrapper__network-ensemble .project-section__close,
-	.quadrant-wrapper__network-ensemble .post-section__close{
-		/*background: #000000;*/
-	}
-	/*.post-section__close a:before,
-	.project-section__close a:before{
-		content: '← ';
-	}
-		.post-section__close a,
-		.project-section__close a{
-			margin-left: -.8em;
-		}*/
 
 @media ( max-width: 721px ){
 	.quadrant-wrapper .project-section__title,
@@ -1291,12 +1282,35 @@ html, body, .dc-site-contents, .layer{
 												 inset 0px 0px 15px 3px rgba(163,163,163,0.85),
 												 0 0 15px 3px rgba(163,163,163,0.85);
 	}
+	.quadrant-wrapper__committee .project-section__title,
+	.quadrant-wrapper__committee .post-section__title{
+		-webkit-box-shadow: inset 0px 0px 0.5px 0.25px rgba( 75, 75, 75, 0.1 ),
+												inset 0px 0px 15px 3px rgba(90,90,90,0.5),
+												0px 0px 15px 3px rgba(90,90,90,0.5);
+			-moz-box-shadow: inset 0px 0px 0.5px 0.25px rgba( 75, 75, 75, 0.1),
+											 inset 0px 0px 15px 3px rgba(90,90,90,0.5),
+											 0px 0px 15px 3px rgba(90,90,90,0.5);
+					 box-shadow: inset 0px 0px 0.5px 0.25px rgba( 75, 75, 75, 0.1 ),
+			 								 inset 0px 0px 15px 3px rgba(90,90,90,0.5),
+											 0px 0px 15px 3px rgba(90,90,90,0.5);
+	}
+
+	.quadrant-wrapper .project-section__close,
+	.quadrant-wrapper .post-section__close{
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+	}
 }
 
 @media ( min-width: 721px ){
+	.quadrant-wrapper .quadrant-section.project-section__title,
+	.quadrant-wrapper .quadrant-section.post-section__title{
+		background: transparent;
+	}
 	.quadrant-wrapper .quadrant-section.project-section__images,
-	.quadrant-wrapper .quadrant-section.post-section__content{
-		margin-top: 0;
+	.quadrant-wrapper .quadrant-section.post-section__contents{
+		min-height: none;
 	}
 	.quadrant-section.project-section__description{
 		overflow-y: scroll;
