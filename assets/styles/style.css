@@ -1143,7 +1143,7 @@ html, body, .dc-site-contents, .layer{
 	}
 	.about--section__contact{
 		padding-bottom: 0;
-		padding-bottom: 1.08rem;
+		padding-bottom: 1.15rem;
 	}
 	.about-fake-tabs{
 		display: none;
@@ -1409,8 +1409,14 @@ html, body, .dc-site-contents, .layer{
 				content: '';
 				display: block;
 				position: absolute;
-				//filter: blur( 1px );
-				transition: all .2s ease-in-out;
+				transition: all .3s ease-in-out;
+				transition-delay: .1s;
+			}
+			.handle:hover .indicator:before,
+			.handle:hover .indicator:after,
+			.handle.handle__active .indicator:before,
+			.handle.handle__active .indicator:after{
+				transition: all .1s ease-out;
 			}
 
 			.handle .indicator:before{
@@ -1436,7 +1442,7 @@ html, body, .dc-site-contents, .layer{
 				}
 
 	.handle__x{
-		width: 60px;
+		width: 90px;
 		top: 0;
 		bottom: 0;
 		left: 50%;
@@ -1462,10 +1468,10 @@ html, body, .dc-site-contents, .layer{
 
 			.handle__x .indicator:before,
 			.handle__x .indicator:after{
-				background-image: url('../svg/arrow-left.svg');
-				background-size: 35px auto;
+				background-image: url('../images/arrow-l-r-small.png');
+				background-size: 56px 72px;
 				background-repeat: no-repeat;
-				background-position: center left;
+				background-position: top left;
 			}
 
 				.handle__x .indicator:before{
@@ -1476,17 +1482,16 @@ html, body, .dc-site-contents, .layer{
 				.handle__x .indicator:after{
 					left: 50%;
 					right: auto;
-					background-image: url('../svg/arrow-right.svg');
-					background-size: 35px auto;
+					background-size: 56px 72px;
 					background-repeat: no-repeat;
-					background-position: center right;
+					background-position: top right;
 				}
 
 					body.home .handle__x .indicator:after{
-						background-image: url('../svg/arrow-right-white.svg');
-						background-size: 35px auto;
+						background-image: url('../images/arrow-l-r-small.png');
+						background-size: 56px 72px;
 						background-repeat: no-repeat;
-						background-position: center right;
+						background-position: bottom right;
 					}
 
 			.handle__x:hover .indicator:before,
@@ -1497,7 +1502,7 @@ html, body, .dc-site-contents, .layer{
 			}
 
 	.handle__y{
-		height: 60px;
+		height: 90px;
 		top: 50%;
 		left: 0;
 		right: 0;
@@ -1520,10 +1525,10 @@ html, body, .dc-site-contents, .layer{
 
 			.handle__y .indicator:before,
 			.handle__y .indicator:after{
-				background-image: url('../svg/arrow-up.svg');
-				background-size: auto 35px;
+				background-image: url('../images/arrow-u-d-small.png');
+				background-size: 72px 56px;
 				background-repeat: no-repeat;
-				background-position: top center;
+				background-position: top left;
 				width: 36px;
 			}
 
@@ -1535,14 +1540,15 @@ html, body, .dc-site-contents, .layer{
 				.handle__y .indicator:after{
 					top: 50%;
 					bottom: auto;
+					background-position: bottom left;
 				}
 
 				.handle__y .indicator:after,
 				body.home .handle__y .indicator:after{
-					background-image: url('../svg/arrow-down.svg');
-					background-size: auto 35px;
+					background-image: url('../images/arrow-u-d-small.png');
+					background-size: 72px 56px;
 					background-repeat: no-repeat;
-					background-position: bottom center;
+					background-position: bottom left;
 				}
 
 		.handle__y:hover .indicator:before,
@@ -1552,27 +1558,36 @@ html, body, .dc-site-contents, .layer{
 			height: 28px;
 		}
 
-		body.single-dc_project .handle__x .indicator:after{
-			background-image: url('../svg/arrow-right.svg');
-		}
 		body.dc_tax_topics-network-ensemble .handle__x .indicator:after,
 		body.page-template-page-about .handle__x .indicator:after{
-			background-image: url('../svg/arrow-right-white.svg');
+			background-image: url('../images/arrow-l-r-small.png');
+			background-size: 56px 72px;
+			background-repeat: no-repeat;
+			background-position: bottom right;
 			opacity: 1;
 		}
 		body.dc_tax_topics-network-ensemble .handle__x .indicator:before,
 		body.page-template-page-about .handle__x .indicator:before{
-			background-image: url('../svg/arrow-left-white.svg');
+			background-image: url('../images/arrow-l-r-small.png');
+			background-size: 56px 72px;
+			background-repeat: no-repeat;
+			background-position: bottom left;
 			opacity: 1;
 		}
 		body.dc_tax_topics-network-ensemble .handle__y .indicator:after,
 		body.page-template-page-about .handle__y .indicator:after{
-			background-image: url('../svg/arrow-down-white.svg');
+			background-image: url('../images/arrow-u-d-small.png');
+			background-size: 72px 56px;
+			background-repeat: no-repeat;
+			background-position: bottom right;
 			opacity: 1;
 		}
 		body.dc_tax_topics-network-ensemble .handle__y .indicator:before,
 		body.page-template-page-about .handle__y .indicator:before{
-			background-image: url('../svg/arrow-up-white.svg');
+			background-image: url('../images/arrow-u-d-small.png');
+			background-size: 72px 56px;
+			background-repeat: no-repeat;
+			background-position: top right;
 			opacity: 1;
 		}
 
