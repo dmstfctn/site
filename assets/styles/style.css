@@ -1580,7 +1580,7 @@ html, body, .dc-site-contents, .layer{
 		body.page-template-page-about .handle__x,
 		body.single-dc_project .handle__x,
 		body.single-post .handle__x,
-		body.page-template-default .handle__x{
+		body.page-template-page-dc-quadrant .handle__x{
 			opacity: 1;
 			pointer-events: all;
 		}
