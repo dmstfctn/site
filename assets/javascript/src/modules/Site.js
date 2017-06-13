@@ -182,7 +182,7 @@ proto.init = function( config ){
 		that.panels.push( new CollapsiblePanel( $(this) ) );
 	});
 
-	$('.wysiwyg').fitVids();
+	$('.wysiwyg').fitVids();	
 
 	this.handleX.setConstraints({
 		x: {

@@ -1217,7 +1217,7 @@ html, body, .dc-site-contents, .layer{
 		width: 100%;
 		height: 100%;
 		object-fit: contain;
-		object-position: top left;
+		object-position: center center;
 		padding: 1.2rem;
 		box-sizing: border-box;
 	}
@@ -1272,7 +1272,7 @@ html, body, .dc-site-contents, .layer{
 }
 
 @media ( min-width: 721px ){
-	.project-section__images[data-section-location="nw"] img{
+	/*.project-section__images[data-section-location="nw"] img{
 		object-position: top right;
 	}
 		.project-section__images[data-section-location="nw"] .dc-video .dc-video-cover{
@@ -1297,7 +1297,7 @@ html, body, .dc-site-contents, .layer{
 	}
 	.project-section__images[data-section-location="se"] img{
 		object-position: bottom left;
-	}
+	}*/
 	.quadrant-wrapper .quadrant-section.project-section__title,
 	.quadrant-wrapper .quadrant-section.post-section__title{
 		margin-top: 0;
@@ -1651,6 +1651,10 @@ html, body, .dc-site-contents, .layer{
 			//display: none;
 			max-width: 100%;
 			max-height: 100%;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translateX(-50%) translateY(-50%);
 		}
 		.dc-video .dc-video-image{
 			position: absolute;

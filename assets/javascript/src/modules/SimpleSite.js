@@ -26,13 +26,14 @@ var SimpleSite = function(){
 			that.init();
 			that.initTabs();
 		});
-	}
-	if( this.$body.hasClass('page-template-page-about') ){
+	} else if( this.$body.hasClass('page-template-page-about') ){
 		$('.about-fake-tabs').find('h1').unwrap('a');
 		this.loadHome(function(){
 			that.init();
 			that.initTabs();
 		});
+	} else {
+		that.init();
 	}
 }
 
@@ -57,6 +58,7 @@ proto.init = function(){
 	});
 
 	$('.wysiwyg').fitVids();
+	//$('.dc-video').fitVids();
 }
 
 proto.loadAbout = function( callback ){
