@@ -1751,6 +1751,11 @@ html, body, .dc-site-contents, .layer{
 	[data-proportion="tiny"]{
 	  letter-spacing: 0px;
 	}
+
+	.wysiwyg em{
+		margin-right: 0.06em;
+	}
+
 	.wysiwyg ul,
 	.wysiwyg ol,
 	.wysiwyg blockquote{
