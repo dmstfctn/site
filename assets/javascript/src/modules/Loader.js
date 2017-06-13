@@ -154,7 +154,6 @@ proto.historyBack = function(){
 
 proto.isExternalLink = function( url ){
 	//see: http://stackoverflow.com/a/28054735
-	console.log( 'proto.isExternalLink() ', url );
 	var check = function(url) {
 		if ( url.indexOf('//') === 0 ) { url = location.protocol + url; }
 		return url.toLowerCase().replace(/([a-z])?:\/\//,'$1').split('/')[0];
@@ -172,7 +171,6 @@ proto.prepareLinks = function( _$context ){
 	var $context = _$context || this.$context;
 	$('a', $context ).on( 'click.' + this.namespace, function( e ){
 		var isTargetBlank = ( $(this).attr('target') === '_blank' );
-		//console.log( 'LINK: is external? ', that.isExternalLink( this.href ), 'is target blank? ', isTargetBlank );
 		if( !that.isExternalLink( this.href ) && !isTargetBlank ){
 			e.preventDefault();
 			if( $(this).hasClass('quadrant-close-link') ){

@@ -62,7 +62,6 @@ proto.setConstraints = function( constraints ){
 			max: constraints.y.max || Infinity
 		}
 	};
-	console.log( this.constraints );
 };
 
 proto.adjustPos = function( by ){

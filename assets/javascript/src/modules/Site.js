@@ -241,7 +241,6 @@ proto.init = function( config ){
 	}
 
 	if( config && config.name === 'about' ){
-		console.log( 'ABOUT' );
 		this.handleX.setConstraints({
 			x: {
 				min: this.about.minWidth,

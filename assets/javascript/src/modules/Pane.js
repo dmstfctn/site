@@ -231,7 +231,6 @@ proto.render = function(){
 }
 
 proto.destroy = function(){
-	console.log( 'DESTROY: ', this.namespace );
 	this.scrollbarOnEndDrag();
 	this.$ele.off( 'click.' + this.namespace );
 	this.$ele.find('.theme--leader').off( 'click.' + this.namespace );

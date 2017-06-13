@@ -7,12 +7,10 @@ var CollapsiblePanel = function( _ele ){
   this.ele = this.$ele.get(0);
 	this.$trigger = this.$ele.find('.collapsible-panel--toggle');
 	this.isOpen = ( $(this).hasClass('collapsed') ) ? true : false;
-	console.log( 'PANEL IS ONPEN? ', this.isOpen );
+
 	this.namespace = 'CollapsiblePanel-' + ID;
 	ID++;
-
-	console.log( 'new panel: ' + this.namespace );
-
+	
 	this.addListeners();
 }
 
@@ -28,10 +26,8 @@ proto.addListeners = function(){
 
 proto.toggle = function(){
 	if( this.isOpen ){
-		console.log( 'close panel')
 		this.close();
 	} else {
-		console.log( 'open panel')
 		this.open();
 	}
 }

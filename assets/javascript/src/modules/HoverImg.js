@@ -1,7 +1,7 @@
 var $ = require('jquery');
 
 var GLOBAL_TOUCHEXISTS = ("ontouchstart" in document.documentElement);
-console.log( 'GLOBAL_TOUCHEXISTS? ', GLOBAL_TOUCHEXISTS  );
+
 var ID = 0;
 
 var HoverImg = function( _ele ){
@@ -29,12 +29,10 @@ proto.addListeners = function(){
 			that.deactivate();
 		});
 		this.$trigger.on( 'click.' + this.namespace, function(){
-			console.log('trigger click')
 			that.toggle();
 		});
 	}
 	this.$trigger.on( 'touchend.' + this.namespace, function(){
-		console.log('trigger click')
 		that.toggle();
 	});
 
@@ -42,16 +40,13 @@ proto.addListeners = function(){
 
 proto.toggle = function(){
 	if( this.active ){
-		console.log('deactivate');
 		this.deactivate();
 	} else {
-		console.log('activate');
 		this.activate();
 	}
 }
 
 proto.activate = function(){
-	console.log( 'proto.activate()' );
 	this.$ele.addClass('active');
 	this.$ele.parent().addClass('hoverimg-active');
 	this.setSrc();
@@ -78,12 +73,9 @@ proto.deactivate = function(){
 }
 
 proto.setSrc = function(){
-	console.log( 'proto.setSrc()' );
-	console.log( 'replaced? ', this.replaced )
 	if( this.replaced ){
 		return;
 	}
-	console.log( 'src: ', this.$ele.attr('data-src') );
 	this.$ele.attr( 'src', this.$ele.attr('data-src') );
 	this.replaced = true;
 }
