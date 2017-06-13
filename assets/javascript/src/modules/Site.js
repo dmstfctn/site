@@ -182,7 +182,7 @@ proto.init = function( config ){
 		that.panels.push( new CollapsiblePanel( $(this) ) );
 	});
 
-	$('.wysiwyg').fitVids();	
+	$('.wysiwyg').fitVids();
 
 	this.handleX.setConstraints({
 		x: {
@@ -225,7 +225,7 @@ proto.init = function( config ){
 	if( $('body').hasClass('single-dc_project') ){
 		this.project.setReorderable( false );
 	}
-	if( $('body').hasClass('single-post') ){
+	if( $('body').hasClass('single-post') || $('body').hasClass('page-template-page-dc-quadrant') ){
 		this.post.setReorderable( false );
 	}
 
