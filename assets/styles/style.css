@@ -483,6 +483,7 @@ html, body, .dc-site-contents, .layer{
 			background: #FFFFFF;
 			position: fixed;
 			z-index: 10;
+			margin-left: 20%;
 		}
 			.theme.theme__network-ensemble .theme--leader{
 				z-index: 11;
@@ -516,7 +517,7 @@ html, body, .dc-site-contents, .layer{
 			background: #000000;
 		}
 			.theme.theme__network-ensemble .theme--leader{
-				margin-left: 40%;
+				margin-left: 60%;
 			}
 
 		.theme .theme--follower{
@@ -539,7 +540,8 @@ html, body, .dc-site-contents, .layer{
 
 		.committee-header{
 			width: 20%;
-			right: 0;
+			left: 0;
+			right: auto;
 			top: 0;
 			height: 2.4rem;
 			background: #FF0000;
