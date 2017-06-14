@@ -22,10 +22,10 @@ var SimpleSite = function(){
 
 
 	if( this.$body.hasClass('home') ){
-		this.loadAbout( function(){
+		//this.loadAbout( function(){
 			that.init();
 			that.initTabs();
-		});
+		//});
 	} else if( this.$body.hasClass('page-template-page-about') ){
 		$('.about-fake-tabs').find('h1').unwrap('a');
 		this.loadHome(function(){

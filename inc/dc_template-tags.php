@@ -254,4 +254,17 @@
 		return $news_query;
 	}
 
+	function dc_render_about_page(){
+		$about_query = new WP_Query( array(
+			'posts_per_page'	=>	1,
+			'pagename'				=>  'about',
+			'post_type'				=>	array( 'page' ),
+			'post_status'			=>	'publish',
+		));
+		while( $about_query->have_posts() ){
+			$about_query->the_post();
+			include( __DIR__ . '/../partials/about-page-content.php' );
+		}
+	}
+
 ?>

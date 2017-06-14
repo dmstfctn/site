@@ -1,12 +1,4 @@
-<?php
-	global $theme_count;
-	if( !isset($theme_count) ){
-		$theme_count = 0;
-	} else {
-		$theme_count++;
-	}
-?>
-<article id="<?php echo $theme->slug; ?>" class="theme theme__<?php echo $theme->slug; ?><?php if($theme_count === 0): ?> tabs--top-theme<?php endif; ?>" >
+<article id="<?php echo $theme->slug; ?>" class="theme theme__<?php echo $theme->slug; ?>" >
 	<div class="theme--image-cover" style="background-image: url('<?php echo $theme->image ?>')"></div>
 	<div class="dc-scrollbar">
 		<div class="dc-scrollbar--handle"></div>

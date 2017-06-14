@@ -28,9 +28,13 @@
 		</div>
 	<?php endif; ?>
 	<?php if( !is_page_template('page-about.php') ): ?>
-		<div class="layer layer__committee">
-			<!-- replaced by about content when that gets loaded -->
-		</div>
+		<?php if( is_front_page() ): ?>
+			<?php dc_render_about_page(); ?>
+		<?php else: ?>
+			<div class="layer layer__committee">
+
+			</div>
+		<?php endif; ?>
 	<?php endif; ?>
 
 	</div><!-- end .dc-site-contents -->
