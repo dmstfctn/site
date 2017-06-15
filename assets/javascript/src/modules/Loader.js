@@ -2,8 +2,15 @@ var $ = require('jquery');
 
 var ID = 0;
 
+if (!window.location.origin) {
+  window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+}
+
+
 var Loader = function( context ){
 	var that = this;
+
+	this.referrer = document.referrer;
 
 	this.namespace = 'Loader-' + ID;
 	ID++;
@@ -23,11 +30,6 @@ var proto = Loader.prototype;
 
 proto.setupPaths = function(){
 	this.pathBase = '/mmittee';
-	if( window.location.href.indexOf( 'demystification.co/newsite') !== -1 ){
-		//TODO: remove.
-		//it's here only for the test/staging version...
-		this.pathBase = '/newsite';
-	}
 	this.paths = {
 		'about': {
 			name: 'about',
@@ -53,6 +55,7 @@ proto.setupPaths = function(){
 	for( var i in this.paths ){
 		this.paths[i].destination = this.$context.find( this.paths[i].selector );
 	}
+	console.log( this.paths );
 }
 
 proto.addListeners = function(){
@@ -94,6 +97,7 @@ proto.load = function( state ){
 	var that = this;
 	var config = this.getLoadConfig( state.path );
 	$('body').attr('class','loading');
+
 	$.get( state.path, function( data ){
 		var newBodyClasses = $( data.replace('<body', '<div id="was-body"') ).filter('#was-body').attr('class').replace('no-js','')
 		var $html = $(data).find( config.selector ).html();
@@ -136,6 +140,7 @@ proto.historyChange = function( href, pathname, hash, search ){
 		stateObj.hash = hash;
 	}
 	stateObj.path = pathname;
+	this.referrer = pathname;
 	if( pathname !== window.location.pathname ){
 		window.history.pushState( stateObj, "", pathname );
 		this.load( stateObj );
@@ -147,9 +152,16 @@ proto.historyChange = function( href, pathname, hash, search ){
 }
 
 proto.historyBack = function(){
-	this.goingBack = true;
-	this.pPath = window.location.pathname;
-	window.history.back();
+	if( this.referrer === '' ){
+		console.log('nowhere to go back to')
+		var path = this.pathBase + '/';
+		window.history.pushState({path: path }, "", path );
+		this.load( {path: this.pathBase + '/' })
+	} else {
+		this.goingBack = true;
+		this.pPath = window.location.pathname;
+		window.history.back();
+	}
 }
 
 proto.isExternalLink = function( url ){
