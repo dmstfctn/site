@@ -16,7 +16,16 @@
 		<title><?php wp_title( '&nbsp;&nbsp;&mdash;&nbsp;&nbsp;', true, 'right' ) ?><?php bloginfo( 'name' ); ?></title>
 	<?php endif; ?>
 
-	<meta name="description" content="<?php bloginfo( 'description' ); ?>">
+	<?php if( is_front_page() || is_page_template( 'page-about.php') ): ?>
+		<meta name="description" content="<?php bloginfo( 'description' ); ?>">
+	<?php elseif( is_single() ): ?>
+		<?php
+			$excerpt_description = wpautop( get_post_field( 'post_content', $post->ID) );
+			$excerpt_description = substr( $excerpt_description, 0, strpos( $excerpt_description, '</p>' ) + 4 );
+			$excerpt_description = strip_tags( $excerpt_description );
+		?>
+		<meta name="description" content="<?php echo $excerpt_description; ?>">
+	<?php endif; ?>
 
 	<?php wp_head(); ?>
 	<?php include 'inc/dc_piwik_trackingcode.php'; ?>
