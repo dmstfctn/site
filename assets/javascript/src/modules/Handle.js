@@ -55,13 +55,16 @@ proto.setConstraints = function( constraints ){
 	this.constraints = {
 		x: {
 			min: constraints.x.min || 0,
-			max: constraints.x.max || Infinity
+			max: constraints.x.max || Infinity,
 		},
 		y: {
 			min: constraints.y.min || 0,
 			max: constraints.y.max || Infinity
 		}
 	};
+
+	this.constraints.x.range = this.constraints.x.max - this.constraints.x.min;
+	this.constraints.y.range = this.constraints.y.max - this.constraints.y.min;
 };
 
 proto.adjustPos = function( by ){
@@ -167,6 +170,19 @@ proto.render = function(){
 		this.$ele.css({
 	    'left': this.pos.x + 'px'
 	  });
+		if( this.constraints ){
+			if( this.pos.x > this.constraints.x.max - (this.constraints.x.range*0.25) ){
+				this.$ele.addClass('nearing-x-max');
+			} else {
+				this.$ele.removeClass('nearing-x-max');
+			}
+			if( this.pos.x < this.constraints.x.min + (this.constraints.x.range*0.25) ){
+				this.$ele.addClass('nearing-x-min');
+			} else {
+				this.$ele.removeClass('nearing-x-min');
+			}
+		}
+
 		if( this.crop === 0 ){
 			this.$ele.css({
 				top: 0,
@@ -188,6 +204,18 @@ proto.render = function(){
 		this.$ele.css({
 			'top': this.pos.y + 'px'
 		});
+		if( this.constraints ){
+			if( this.pos.y > this.constraints.y.max - (this.constraints.y.range*0.25) ){
+				this.$ele.addClass('nearing-y-max');
+			} else {
+				this.$ele.removeClass('nearing-y-max');
+			}
+			if( this.pos.y < this.constraints.y.min + (this.constraints.y.range*0.25) ){
+				this.$ele.addClass('nearing-y-min');
+			} else {
+				this.$ele.removeClass('nearing-y-min');
+			}
+		}
 		if( this.crop === 0 ){
 			this.$ele.css({
 				left: 0,

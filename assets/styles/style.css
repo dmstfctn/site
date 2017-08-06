@@ -1509,6 +1509,23 @@ html, body, .dc-site-contents, .layer{
 				width: 28px;
 			}
 
+			.handle__x.nearing-x-max,
+			.handle__x.nearing-x-min{
+				width: 70px;
+			}
+				.handle__x.nearing-x-max{
+					transform: translateX( calc(-50% - 10px) );
+				}
+					.handle__x.nearing-x-max .indicator{
+						transform: translateX(calc(-50% + 10px)) translateY(-50%);
+					}
+				.handle__x.nearing-x-min{
+					transform: translateX( calc(-50% + 10px) );
+				}
+				.handle__x.nearing-x-min .indicator{
+					transform: translateX(calc(-50% - 10px)) translateY(-50%);
+				}
+
 	.handle__y{
 		height: 90px;
 		top: 50%;
