@@ -1,0 +1,18 @@
+#Dev Setup
+
+##Javascript concatenation
+Javascript is written as modules and everything is require()d to bring it
+together, this means it has to be packaged before it can be used.
+[Watchify](https://github.com/substack/watchify) is good.
+
+In the root folder of the theme run:
+
+```watchify assets/javascript/src/main.js -o assets/javascript/dist/main.js```
+
+##Javascript Minification
+Optionally minify it before distribution/upload. No pro way of doing this, just
+minify however you want (online is easy) and then paste it into dist/main.js.
+
+##CSS
+The CSS is written naked, no preprocessors, no modularisation. It's a huge file.
+Good luck.
