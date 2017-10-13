@@ -95,7 +95,8 @@
 		$instaname = get_option( 'dc_social_instaname' );
 		$url = "https://instagram.com/" . $instaname;
 		$html = file_get_html( $url );
-		$data = $html->find('body', 0)->find('script', 2)->innertext;
+		//get the first script tag (seems now to be the one with the data in, used to be the 3rd)
+		$data = $html->find('body', 0)->find('script', 0)->innertext;
 		// get rid of the js bits
 		$data = str_replace( "window._sharedData = ", "", $data );
 		$data = str_replace( ";", "", $data );
