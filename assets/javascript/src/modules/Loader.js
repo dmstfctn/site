@@ -153,10 +153,14 @@ proto.historyChange = function( href, pathname, hash, search ){
 
 proto.historyBack = function(){
 	if( this.referrer === '' ){
+		var that = this;
 		console.log('nowhere to go back to')
 		var path = this.pathBase + '/';
 		window.history.pushState({path: path }, "", path );
-		this.load( {path: this.pathBase + '/' })
+		setTimeout(function(){
+			that.load( {path: path })
+		}, 50 );
+		
 	} else {
 		this.goingBack = true;
 		this.pPath = window.location.pathname;
