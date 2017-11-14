@@ -1978,7 +1978,10 @@ body.loading .layer{
 			opacity: 1 !important;
 			pointer-events: all !important;
 		}
-
+	.about-fake-tabs{
+		z-index: 99;
+		position: relative;
+	}
 	.about-fake-tabs .theme{
 		height: 2.4rem;
 	}
