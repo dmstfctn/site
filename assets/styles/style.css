@@ -1274,7 +1274,7 @@ html, body, .dc-site-contents, .layer{
 	position: fixed;
 	z-index: 99;
 	top: 0;
-	right: 0;
+	left	: 0;
 	width: 30%;
 	max-width: 100px;
 	text-align: right;
@@ -1282,6 +1282,11 @@ html, body, .dc-site-contents, .layer{
 }
 
 @media ( max-width: 721px ){
+	.post-section__title h1,
+	.project-section__title h1{
+		padding-right: 0;
+		text-align: right;
+	}
 	.quadrant-wrapper .project-section__title,
 	.quadrant-wrapper .post-section__title{
 		-webkit-box-shadow: inset 0px 0px 0.5px 0.25px rgba( 200, 200, 200, 0.9 ),
@@ -2012,3 +2017,44 @@ div.mce_inline_error{
 	position: absolute;
 	bottom: -1.6rem;
 }
+
+/* DC logo in quadrants instead of close*/
+.quadrant-wrapper .project-section__close a,
+.quadrant-wrapper .post-section__close a{
+	display: block;
+	background-image: url('../svg/demystification-committee-logo-sprite-horizontal.svg');
+	width: 100%;
+	background-size: auto 3.8rem;
+	background-repeat: no-repeat;
+	background-position: -1.9rem top;
+	height: 1.8rem;
+	font-size: 0;
+	margin-top: 3px;
+}
+	.quadrant-wrapper .project-section__description[data-proportion="small"] + .project-section__close a,
+	.quadrant-wrapper .project-section__description[data-proportion="small"] + .post-section__close a{
+		background-position: 0 top;
+		width: 1.8rem;
+	}
+.quadrant-wrapper__network-ensemble .project-section__close a,
+.quadrant-wrapper__network-ensemble .post-section__close a{
+	background-position: -1.9rem -1.5rem;
+}
+.quadrant-wrapper__network-ensemble .project-section__description[data-proportion="small"] + .project-section__close a,
+.quadrant-wrapper__network-ensemble .project-section__description[data-proportion="small"] + .post-section__close a{
+	background-position: 0 -1.5rem;
+	width: 1.8rem;
+}
+
+	@media (max-width: 720px){
+		.quadrant-wrapper .project-section__close a,
+		.quadrant-wrapper .post-section__close a{
+			background-position: 0 top;
+			width: 1.8rem;
+		}
+		.quadrant-wrapper__network-ensemble .project-section__close a,
+		.quadrant-wrapper__network-ensemble .post-section__close a{
+			background-position: 0 -1.5rem;
+			width: 1.8rem;
+		}
+	}

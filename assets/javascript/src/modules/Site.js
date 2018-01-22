@@ -254,9 +254,8 @@ proto.init = function( config ){
 	}
 
 	var $committeeHeader = $('.committee-header');
-	
-	this.paneRight.onScrollMain = function(){
-		console.log( $(window).height() - that.paneRight.$scrollwrapper.scrollTop(), $committeeHeader.height())
+
+	this.paneRight.onScrollMain = function(){		
 		if( $(window).height() - that.paneRight.$scrollwrapper.scrollTop() < $committeeHeader.height() ){
 			$committeeHeader.removeClass('unscrolled');
 		}

@@ -55,7 +55,7 @@ proto.setupPaths = function(){
 	for( var i in this.paths ){
 		this.paths[i].destination = this.$context.find( this.paths[i].selector );
 	}
-	console.log( this.paths );
+	//console.log( this.paths );
 }
 
 proto.addListeners = function(){
@@ -154,7 +154,7 @@ proto.historyChange = function( href, pathname, hash, search ){
 proto.historyBack = function(){
 	if( this.referrer === '' || this.referrer.indexOf( '/mmittee' ) !== 0 ){
 		var that = this;
-		console.log('nowhere to go back to')
+		//console.log('nowhere to go back to')
 		var path = this.pathBase + '/';
 		window.history.pushState({path: path }, "", path );
 		setTimeout(function(){
