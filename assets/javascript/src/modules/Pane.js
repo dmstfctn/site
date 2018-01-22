@@ -65,6 +65,8 @@ proto.unlockScroll = function(){
 	this.locked = false;
 }
 
+
+
 proto.isScrolled = function(){
 	var maxScroll = (this.$scrollwrapper[0].scrollHeight - this.$scrollwrapper.innerHeight());
 	return this.$scrollwrapper.scrollTop() > maxScroll * 0.5;
@@ -113,6 +115,8 @@ proto.scrollMainResponse = function(){
 		filter: 'blur(' + proportionToLock * 10 + 'px )',
 		transform: 'scale(' + (1 + (proportionToLock*0.02)) + ' )'
 	});
+
+	this._onScrollMain();
 };
 
 proto.scrollInnerResponse = function(){
@@ -245,6 +249,11 @@ proto.destroy = function(){
 proto._onHover = function(){
 	if( typeof this.onHover === 'function' ){
 		this.onHover();
+	}
+}
+proto._onScrollMain = function(){
+	if( typeof this.onScrollMain === 'function' ){
+		this.onScrollMain();
 	}
 }
 

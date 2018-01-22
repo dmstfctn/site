@@ -253,6 +253,15 @@ proto.init = function( config ){
 		});
 	}
 
+	var $committeeHeader = $('.committee-header');
+	
+	this.paneRight.onScrollMain = function(){
+		console.log( $(window).height() - that.paneRight.$scrollwrapper.scrollTop(), $committeeHeader.height())
+		if( $(window).height() - that.paneRight.$scrollwrapper.scrollTop() < $committeeHeader.height() ){
+			$committeeHeader.removeClass('unscrolled');
+		}
+	}
+
 	// if( config && config.name === 'home' ){
 	// 	if( window.location.hash ){
 	// 		$( '.theme' + window.location.hash ).find('.theme--leader').click();

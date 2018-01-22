@@ -35,7 +35,7 @@
 	<script>
 		document.body.className = document.body.className.replace('no-js', '');
 	</script>
-	<header class="committee-header">
+	<header class="committee-header unscrolled">
 			<?php if( is_page_template( 'page-about.php') ): ?>
 				<a href="<?php echo home_url(); ?>">
 			<?php else: ?>

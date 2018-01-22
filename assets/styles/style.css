@@ -164,24 +164,25 @@ html, body, .dc-site-contents, .layer{
 	}
 
 	@media (min-width: 721px){
-		.committee-header:hover h1{
-			background-position: 0px -1rem;
-		}
-		.committee-header:hover{
+
+		.committee-header:hover,
+		.committee-header.unscrolled{
 			display: block;
 			height: 17rem;
 		}
-		.committee-header:hover h1{
-			background-position: 0px -1rem;
+		.committee-header:hover h1,
+		.committee-header.unscrolled h1{
+			background-position: 0px -0.9rem;
 		}
-			.committee-header.invert:hover h1{
-				background-position: -1.6rem -1rem;
+			.committee-header.invert:hover h1,
+			.committee-header.invert.unscrolled h1{
+				background-position: -1.6rem 0.9rem;
 			}
-			body.page-template-page-about .committee-header h1{
-				background-position: -1.6rem top;
+			body.page-template-page-about .committee-header.unscrolled h1{
+				background-position: -1.6rem -0.9rem;
 			}
-				body.page-template-page-about .committee-header:hover h1{
-					background-position: -1.55rem -1rem;
+				body.page-template-page-about .committee-header.unscrolled:hover h1{
+					background-position: -1.6rem -0.9rem;
 				}
 	}
 
@@ -504,7 +505,7 @@ html, body, .dc-site-contents, .layer{
 			height: 100%;
 			overflow-x: hidden;
 			background: #FFFFFF;
-			top: 2.45em;
+			top: 2.4em;
 			position: fixed;
 			z-index: 9;
 		}
@@ -521,20 +522,20 @@ html, body, .dc-site-contents, .layer{
 			}
 
 		.theme .theme--follower{
-			-webkit-box-shadow: 0px 0px 0.5px 0.25px rgba( 255, 255, 255, 0.9 ),
+			/* -webkit-box-shadow: 0px 0px 0.5px 0.25px rgba( 255, 255, 255, 0.9 ),
 													0px 0px 18px 3px rgba(100,100,100,0.85);
 				 -moz-box-shadow: 0px 0px 0.5px 0.25px rgba( 255, 255, 255, 0.9 ),
 													0px 0px 18px 3px rgba(100,100,100,0.85);
 							box-shadow: 0px 0px 0.5px 0.25px rgba( 255, 255, 255, 0.9 ),
-													0px 0px 18px 3px rgba(100,100,100,0.85);
+													0px 0px 18px 3px rgba(100,100,100,0.85); */
 		}
 		.theme.theme__network-ensemble .theme--follower{
-			-webkit-box-shadow: 0px 0px 0.5px 0.25px rgba( 0, 0, 0, 0.9 ),
+			/* -webkit-box-shadow: 0px 0px 0.5px 0.25px rgba( 0, 0, 0, 0.9 ),
 													0px 0px 15px 3px rgba(180,180,180,0.85);
 				 -moz-box-shadow: 0px 0px 0.5px 0.25px rgba( 0, 0, 0, 0.9 ),
 													0px 0px 15px 3px rgba(180,180,180,0.85);
 							box-shadow: 0px 0px 0.5px 0.25px rgba( 0, 0, 0, 0.9 ),
-													0px 0px 15px 3px rgba(180,180,180,0.85);
+													0px 0px 15px 3px rgba(180,180,180,0.85); */
 		}
 
 
