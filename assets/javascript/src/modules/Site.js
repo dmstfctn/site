@@ -254,12 +254,16 @@ proto.init = function( config ){
 	}
 
 	var $committeeHeader = $('.committee-header');
+	var committeeHeaderOpenHeight = $committeeHeader.height();
 
-	this.paneRight.onScrollMain = function(){		
-		if( $(window).height() - that.paneRight.$scrollwrapper.scrollTop() < $committeeHeader.height() ){
+	this.paneRight.onScrollMain = function(){
+		if( $(window).height() - that.paneRight.$scrollwrapper.scrollTop() < committeeHeaderOpenHeight ){
 			$committeeHeader.removeClass('unscrolled');
+		} else {
+			$committeeHeader.addClass('unscrolled');
 		}
 	}
+	this.paneRight.onScrollMain();
 
 	// if( config && config.name === 'home' ){
 	// 	if( window.location.hash ){

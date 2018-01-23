@@ -166,22 +166,27 @@ html, body, .dc-site-contents, .layer{
 	@media (min-width: 721px){
 
 		.committee-header:hover,
-		.committee-header.unscrolled{
+		.committee-header.unscrolled,
+		body.page-template-page-about-php .committee-header{
 			display: block;
 			height: 17rem;
 		}
 		.committee-header:hover h1,
-		.committee-header.unscrolled h1{
+		.committee-header.unscrolled h1,
+		body.page-template-page-about-php .committee-header h1{
 			background-position: 0px -0.9rem;
 		}
 			.committee-header.invert:hover h1,
-			.committee-header.invert.unscrolled h1{
+			.committee-header.invert.unscrolled h1,
+			body.page-template-page-about-php .committee-header h1{
 				background-position: -1.6rem 0.9rem;
 			}
-			body.page-template-page-about .committee-header.unscrolled h1{
+			body.page-template-page-about .committee-header.unscrolled h1,
+			body.page-template-page-about-php .committee-header h1{
 				background-position: -1.6rem -0.9rem;
 			}
-				body.page-template-page-about .committee-header.unscrolled:hover h1{
+				body.page-template-page-about .committee-header.unscrolled:hover h1,
+				body.page-template-page-about-php .committee-header:hover h1{
 					background-position: -1.6rem -0.9rem;
 				}
 	}
@@ -2031,8 +2036,12 @@ div.mce_inline_error{
 	font-size: 0;
 	margin-top: 3px;
 }
-	.quadrant-wrapper .project-section__description[data-proportion="small"] + .project-section__close a,
-	.quadrant-wrapper .project-section__description[data-proportion="small"] + .post-section__close a{
+.quadrant-wrapper .project-section__close a:hover,
+.quadrant-wrapper .post-section__close a:hover{
+	filter: none;
+}
+	.quadrant-wrapper  .project-section__close[data-proportion="small"] a,
+	.quadrant-wrapper  .post-section__close[data-proportion="small"] a{
 		background-position: 0 top;
 		width: 1.8rem;
 	}
@@ -2040,8 +2049,8 @@ div.mce_inline_error{
 .quadrant-wrapper__network-ensemble .post-section__close a{
 	background-position: -1.9rem -1.5rem;
 }
-.quadrant-wrapper__network-ensemble .project-section__description[data-proportion="small"] + .project-section__close a,
-.quadrant-wrapper__network-ensemble .project-section__description[data-proportion="small"] + .post-section__close a{
+.quadrant-wrapper__network-ensemble .project-section__close[data-proportion="small"]	 a,
+.quadrant-wrapper__network-ensemble .post-section__close[data-proportion="small"] a{
 	background-position: 0 -1.5rem;
 	width: 1.8rem;
 }
@@ -2051,6 +2060,7 @@ div.mce_inline_error{
 		.quadrant-wrapper .post-section__close a{
 			background-position: 0 top;
 			width: 1.8rem;
+			height: 1rem;
 		}
 		.quadrant-wrapper__network-ensemble .project-section__close a,
 		.quadrant-wrapper__network-ensemble .post-section__close a{

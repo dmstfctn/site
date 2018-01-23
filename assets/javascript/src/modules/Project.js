@@ -33,7 +33,8 @@ proto.render = function(){
 
 	this.$close
 		.css( this.sections[3].css )
-		.attr('data-section-location', this.sections[3].name );
+		.attr('data-section-location', this.sections[3].name )
+		.attr('data-proportion', this.calculateQuadrantProportion( this.sections[3].css ) )
 }
 
 proto.destroy = function(){

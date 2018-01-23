@@ -25,7 +25,7 @@
 					<ul>
 						<?php if( $theme->slug === 'offshore-studies' ): ?>
 							<li class="theme-item theme-item__work">
-								<a href="http://demystification.co/mmittee/downloads/Offshore_Investigation_Vehicle.pdf">
+								<a href="https://empire.management">
 									<h2>Offshore Spring Summer 2018</h2>
 									<img src="<? echo get_template_directory_uri() ?>/assets/images/oss18-placeholder.jpg"/>
 								</a>
@@ -37,7 +37,7 @@
 								</a>
 							</li>
 						<?php endif; ?>
-						
+
 						<?php
 							$projects = dc_get_theme_projects( $theme->slug );
 							if( $projects->have_posts() ):

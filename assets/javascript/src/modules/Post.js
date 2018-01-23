@@ -30,7 +30,8 @@ proto.render = function(){
 
 	this.$close
 		.css( this.renderSections[2].css )
-		.attr( 'data-section-location', this.renderSections[2].name );
+		.attr( 'data-section-location', this.renderSections[2].name )
+		.attr('data-proportion', this.calculateQuadrantProportion( this.sections[2].css ) )
 }
 
 proto.calculateHierarchy = function(){
