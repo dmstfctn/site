@@ -2008,6 +2008,11 @@ body.loading .layer{
 		position: absolute;
 		right: 0;
 	}
+	[data-proportion="small"] #mc_embed_signup .asterisk{
+		position: relative;
+		bottom: 4px;
+		float: right;
+	}
 .mc-field-group{
 	position: relative;
 	margin-bottom: 1rem;
