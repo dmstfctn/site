@@ -20,16 +20,18 @@ proto.getSections = function(){
 proto.render = function(){
 	this.$images
 		.css( this.sections[0].css )
-		.attr('data-section-location', this.sections[0].name );
+		.attr('data-section-location', this.sections[0].name )
+		.attr('data-proportion', this.calculateQuadrantProportion( this.sections[0].css ) );
 
 	this.$description
 		.css( this.sections[1].css )
 		.attr('data-section-location', this.sections[1].name )
-		.attr('data-proportion', this.calculateQuadrantProportion( this.sections[1].css ) )
+		.attr('data-proportion', this.calculateQuadrantProportion( this.sections[1].css ) );
 
 	this.$title
 		.css( this.sections[2].css )
-		.attr('data-section-location', this.sections[2].name );
+		.attr('data-section-location', this.sections[2].name )
+		.attr('data-proportion', this.calculateQuadrantProportion( this.sections[2].css ) );
 
 	this.$close
 		.css( this.sections[3].css )
