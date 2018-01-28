@@ -26,8 +26,14 @@
 						<?php if( $theme->slug === 'offshore-studies' ): ?>
 							<li class="theme-item theme-item__work">
 								<a href="https://empire.management">
-									<h2>Offshore Spring Summer 2018</h2>
+									<h2>Offshore Spring/Summer 2018</h2>
 									<img src="<? echo get_template_directory_uri() ?>/assets/images/oss18-placeholder.jpg"/>
+								</a>
+							</li>
+							<li class="theme-item theme-item__work">
+								<a href="http://demystification.co/mmittee/toe">
+									<h2>The Offshore Economist</h2>
+									<img src="<? echo get_template_directory_uri() ?>/assets/images/toe-placeholder.png"/>
 								</a>
 							</li>
 							<li class="theme-item theme-item__work">
