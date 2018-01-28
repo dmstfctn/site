@@ -175,7 +175,7 @@ proto.isExternalLink = function( url ){
 		return url.toLowerCase().replace(/([a-z])?:\/\//,'$1').split('/')[0];
 	}
 	var ext = ( ( url.indexOf(':') > -1 || url.indexOf('//') > -1 ) && check(location.href) !== check(url) );
-	if( url.indexOf('/wp-content/uploads/') !== -1 ||  url.indexOf('/downloads/') !== -1 ){
+	if( url.indexOf('/wp-content/uploads/') !== -1 ||  url.indexOf('/downloads/') !== -1 || url.indexOf('/toe/') !== -1 ){
 		return true;
 	} else {
 		return ext;
