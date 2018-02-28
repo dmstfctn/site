@@ -23,27 +23,6 @@
 				<section class="theme--section theme--section__work">
 					<h2>Projects</h2>
 					<ul>
-						<?php if( $theme->slug === 'offshore-studies' ): ?>
-							<li class="theme-item theme-item__work">
-								<a href="https://empire.management">
-									<h2>Offshore Spring/Summer 2018</h2>
-									<img src="<? echo get_template_directory_uri() ?>/assets/images/oss18-placeholder.jpg"/>
-								</a>
-							</li>
-							<li class="theme-item theme-item__work">
-								<a href="http://demystification.co/mmittee/toe/index.php">
-									<h2>The Offshore Economist</h2>
-									<img src="<? echo get_template_directory_uri() ?>/assets/images/toe-placeholder.png"/>
-								</a>
-							</li>
-							<li class="theme-item theme-item__work">
-								<a href="http://demystification.co/mmittee/downloads/Offshore_Investigation_Vehicle.pdf">
-									<h2>Offshore Investigation Vehicle</h2>
-									<img src="<? echo get_template_directory_uri() ?>/assets/images/oiv-placeholder.jpg"/>
-								</a>
-							</li>
-						<?php endif; ?>
-
 						<?php
 							$projects = dc_get_theme_projects( $theme->slug );
 							if( $projects->have_posts() ):
