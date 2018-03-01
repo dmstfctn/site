@@ -171,7 +171,7 @@
 		foreach( $topics as $topic ){
 			$theme = (object) array(
 				'image'	=>	get_field( 'theme_image', $topic )['sizes']['dc_huge'],
-				'description' => $topic->description,
+				'description' => ( strlen($topic->description) > 0 ) ? $topic->description : false,
 				'name'	=>	$topic->name,
 				'slug'	=>	$topic->slug
 			);

@@ -15,11 +15,13 @@
 				endforeach; ?></h1>
 			</header>
 			<div class="theme--follower">
+				<?php if( $theme->description ): ?>
 				<section class="theme--section theme--section__description">
 					<p class="wysiwyg">
 						<?php echo $theme->description; ?>
 					</p>
 				</section>
+				<?php endif; ?>
 				<section class="theme--section theme--section__work">
 					<h2>Projects</h2>
 					<ul>
