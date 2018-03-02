@@ -3,16 +3,16 @@
 		<div class="theme">
 			<div class="theme--leader">
 				<h1>
-					<a href="<?php echo home_url('#offshore-studies'); ?>">
+					<a href="<?php echo home_url('#offshore'); ?>">
 						Offshore
 					</a>
 				</h1>
 			</div>
 		</div>
-		<div class="theme theme__network-ensemble">
+		<div class="theme theme__networks">
 			<div class="theme--leader">
-				<a href="<?php echo home_url('#network-ensemble'); ?>">
-					<h1>Network</h1>
+				<a href="<?php echo home_url('#networks'); ?>">
+					<h1>Networks</h1>
 				</a>
 			</div>
 		</div>

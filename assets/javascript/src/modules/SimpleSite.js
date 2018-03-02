@@ -87,10 +87,10 @@ proto.initTabs = function(){
 	 $('.theme--leader').on( 'click.' + this.namespace, function( e ){
 		 e.preventDefault();
 		 $('.tabs--top-theme').removeClass('tabs--top-theme');
-		 if( $(this).closest('.theme').hasClass('theme__network-ensemble') ){
-			 $('.layer__themes').find('.theme__network-ensemble').addClass('tabs--top-theme');
+		 if( $(this).closest('.theme').hasClass('theme__networks') ){
+			 $('.layer__themes').find('.theme__networks').addClass('tabs--top-theme');
 		 } else {
-			 $('.layer__themes').find('.theme__offshore-studies').addClass('tabs--top-theme');
+			 $('.layer__themes').find('.theme__offshore').addClass('tabs--top-theme');
 		 }
 	 });
 	 $('.committee-header a').on( 'click.' + this.namespace, function( e ){

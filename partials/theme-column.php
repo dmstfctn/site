@@ -31,9 +31,9 @@
 								while( $projects->have_posts() ):
 									$projects->the_post()
 						?>
-							<li class="theme-item theme-item__work">
+							<li class="theme-item theme-item__work theme-possible-title-container">
 								<a href="<?php the_permalink(); ?>">
-									<h2><?php the_title(); ?></h2>
+									<h2 class="theme-possible-title"><?php the_title(); ?></h2>
 									<?php the_post_thumbnail(); ?>
 								</a>
 							</li>
@@ -43,8 +43,8 @@
 						?>
 					</ul>
 				</section>
-				<section class="theme--section theme--section__research">
-					<h2>Research</h2>
+				<section class="theme--section theme--section__research theme-possible-title-container">
+					<h2 class="theme-possible-title">Research</h2>
 					<ul>
 						<?php
 							$research = dc_get_theme_research( $theme->slug );
@@ -65,8 +65,8 @@
 						?>
 					</ul>
 				</section>
-				<section class="theme--section theme--section__notes">
-					<h2>Notes</h2>
+				<section class="theme--section theme--section__notes theme-possible-title-container">
+					<h2 class="theme-possible-title">Notes</h2>
 					<ul>
 						<?php
 							$notes = dc_get_theme_notes( $theme->slug );

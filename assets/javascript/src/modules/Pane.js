@@ -15,17 +15,53 @@ var Pane = function( _ele ){
 	this.$content = this.$ele.find('.theme--content');
 	this.$inner = this.$ele.find('.theme--follower');
 	this.$imageCover = this.$ele.find('.theme--image-cover');
+	this.$title = this.$ele.find('.theme--leader h1');
+
+	this.$possibleTitles = this.$ele.find('.theme-possible-title');
+	this.$possibleTitleContainers = this.$ele.find('.theme-possible-title-container');
+
 	this.width = this.$ele.outerWidth();
 	this.locked = false;
 	this.scrollPercent = 0;
+
 	this.setConstraints();
 	this.calculateProportion();
 	this.render();
 	this.addListeners();
 	this.setupScrollbar();
+	this.setupTitle();
+
 }
 
 var proto = Pane.prototype;
+
+proto.setupTitle = function(){
+	var originalTitle = this.$title.html();
+	this.$title.empty();
+	this.$title.append( '<span class="editable"></span>' );
+	this.$title.append( '<span class="original">' + originalTitle + '</span>' );
+	this.$editableTitle = this.$title.find('.editable');
+
+	this.setTitle();
+}
+
+proto.setTitle = function(){
+	var $closestTitle = this.$possibleTitles.filter(':last');
+	var $closestContainer = this.$possibleTitleContainers.filter(':last');
+	var closestDistance = Infinity;
+	var scroll = this.$inner.scrollTop();
+
+	this.$possibleTitleContainers.each(function(){
+		var distance = $(this).offset().top;
+		var titleContainerHeight = $(this).height();
+		if( distance > -titleContainerHeight && distance < closestDistance ){
+			closestDistance = distance;
+			$closestContainer = $(this);
+		}
+	});
+
+	this.$editableTitle.text( $closestContainer.find('.theme-possible-title').text() );
+};
 
 proto.setWidth = function( to ){
 	this.width = to;
@@ -160,6 +196,7 @@ proto.addListeners = function(){
 	this.$scrollwrapper.on('scroll.' + this.namespace, function(e){
 		that.scrollMainResponse();
 		that.scrollInnerResponse();
+		that.setTitle();
 		return false;
 	});
 	this.$inner.on('scroll.' + this.namespace, function( e ){
@@ -167,6 +204,7 @@ proto.addListeners = function(){
 			e.stopPropagation();
 		}
 		that.scrollInnerResponse();
+		that.setTitle();
 		that.renderScrollBar();
 	});
 	this.$ele.on( 'mouseenter.' + this.namespace, function(){
