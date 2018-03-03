@@ -50,7 +50,11 @@ proto.setTitle = function(){
 	var $closestContainer = this.$possibleTitleContainers.filter(':last');
 	var closestDistance = Infinity;
 	var scroll = this.$inner.scrollTop();
-
+  if( scroll > 1 ){
+		this.$ele.addClass( 'scrolled-past-top' );
+	} else {
+		this.$ele.removeClass( 'scrolled-past-top' );
+	}
 	this.$possibleTitleContainers.each(function(){
 		var distance = $(this).offset().top;
 		var titleContainerHeight = $(this).height();

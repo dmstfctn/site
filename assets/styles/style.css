@@ -241,10 +241,10 @@ html, body, .dc-site-contents, .layer{
 			top: 0;
 			cursor: pointer;
 		}
-			.theme .theme--content .theme--leader{
+			.theme.scrolled-past-top .theme--content .theme--leader{
 				border-bottom: 1px solid #000000;
 			}
-			.theme.theme__networks .theme--content .theme--leader{
+			.theme.theme__networks.scrolled-past-top .theme--content .theme--leader{
 				border-bottom: 1px solid #ffffff;
 			}
 
@@ -267,7 +267,7 @@ html, body, .dc-site-contents, .layer{
 		.theme .theme--follower{
 			box-sizing: content-box;
 			width:100%;
-			padding: 0.9em 0 0.01em 1rem;
+			padding: 0 0 0.01em 1rem;
 		}
 		.theme .theme--section {
 			padding-right: 2rem;
@@ -299,7 +299,7 @@ html, body, .dc-site-contents, .layer{
 		.theme .theme--content{
 			position: relative;
 			top: 92vh;
-			top: calc( 100vh - 2.4rem );
+			top: calc( 100vh - 2.3rem );
 			height: 85vh;
 			height: calc( 100vh - 2.6rem );
 			overflow: hidden;
@@ -733,11 +733,14 @@ html, body, .dc-site-contents, .layer{
 				width: 100%;
 			}
 		.theme-item__work h2{
-			margin: 0 0 .2em 0;
+			margin: 0 0 .63em 0;
 			transform-origin: top left;
 		}
 		.theme-item__work:hover h2{
 			transition: filter .3s ease-in;
+		}
+		.theme-item__work:first-child h2{
+			display: none;
 		}
 
 		@media (min-width: 721px){
