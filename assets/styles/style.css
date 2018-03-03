@@ -513,7 +513,7 @@ html, body, .dc-site-contents, .layer{
 			height: 100%;
 			overflow-x: hidden;
 			background: #FFFFFF;
-			top: 2.4em;
+			top: 2.3em;
 			position: fixed;
 			z-index: 9;
 		}
@@ -552,7 +552,7 @@ html, body, .dc-site-contents, .layer{
 			left: 0;
 			right: auto;
 			top: 0;
-			height: 2.4rem;
+			height: 2.3rem;
 			background: #FF0000;
 		}
 			.committee-header h1{
@@ -739,9 +739,6 @@ html, body, .dc-site-contents, .layer{
 		.theme-item__work:hover h2{
 			transition: filter .3s ease-in;
 		}
-		.theme-item__work:first-child h2{
-			display: none;
-		}
 
 		@media (min-width: 721px){
 			.theme-item__work img{
@@ -749,6 +746,9 @@ html, body, .dc-site-contents, .layer{
 			}
 			.theme-item__work:hover img{
 				filter: blur( 3px );
+			}
+			.theme-item__work:first-child h2{
+				display: none;
 			}
 		}
 
