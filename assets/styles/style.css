@@ -1305,6 +1305,12 @@ html, body, .dc-site-contents, .layer{
 }
 
 @media ( max-width: 721px ){
+	.quadrant-wrapper .quadrant-section.project-section__title,
+	.quadrant-wrapper .quadrant-section.post-section__title,
+	.quadrant-wrapper .quadrant-section.project-section__close,
+	.quadrant-wrapper .quadrant-section.post-section__close{
+		padding: 0.68rem 1rem 0.63rem;
+	}
 	.post-section__title h1,
 	.project-section__title h1{
 		padding-right: 0;
@@ -2080,10 +2086,12 @@ div.mce_inline_error{
 			background-position: 0 top;
 			width: 1.8rem;
 			height: 1rem;
+			background-size: 11rem auto;
+			background-position: .4rem 0;
 		}
 		.quadrant-wrapper__networks .project-section__close a,
 		.quadrant-wrapper__networks .post-section__close a{
-			background-position: 0 -1.5rem;
+			background-position: .4rem -1.35rem;
 			width: 1.8rem;
 		}
 	}
