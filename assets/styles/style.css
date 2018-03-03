@@ -1311,37 +1311,31 @@ html, body, .dc-site-contents, .layer{
 		text-align: right;
 	}
 	.quadrant-wrapper .project-section__title,
-	.quadrant-wrapper .post-section__title{
-		border-bottom: 1px solid #FFFFFF;
-		/* -webkit-box-shadow: inset 0px 0px 0.5px 0.25px rgba( 200, 200, 200, 0.9 ),
-												 inset 0px 0px 15px 3px rgba(163,163,163,0.85),
-												 0 0 15px 3px rgba(163,163,163,0.85)	;
-			-moz-box-shadow: inset 0px 0px 0.5px 0.25px rgba( 200, 200, 200, 0.9 ),
-												 inset 0px 0px 15px 3px rgba(163,163,163,0.85),
-												 0 0 15px 3px rgba(163,163,163,0.85);
-					 box-shadow: inset 0px 0px 0.5px 0.25px rgba( 200, 200, 200, 0.9 ),
-												 inset 0px 0px 15px 3px rgba(163,163,163,0.85),
-												 0 0 15px 3px rgba(163,163,163,0.85); */
-	}
+	.quadrant-wrapper .post-section__title,
 	.quadrant-wrapper__committee .project-section__title,
 	.quadrant-wrapper__committee .post-section__title{
 		border-bottom: 1px solid #000000;
-		/* -webkit-box-shadow: inset 0px 0px 0.5px 0.25px rgba( 75, 75, 75, 0.1 ),
-												inset 0px 0px 15px 3px rgba(90,90,90,0.5),
-												0px 0px 15px 3px rgba(90,90,90,0.5);
-			-moz-box-shadow: inset 0px 0px 0.5px 0.25px rgba( 75, 75, 75, 0.1),
-											 inset 0px 0px 15px 3px rgba(90,90,90,0.5),
-											 0px 0px 15px 3px rgba(90,90,90,0.5);
-					 box-shadow: inset 0px 0px 0.5px 0.25px rgba( 75, 75, 75, 0.1 ),
-			 								 inset 0px 0px 15px 3px rgba(90,90,90,0.5),
-											 0px 0px 15px 3px rgba(90,90,90,0.5); */
+		border-right: none !important;
+	}
+	.quadrant-wrapper.quadrant-wrapper__networks .project-section__title,
+	.quadrant-wrapper.quadrant-wrapper__networks .post-section__title{
+		border-bottom: 1px solid #FFFFFF;
+		border-right: none !important;
 	}
 
 	.quadrant-wrapper .project-section__close,
-	.quadrant-wrapper .post-section__close{
+	.quadrant-wrapper .post-section__close,
+	.quadrant-wrapper .project-section__images,
+	.quadrant-wrapper .project-section__description,
+	.quadrant-wrapper.quadrant-wrapper__networks .project-section__close,
+	.quadrant-wrapper.quadrant-wrapper__networks .post-section__close,
+	.quadrant-wrapper.quadrant-wrapper__networks .project-section__images,
+	.quadrant-wrapper.quadrant-wrapper__networks .project-section__description
+	{
 		-webkit-box-shadow: none;
 		-moz-box-shadow: none;
 		box-shadow: none;
+		border-top: none !important;
 	}
 }
 
