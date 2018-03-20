@@ -44,7 +44,7 @@
 					</ul>
 				</section>
 				<section class="theme--section theme--section__research theme-possible-title-container">
-					<h2 class="theme-possible-title">Research</h2>
+					<h2 class="theme-possible-title">Notes</h2>
 					<ul>
 						<?php
 							$research = dc_get_theme_research( $theme->slug );
@@ -66,7 +66,15 @@
 					</ul>
 				</section>
 				<section class="theme--section theme--section__notes theme-possible-title-container">
-					<h2 class="theme-possible-title">Notes</h2>
+					<h2 class="theme-possible-title">
+						<?php if( $theme->slug === 'networks' ): ?>
+							Cloud
+						<?php elseif( $theme->slug === 'offshore' ): ?>
+							Pool
+						<?php else: ?>
+							Other
+						<?php endif; ?>
+					</h2>
 					<ul>
 						<?php
 							$notes = dc_get_theme_notes( $theme->slug );
