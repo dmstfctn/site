@@ -1359,10 +1359,38 @@ html, body, .dc-site-contents, .layer{
 		z-index: 2;
 		position: relative;
 	}
+		.quadrant-section.project-section__description header{
+			position: sticky;
+			top: 0rem;
+			transform: translateX(-1rem) translateY( -1rem ); /*because left isn't working and to allow background colour to fill to top over container's padding*/
+			padding: 1rem 1rem 0 1rem;
+			width: calc( 100% + 2rem );
+			box-sizing: border-box;
+			background: #FFFFFF;
+			border-bottom: 1px solid #000000;
+			-webkit-box-shadow: 0px 0px 8px 2px rgba(120,120,120,0.2), inset -2px -2px 8px -2px rgba(120,120,120,0.2);
+				 -moz-box-shadow: 0px 0px 8px 2px rgba(120,120,120,0.2), inset -2px -2px 8px -2px rgba(120,120,120,0.2);
+				 			box-shadow: 0px 0px 8px 2px rgba(120,120,120,0.2), inset -2px -2px 8px -2px rgba(120,120,120,0.2);
+		}
+			.quadrant-wrapper.quadrant-wrapper__networks .quadrant-section.project-section__description header{
+				border-color: #FFFFFF;
+				background-color: #000000;
+				-webkit-box-shadow: 0px 0px 9px 2px rgba(160,160,160,0.6), inset -2px -2px 9px -2px rgba(160,160,160,0.6);
+					 -moz-box-shadow: 0px 0px 9px 2px rgba(160,160,160,0.6), inset -2px -2px 9px -2px rgba(160,160,160,0.6);
+					 			box-shadow: 0px 0px 9px 2px rgba(160,160,160,0.6), inset -2px -2px 9px -2px rgba(160,160,160,0.6);
+			}
 	.post-section__close a:before,
 	.project-section__close a:before{
 		content: '← ';
 		display: none;
+	}
+	.quadrant-wrapper .project-section__close{
+		position: fixed;
+		top: 0;
+		right: .8rem;
+		left: auto;
+		width: 1.6rem;
+		height: 17rem;
 	}
 	.quadrant-wrapper .post-section__close,
 	.quadrant-wrapper .project-section__close{
@@ -1657,6 +1685,7 @@ html, body, .dc-site-contents, .layer{
 		}
 		body.home .handle__y,
 		body.page-template-page-about .handle__y,
+		body.single-dc_project .handle__y,
 		body.page-template-page-about .handle__x{
 			opacity: 0;
 			pointer-events: none;
@@ -2049,7 +2078,6 @@ div.mce_inline_error{
 }
 
 /* DC logo in quadrants instead of close*/
-.quadrant-wrapper .project-section__close a,
 .quadrant-wrapper .post-section__close a{
 	display: block;
 	background-image: url('../svg/demystification-committee-logo-sprite-horizontal.svg');
@@ -2061,6 +2089,16 @@ div.mce_inline_error{
 	font-size: 0;
 	margin-top: 3px;
 }
+	.quadrant-wrapper .project-section__close a{
+		background-image: url('../svg/demystification-committee-logo-sprite.svg');
+		height: 100%;
+		width: 100%;
+		background-position: -1.6rem  -0.9rem;
+		background-size: 3.2rem auto;
+		font-size: 0;
+		background-repeat: no-repeat;
+	}
+
 .quadrant-wrapper .project-section__close a:hover,
 .quadrant-wrapper .post-section__close a:hover{
 	filter: none;
@@ -2070,7 +2108,9 @@ div.mce_inline_error{
 		background-position: 0 top;
 		width: 1.8rem;
 	}
-.quadrant-wrapper__networks .project-section__close a,
+.quadrant-wrapper__networks .project-section__close a{
+	background-position: 0 -0.9rem;
+}
 .quadrant-wrapper__networks .post-section__close a{
 	background-position: -1.9rem -1.5rem;
 }
