@@ -299,7 +299,7 @@ html, body, .dc-site-contents, .layer{
 		.theme .theme--content{
 			position: relative;
 			top: 92vh;
-			top: calc( 100vh - 2.3rem );
+			top: calc( 100vh - 2.25rem );
 			height: 85vh;
 			height: calc( 100vh - 2.6rem );
 			overflow: hidden;
