@@ -4,6 +4,24 @@ require_once( 'inc/dc_acf.php' );
 
 require_once( 'inc/dc_social.php' );
 
+function dc_browser(){
+	$browser = false;
+	$useragent = '';
+	if( isset( $_SERVER['HTTP_USER_AGENT'] ) ){
+		$useragent = $_SERVER['HTTP_USER_AGENT'];
+	}
+	if( preg_match( '/Firefox/i', $useragent ) ){
+		$browser = 'FFX';
+	}
+	if( preg_match( '/Safari/i', $useragent ) && !preg_match( '/Chrome/i', $useragent ) ){
+		$browser = 'SFY';
+	}
+	if( preg_match( '/Chrome/i', $useragent ) ){
+		$browser = 'CRM';
+	}
+	return $browser;
+}
+
 function dc_styles(){
 	//wp_enqueue_style( 'font-source', '//cloud.webtype.com/css/d15347f5-e8a1-436a-9775-9427c520c1e1.css' );
 	wp_enqueue_style( 'styles', get_template_directory_uri() . '/assets/styles/style.css', 'font-source', '80000000042' );

@@ -1360,9 +1360,12 @@ html, body, .dc-site-contents, .layer{
 		position: relative;
 	}
 		.quadrant-section.project-section__description header{
+			position: -webkit-sticky;
 			position: sticky;
 			top: 0rem;
-			transform: translateX(-1rem) translateY( -1rem ); /*because left isn't working and to allow background colour to fill to top over container's padding*/
+			margin-top: -1rem;
+    	margin-left: -1rem;
+
 			padding: 1rem 1rem 0 1rem;
 			width: calc( 100% + 2rem );
 			box-sizing: border-box;
@@ -1371,6 +1374,23 @@ html, body, .dc-site-contents, .layer{
 			-webkit-box-shadow: 0px 0px 8px 2px rgba(120,120,120,0.2), inset -2px -2px 8px -2px rgba(120,120,120,0.2);
 				 -moz-box-shadow: 0px 0px 8px 2px rgba(120,120,120,0.2), inset -2px -2px 8px -2px rgba(120,120,120,0.2);
 				 			box-shadow: 0px 0px 8px 2px rgba(120,120,120,0.2), inset -2px -2px 8px -2px rgba(120,120,120,0.2);
+		}
+		.quadrant-section.project-section__description .wysiwyg{
+			padding-top: 1rem;
+		}
+		/* firefox specific sticky header - something weird btwn it and chrome otherwise*/
+		html.b-FFX .quadrant-section.project-section__description header{
+			top: 0rem;
+			margin-top: 0;
+			margin-left: 0;
+			transform: translateX(-1rem) translateY( -1rem ); /*because left isn't working and to allow background colour to fill to top over container's padding*/
+		}
+			html.b-FFX .quadrant-section.project-section__description .wysiwyg{
+				padding-top: 0rem;
+			}
+		/* safari specific sticky header - something weird btwn it and chrome otherwise*/
+		html.b-SFY .quadrant-section.project-section__description header{
+			top: -1rem;
 		}
 			.quadrant-wrapper.quadrant-wrapper__networks .quadrant-section.project-section__description header{
 				border-color: #FFFFFF;
