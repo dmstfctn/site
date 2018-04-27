@@ -5,12 +5,31 @@
 	}
 ?>
 <article class="quadrant-wrapper post-wrapper quadrant-wrapper__<?php echo $theme_slug; ?>">
-	<header class="quadrant-section post-section post-section__title" data-section-location="nw">
-		<h1>
-			<?php the_title(); ?>
-		</h1>
+	<header class="quadrant-section post-section post-section__related" data-section-location="nw">
+			<h2>Related Notes</h2>
+			<ul class="post-related">
+			<?php
+				$related_notes= dc_get_related_research_list( $theme_slug );
+				foreach( $related_notes as $note ){
+					if( $note->ID !== get_the_ID() ):
+					?>
+					<li>
+						<a href="<?php echo $note->guid; ?>">
+							<?php echo $note->post_title; ?>
+						</a>
+					</li>
+					<?php
+					endif;
+				}
+			?>
+			</ul>
 	</header><!--
 --><section class="quadrant-section post-section post-section__contents">
+		<header>
+			<h1>
+				<?php the_title(); ?>
+			</h1>
+		</header>
 		<div class="wysiwyg">
 			<?php
 				the_content();
@@ -20,7 +39,7 @@
 			?>
 		</div>
 	</section><!--
---><section class="quadrant-section post-section post-section__close" data-section-location="se">
+--><section class="post-section post-section__close" data-section-location="se">
 		<a href="<?php echo home_url() ?>" class="text-link no-decoration-link quadrant-close-link">Close</a>
 	</section>
 </article>

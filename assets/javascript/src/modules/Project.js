@@ -61,14 +61,6 @@ proto.destroy = function(){
 	this.$description
 		.attr('style','')
 		.attr('data-section-location', '' );
-
-	this.$title
-		.attr('style','')
-		.attr('data-section-location', '' );
-
-	this.$close
-		.attr('style','')
-		.attr('data-section-location', '' );
 }
 
 module.exports = Project;

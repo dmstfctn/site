@@ -200,6 +200,22 @@
 		return $project_query;
 	}
 
+	function dc_get_related_research_list( $theme_slug ){
+		$research = get_posts(array(
+			'posts_per_page'	=>	-1,
+			'post_type'				=>	array('post'),
+			'post_status'			=>	'publish',
+			'tax_query'				=>	array(
+					array(
+						'taxonomy'		=>	'dc_tax_topics',
+						'field'				=>	'slug',
+						'terms'				=>	$theme_slug
+					)
+			)
+		));
+	return $research;
+	}
+
 	function dc_get_theme_research( $theme_slug ){
 		$research_query = new WP_Query( array(
 			'posts_per_page'	=>	-1,

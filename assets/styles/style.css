@@ -1416,6 +1416,18 @@ html, body, .dc-site-contents, .layer{
 	}
 }
 
+.post-section__related{
+	padding-top: .67em !important;
+}
+	.post-section__related h2{
+		  margin-bottom: 1.45rem;
+	}
+		.post-section__related .post-related{
+			list-style-type: none;
+			padding: 0;
+			margin: 0;
+		}
+
 @media ( min-width: 721px ){
 	.quadrant-wrapper .quadrant-section.project-section__title,
 	.quadrant-wrapper .quadrant-section.post-section__title{
@@ -1425,12 +1437,14 @@ html, body, .dc-site-contents, .layer{
 	.quadrant-wrapper .quadrant-section.post-section__contents{
 		min-height: none;
 	}
-	.quadrant-section.project-section__description{
+	.quadrant-section.project-section__description,
+	.quadrant-section.post-section__contents{
 		overflow-y: scroll;
 		z-index: 2;
 		position: relative;
 	}
-		.quadrant-section.project-section__description header{
+		.quadrant-section.project-section__description header,
+		.quadrant-section.post-section__contents header{
 			position: -webkit-sticky;
 			position: sticky;
 			top: -0.05rem;
@@ -1446,24 +1460,29 @@ html, body, .dc-site-contents, .layer{
 				 -moz-box-shadow: 0px 0px 8px 2px rgba(120,120,120,0.2), inset -2px -2px 8px -2px rgba(120,120,120,0.2);
 				 			box-shadow: 0px 0px 8px 2px rgba(120,120,120,0.2), inset -2px -2px 8px -2px rgba(120,120,120,0.2);
 		}
-		.quadrant-section.project-section__description .wysiwyg{
+		.quadrant-section.project-section__description .wysiwyg,
+		.quadrant-section.post-section__contents .wysiwyg{
 			padding-top: 1.67em;
 		}
 		/* firefox specific sticky header - something weird btwn it and chrome otherwise*/
-		html.b-FFX .quadrant-section.project-section__description header{
+		html.b-FFX .quadrant-section.project-section__description header,
+		html.b-FFX .quadrant-section.post-section__contents header{
 			top: -0.05rem;
 			margin-top: 0;
 			margin-left: 0;
 			transform: translateX(-1rem) translateY( -1rem ); /*because left isn't working and to allow background colour to fill to top over container's padding*/
 		}
-			html.b-FFX .quadrant-section.project-section__description .wysiwyg{
+			html.b-FFX .quadrant-section.project-section__description .wysiwyg,
+			html.b-FFX .quadrant-section.post-section__contents .wysiwyg{
 				padding-top: 0rem;
 			}
 		/* safari specific sticky header - something weird btwn it and chrome otherwise*/
-		html.b-SFY .quadrant-section.project-section__description header{
+		html.b-SFY .quadrant-section.project-section__description header,
+		html.b-SFY .quadrant-section.post-section__contents header{
 			top: -1rem;
 		}
-			.quadrant-wrapper.quadrant-wrapper__networks .quadrant-section.project-section__description header{
+			.quadrant-wrapper.quadrant-wrapper__networks .quadrant-section.project-section__description header,
+			.quadrant-wrapper.quadrant-wrapper__networks .quadrant-section.post-section__contents header{
 				border-color: #FFFFFF;
 				background-color: #000000;
 				-webkit-box-shadow: 0px 0px 9px 2px rgba(160,160,160,0.6), inset -2px -2px 9px -2px rgba(160,160,160,0.6);
@@ -1475,7 +1494,8 @@ html, body, .dc-site-contents, .layer{
 		content: '← ';
 		display: none;
 	}
-	.quadrant-wrapper .project-section__close{
+	.quadrant-wrapper .project-section__close,
+	.quadrant-wrapper .post-section__close{
 		position: fixed;
 		top: 0;
 		right: .8rem;
@@ -2179,7 +2199,7 @@ div.mce_inline_error{
 }
 
 /* DC logo in quadrants instead of close*/
-.quadrant-wrapper .post-section__close a{
+/* .quadrant-wrapper .post-section__close a{
 	display: block;
 	background-image: url('../svg/demystification-committee-logo-sprite-horizontal.svg');
 	width: 100%;
@@ -2189,8 +2209,9 @@ div.mce_inline_error{
 	height: 1.4rem;
 	font-size: 0;
 	margin-top: 3px;
-}
-	.quadrant-wrapper .project-section__close a{
+} */
+	.quadrant-wrapper .project-section__close a,
+	.quadrant-wrapper .post-section__close a{
 		background-image: url('../svg/demystification-committee-logo-sprite.svg');
 		height: 100%;
 		width: 100%;
@@ -2213,7 +2234,7 @@ div.mce_inline_error{
 	background-position: 0 -0.9rem;
 }
 .quadrant-wrapper__networks .post-section__close a{
-	background-position: -1.9rem -1.5rem;
+	background-position: 0 -0.9rem;
 }
 .quadrant-wrapper__networks .project-section__close[data-proportion="small"]	 a,
 .quadrant-wrapper__networks .post-section__close[data-proportion="small"] a{
