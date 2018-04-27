@@ -25,6 +25,11 @@ var SimpleSite = function(){
 		//this.loadAbout( function(){
 			that.init();
 			that.initTabs();
+			if( window.location.hash === '#networks' ){
+				$('.theme__networks .theme--leader a').click();
+			} else if( window.location.hash === '#offshore' ){
+				$('.theme:not(.theme__networks) .theme--leader a').click();
+			}
 		//});
 	} else if( this.$body.hasClass('page-template-page-about') ){
 		$('.about-fake-tabs').find('h1').unwrap('a');
