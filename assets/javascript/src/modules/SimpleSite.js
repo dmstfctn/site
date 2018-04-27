@@ -20,20 +20,17 @@ var SimpleSite = function(){
 	this.namespace = 'SimpleSite-' + ID;
 	ID++;
 
-
 	if( this.$body.hasClass('home') ){
 		//this.loadAbout( function(){
 		if( window.location.hash === '#networks' ){
-			//$('.theme__networks .theme--leader a').click();
 			$('.tabs--top-theme').removeClass('tabs--top-theme');
 			$('.layer__themes').find('.theme__networks').addClass('tabs--top-theme');
 		} else if( window.location.hash === '#offshore' ){
-			//$('.theme:not(.theme__networks) .theme--leader a').click();
 			$('.tabs--top-theme').removeClass('tabs--top-theme');
 			$('.layer__themes').find('.theme__offshore').addClass('tabs--top-theme');
 		}
-			that.init();
-			that.initTabs();
+		that.init();
+		that.initTabs();
 
 		//});
 	} else if( this.$body.hasClass('page-template-page-about') ){
@@ -102,6 +99,7 @@ proto.initTabs = function(){
 		 } else {
 			 $('.layer__themes').find('.theme__offshore').addClass('tabs--top-theme');
 		 }
+		 window.location.hash = $(this).find('a').attr('href').replace(/^.*?(#|$)/,'');
 	 });
 	 $('.committee-header a').on( 'click.' + this.namespace, function( e ){
 		 e.preventDefault();
