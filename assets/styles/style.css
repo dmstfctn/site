@@ -49,7 +49,8 @@ html, body, .dc-site-contents, .layer{
 	font-family: "Neue Haas Unica", helvetica, arial, sans-serif;
 	font-size: 17px;
 	overflow: auto;
-	letter-spacing: 0;
+	letter-spacing: 0.0005em;
+  word-spacing: 0.03em;
 }
 
 	@media (min-width: 721px){
@@ -705,23 +706,26 @@ html, body, .dc-site-contents, .layer{
 			vertical-align: top;
 			margin-right: .2em;
 			border: 1px solid #000000;
-			width: 1em;
-	    height: 0.57em;
-	    top: 0.27em;
+			width: 20px;
+	    /* height: 0.65em; */
+			height: 12px;
+	    top: 0.35em;
 	    position: absolute;
 	    right: 100%;
 	    margin-right: 0.65rem;
 			cursor: crosshair;
+
 		}
+
 			.dc-hoverimg-trigger:after{
 				content: 'IMG';
 				display: inline-block;
 				vertical-align: top;
 				text-align: center;
 				width: 100%;
-				font-size: .4em;
-		    line-height: 1.45em;
+				font-size: 8px;
 				letter-spacing: 0.03em;
+				line-height: 1.65em;
 			}
 
 
@@ -888,10 +892,22 @@ html, body, .dc-site-contents, .layer{
 		transform: translate( -50%, 0 );
 	}
 
+.theme[data-proportion="tiny"] .theme--leader{
+	border-bottom: 1px solid #000000;
+	padding-bottom: 0.15em;
+	margin-bottom: 0.5em;
+	padding-top: 2.65em;
+}
+.theme[data-proportion="tiny"].theme__networks .theme--leader{
+	border-bottom-color: #FFFFFF;
+}
+
 .theme[data-proportion="tiny"] .theme--section{
 	margin-bottom: 0;
 }
-
+.theme[data-proportion="tiny"] .theme-item{
+	line-height: 1.35;
+}
 .theme[data-proportion="tiny"] .theme-item__work,
 .theme[data-proportion="tiny"] .theme-item__work h2{
 	margin-bottom: 0;
@@ -926,7 +942,7 @@ html, body, .dc-site-contents, .layer{
 		transform: translateY(-50%);
 	}
 	.theme[data-proportion="tiny"] .theme--section__work > h2{
-		display: block;
+		display: none;
 		margin-bottom: .4em;
 		margin-top: -0.8em;
 	}
@@ -1371,11 +1387,11 @@ html, body, .dc-site-contents, .layer{
 		.quadrant-section.project-section__description header{
 			position: -webkit-sticky;
 			position: sticky;
-			top: 0rem;
-			margin-top: -1rem;
+			top: -0.05rem;
+			margin-top: -2rem;
     	margin-left: -1rem;
 
-			padding: 1rem 1rem 0 1rem;
+			padding: 0.67em 1rem 0 1rem;
 			width: calc( 100% + 2rem );
 			box-sizing: border-box;
 			background: #FFFFFF;
@@ -1385,11 +1401,11 @@ html, body, .dc-site-contents, .layer{
 				 			box-shadow: 0px 0px 8px 2px rgba(120,120,120,0.2), inset -2px -2px 8px -2px rgba(120,120,120,0.2);
 		}
 		.quadrant-section.project-section__description .wysiwyg{
-			padding-top: 1rem;
+			padding-top: 1.67em;
 		}
 		/* firefox specific sticky header - something weird btwn it and chrome otherwise*/
 		html.b-FFX .quadrant-section.project-section__description header{
-			top: 0rem;
+			top: -0.05rem;
 			margin-top: 0;
 			margin-left: 0;
 			transform: translateX(-1rem) translateY( -1rem ); /*because left isn't working and to allow background colour to fill to top over container's padding*/
@@ -1855,7 +1871,7 @@ html, body, .dc-site-contents, .layer{
 	line-height: 1.17;
 	line-height: 1.05;
 	/* fontedit */
-	line-height: 1.2;
+	line-height: 1.25;
 }
 	[data-proportion="small"],
 	[data-proportion="tiny"]{
