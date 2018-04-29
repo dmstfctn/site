@@ -52,7 +52,7 @@ body.no-js ::-webkit-scrollbar{
 	.dc-text-arrow svg line,
 	.dc-text-arrow svg polyline{
 		stroke: currentColor;
-		stroke-width: 1.9px;
+		stroke-width: 1.2px;
 		fill: none;
 	}
 	.dc-text-arrow.dc-text-arrow__down{
