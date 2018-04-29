@@ -1,4 +1,4 @@
-<article id="<?php echo $theme->slug; ?>" class="theme theme__<?php echo $theme->slug; ?>" >
+<article id="<?php echo $theme->slug; ?>" class="theme theme__<?php echo $theme->slug; ?>" style="background-color: <?php echo $theme->placeholder_colour; ?>; background-image: url('<?php echo $theme->placeholder_image; ?>');">
 	<div class="theme--image-cover" style="background-image: url('<?php echo $theme->image ?>')"></div>
 	<div class="dc-scrollbar">
 		<div class="dc-scrollbar--handle"></div>

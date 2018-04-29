@@ -175,6 +175,8 @@
 			$theme = (object) array(
 				'image'	=>	get_field( 'theme_image', $topic )['sizes']['dc_huge'],
 				'description' => ( strlen($topic->description) > 0 ) ? $topic->description : false,
+				'placeholder_image' => get_field( 'theme_image', $topic )['sizes']['medium'],
+				'placeholder_colour' => get_field( 'theme_image_placeholder_colour', $topic ),
 				'name'	=>	$topic->name,
 				'slug'	=>	$topic->slug
 			);

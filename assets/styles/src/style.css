@@ -225,6 +225,7 @@ html, body, .dc-site-contents, .layer{
 	color: #000000;
 	background-position: center;
 	background-size: cover;
+  background-attachment: fixed;
 }
 
 	.theme.theme__networks{
