@@ -1421,22 +1421,6 @@ html, body, .dc-site-contents, .layer{
 	padding-top: .67em !important;
 	display: none;
 }
-	.post-section__related h2,
-	.post-section__related a{
-			margin: 0;
-			padding: 0;
-			display: inline;
-			transition: filter .3s ease-in;
-	}
-		.post-section__related a:after{
-			content: ', ';
-		}
-			.post-section__related a:last-child:after{
-				content: '';
-			}
-			.post-section__related a:hover{
-				filter: blur( 5px );
-			}
 
 	.post--related-content{
 		position: absolute;
@@ -1444,6 +1428,33 @@ html, body, .dc-site-contents, .layer{
 		left: 1rem;
 		max-width: 20em;
 	}
+	.post--related-content h2,
+	.post--related-content a{
+			margin: 0;
+			padding: 0;
+			display: inline;
+			transition: filter .3s ease-in;
+	}
+		.post--related-content h2:after{
+			content: ' • ';
+			//display: inline-block;
+			//width: 1em;
+			height: 1em;
+			vertical-align: baseline;
+			/* background-image: url('../../svg/arrow-right-white.svg');
+			background-size: 50%;
+			background-repeat: no-repeat;
+			background-position: center; */
+		}
+		.post--related-content a:after{
+			content: ', ';
+		}
+			.post--related-content a:last-child:after{
+				content: '';
+			}
+			.post--related-content a:hover{
+				filter: blur( 5px );
+			}
 
 @media ( min-width: 721px ){
 	.post-section__related{
