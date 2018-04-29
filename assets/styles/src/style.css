@@ -52,7 +52,7 @@ body.no-js ::-webkit-scrollbar{
 	.dc-text-arrow svg line,
 	.dc-text-arrow svg polyline{
 		stroke: currentColor;
-		stroke-width: 1.2px;
+		stroke-width: 1.4px;
 		fill: none;
 	}
 	.dc-text-arrow.dc-text-arrow__down{
@@ -2114,17 +2114,28 @@ a.text-link{
 			}
 		}
 	.collapsible-panel .collapsible-panel--toggle:after{
-		content: 'Less ↑';
+		content: 'Less ';
+		padding-right: .75em;
+		background-image: url('../../images/more-arrow-black-up.png');
+		background-position: center right;
+		background-size: 10px 20px;
+		background-repeat: no-repeat;
 	}
 		.collapsible-panel.collapsed .collapsible-panel--toggle:after{
-			content: 'More ↓';
+			content: 'More ';
+			background-image: url('../../images/more-arrow-black-down.png');
 		}
 		@media (max-width: 721px){
 			.collapsible-panel .collapsible-panel--toggle:after{
-				content: '← Less';
+				background-image: url('../../images/more-arrow-black-left.png');
+				background-position: left .55em;
+				background-size: 20px 10px;
+				padding-left: 1.5em;
+				content: ' Less';
 			}
 				.collapsible-panel.collapsed .collapsible-panel--toggle:after{
-					content: '→ More';
+					background-image: url('../../images/more-arrow-black-right.png');
+					content: ' More';
 				}
 		}
 
