@@ -200,11 +200,13 @@
 		return $project_query;
 	}
 
-	function dc_get_related_research_list( $theme_slug ){
-		$research = get_posts(array(
-			'posts_per_page'	=>	-1,
-			'post_type'				=>	array('post'),
+	function dc_get_post_related_list( $theme_slug, $count = 5 ){
+		$research = get_posts( array(
+			'posts_per_page'	=>	$count,
+			'post_type'				=>	array( 'post', 'dc_project' ),
 			'post_status'			=>	'publish',
+			'orderby' => 'rand',
+    	'order'    => 'ASC',
 			'tax_query'				=>	array(
 					array(
 						'taxonomy'		=>	'dc_tax_topics',
