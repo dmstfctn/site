@@ -30,10 +30,7 @@
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class( 'no-js' ); ?>>
-	<script>
-		document.body.className = document.body.className.replace('no-js', '');
-	</script>
+<body <?php body_class(); ?>>
 	<header class="committee-header unscrolled">
 			<?php if( is_page_template( 'page-about.php') ): ?>
 				<a href="<?php echo home_url(); ?>">
