@@ -36,6 +36,30 @@ body.no-js ::-webkit-scrollbar{
 	display: block !important;
 }
 
+.dc-text-arrow{
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	height: 1em;
+	width: 1em;
+}
+.dc-text-arrow svg{
+	position: relative;
+	top: -.1em;
+	height: 1em;
+	width: 1em;
+}
+	.dc-text-arrow svg line,
+	.dc-text-arrow svg polyline{
+		stroke: currentColor;
+		stroke-width: 1.9px;
+		fill: none;
+	}
+	.dc-text-arrow.dc-text-arrow__down{
+		transform: rotate( 90deg );
+	}
+
+
 /* site styles */
 
 html, body, .dc-site-contents, .layer{
@@ -1435,17 +1459,6 @@ html, body, .dc-site-contents, .layer{
 			display: inline;
 			transition: filter .3s ease-in;
 	}
-		.post--related-content h2:after{
-			content: ' • ';
-			//display: inline-block;
-			//width: 1em;
-			height: 1em;
-			vertical-align: baseline;
-			/* background-image: url('../../svg/arrow-right-white.svg');
-			background-size: 50%;
-			background-repeat: no-repeat;
-			background-position: center; */
-		}
 		.post--related-content a:after{
 			content: ', ';
 		}

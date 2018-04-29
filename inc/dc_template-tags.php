@@ -1,4 +1,7 @@
 <?php
+ 	function dc_text_arrow( $direction = 'right' ){
+		echo '<div class="dc-text-arrow dc-text-arrow__' . $direction . '"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 12"><line y1="6" x2="22" y2="6"/><polyline points="18.46 0.93 23.54 6 18.46 11.07"/></svg></div>';
+	}
 	function dc_get_post_images( $post ){
 		$images = array();
 		preg_match_all( '~<img [^\>]*\ />~', $post->post_content, $images );
