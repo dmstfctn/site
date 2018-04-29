@@ -195,8 +195,9 @@ proto.scrollInner = function( by, _innerScroll ){
 proto.addListeners = function(){
 	var that = this;
 	var firstClick = false;
-	var innerScrollTop = this.$inner.scrollTop();
+	var innerScrollTop = false;
 	var scrollInnerCounter = 0;
+	var scrollInnerTimer = null;
 	this.$ele.on('click.' + this.namespace, function(){
 		if( that.locked || firstClick ){
 			//return false;
@@ -209,6 +210,9 @@ proto.addListeners = function(){
 		that.toggleLock();
 	});
 	this.$scrollwrapper.on('scroll.' + this.namespace, function(e){
+		if( !innerScrollTop ){
+			innerScrollTop = that.$inner.scrollTop();
+		}
 		that.scrollMainResponse();
 		that.scrollInnerResponse( innerScrollTop );
 		that.setTitle( innerScrollTop );
@@ -218,14 +222,18 @@ proto.addListeners = function(){
 		if( that.locked ){
 			e.stopPropagation();
 		}
-		if( scrollInnerCounter === 3 ){
-			scrollInnerCounter = 0;
+		if( !innerScrollTop ){
 			innerScrollTop = that.$inner.scrollTop();
-			that.setTitle( innerScrollTop );
-			that.renderScrollBar();
 		}
-		that.scrollInnerResponse( innerScrollTop );
-		scrollInnerCounter++;
+		if( !scrollInnerTimer ){
+			setTimeout(function(){
+				scrollInnerTimer = null;
+				innerScrollTop = that.$inner.scrollTop();
+				that.setTitle( innerScrollTop );
+				that.renderScrollBar();
+				that.scrollInnerResponse( innerScrollTop );
+			}, 20 ); //50fps max
+		}
 	});
 	this.$ele.on( 'mouseenter.' + this.namespace, function(){
 		that._onHover();
