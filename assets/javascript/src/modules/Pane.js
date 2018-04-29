@@ -45,11 +45,14 @@ proto.setupTitle = function(){
 	this.setTitle();
 }
 
-proto.setTitle = function(){
+proto.setTitle = function( _innerScroll ){
 	var $closestTitle = this.$possibleTitles.filter(':last');
 	var $closestContainer = this.$possibleTitleContainers.filter(':last');
 	var closestDistance = Infinity;
-	var scroll = this.$inner.scrollTop();
+	var scroll = _innerScroll;
+	if( !scroll ){
+		scroll = this.$inner.scrollTop();
+	}
   if( scroll > 1 ){
 		this.$ele.addClass( 'scrolled-past-top' );
 	} else {
@@ -159,11 +162,14 @@ proto.scrollMainResponse = function(){
 	this._onScrollMain();
 };
 
-proto.scrollInnerResponse = function(){
+proto.scrollInnerResponse = function( _innerScroll ){
 	if( !this.locked ){
 		return;
 	}
-	var scroll = this.$inner.scrollTop();
+	var scroll = _innerScroll;
+	if( !scroll ){
+		scroll = this.$inner.scrollTop();
+	}
 	var scrollMax = Math.round( this.$inner[0].scrollHeight - this.$inner.innerHeight() );
 	this.scrollPercent = (scroll/scrollMax) * 100;
 
@@ -174,8 +180,11 @@ proto.scrollInnerResponse = function(){
 	this.innerPScroll = scroll;
 }
 
-proto.scrollInner = function( by ){
-	var scroll = this.$inner.scrollTop();
+proto.scrollInner = function( by, _innerScroll ){
+	var scroll = _innerScroll;
+	if( !scroll ){
+		scroll = this.$inner.scrollTop();
+	}
 	var scrollMax = Math.round( this.$inner[0].scrollHeight - this.$inner.innerHeight() );
 	this.scrollPercent = (scroll/scrollMax) * 100;
 	if( scroll + by <= scrollMax - 1 ){
@@ -186,6 +195,8 @@ proto.scrollInner = function( by ){
 proto.addListeners = function(){
 	var that = this;
 	var firstClick = false;
+	var innerScrollTop = this.$inner.scrollTop();
+	var scrollInnerCounter = 0;
 	this.$ele.on('click.' + this.namespace, function(){
 		if( that.locked || firstClick ){
 			//return false;
@@ -199,17 +210,22 @@ proto.addListeners = function(){
 	});
 	this.$scrollwrapper.on('scroll.' + this.namespace, function(e){
 		that.scrollMainResponse();
-		that.scrollInnerResponse();
-		that.setTitle();
+		that.scrollInnerResponse( innerScrollTop );
+		that.setTitle( innerScrollTop );
 		return false;
 	});
 	this.$inner.on('scroll.' + this.namespace, function( e ){
 		if( that.locked ){
 			e.stopPropagation();
 		}
-		that.scrollInnerResponse();
-		that.setTitle();
-		that.renderScrollBar();
+		if( scrollInnerCounter === 3 ){
+			scrollInnerCounter = 0;
+			innerScrollTop = that.$inner.scrollTop();
+			that.setTitle( innerScrollTop );
+			that.renderScrollBar();
+		}
+		that.scrollInnerResponse( innerScrollTop );
+		scrollInnerCounter++;
 	});
 	this.$ele.on( 'mouseenter.' + this.namespace, function(){
 		that._onHover();
