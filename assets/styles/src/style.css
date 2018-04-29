@@ -592,8 +592,8 @@ html, body, .dc-site-contents, .layer{
 		}
 		/*to allow for the fake tabs*/
 		.quadrant-wrapper{
-			height: calc(100% - 2.4rem);
-			margin-top: 2.4rem;
+			height: calc(100% - 2.1rem);
+			margin-top: 2.1rem;
 			padding-top: .4rem;
 		}
 		.about-fake-tabs:after,
@@ -1245,7 +1245,7 @@ html, body, .dc-site-contents, .layer{
 /* quadrant page */
 .quadrant-wrapper{
 	background: #FFFFFF;
-	height: 100%;
+	height: calc(100% - 2.1rem);
 	width: 100%;
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
@@ -1292,6 +1292,7 @@ html, body, .dc-site-contents, .layer{
 @media ( min-width: 721px ){
 	.quadrant-wrapper{
 		overflow-y: hidden;
+		height: 100%;
 	}
 	.quadrant-wrapper .quadrant-section{
 		width: 50%;
@@ -1418,17 +1419,36 @@ html, body, .dc-site-contents, .layer{
 
 .post-section__related{
 	padding-top: .67em !important;
+	display: none;
 }
-	.post-section__related h2{
-		  margin-bottom: 1.45rem;
-	}
-		.post-section__related .post-related{
-			list-style-type: none;
-			padding: 0;
+	.post-section__related h2,
+	.post-section__related a{
 			margin: 0;
+			padding: 0;
+			display: inline;
+			transition: filter .3s ease-in;
+	}
+		.post-section__related a:after{
+			content: ', ';
 		}
+			.post-section__related a:last-child:after{
+				content: '';
+			}
+			.post-section__related a:hover{
+				filter: blur( 5px );
+			}
+
+	.post--related-content{
+		position: absolute;
+		bottom: 1em;
+		left: 1rem;
+		max-width: 20em;
+	}
 
 @media ( min-width: 721px ){
+	.post-section__related{
+		display: block;
+	}
 	.quadrant-wrapper .quadrant-section.project-section__title,
 	.quadrant-wrapper .quadrant-section.post-section__title{
 		background: transparent;

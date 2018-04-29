@@ -6,23 +6,19 @@
 ?>
 <article class="quadrant-wrapper post-wrapper quadrant-wrapper__<?php echo $theme_slug; ?>">
 	<header class="quadrant-section post-section post-section__related" data-section-location="nw">
-			<h2>Related Notes</h2>
-			<ul class="post-related">
+			<div class="post--related-content">
+			<h2>Related &rarr;</h2>
 			<?php
 				$related_notes= dc_get_related_research_list( $theme_slug );
 				foreach( $related_notes as $note ){
 					if( $note->ID !== get_the_ID() ):
 					?>
-					<li>
-						<a href="<?php echo $note->guid; ?>">
-							<?php echo $note->post_title; ?>
-						</a>
-					</li>
+					<a href="<?php echo $note->guid; ?>"><?php echo $note->post_title; ?></a>
 					<?php
 					endif;
 				}
 			?>
-			</ul>
+			</div>
 	</header><!--
 --><section class="quadrant-section post-section post-section__contents">
 		<header>
