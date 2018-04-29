@@ -28,7 +28,6 @@
 	<?php endif; ?>
 
 	<?php wp_head(); ?>
-	<?php include 'inc/dc_piwik_trackingcode.php'; ?>
 </head>
 
 <body <?php body_class( 'no-js' ); ?>>
