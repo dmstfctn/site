@@ -203,7 +203,7 @@
 		return $project_query;
 	}
 
-	function dc_get_post_related_list( $theme_slug, $count = 5 ){
+	function dc_get_post_related_list( $theme_slug, $count = 3 ){
 		$research = get_posts( array(
 			'posts_per_page'	=>	$count,
 			'post_type'				=>	array( 'post', 'dc_project' ),
