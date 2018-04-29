@@ -1,0 +1,26 @@
+{
+  "name": "dmstfctn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "assets/javascript/src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Oliver Smith",
+  "license": "WTFPL",
+  "dependencies": {},
+  "devDependencies": {
+    "browserify": "^13.1.1",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.9.3",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.2.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.7",
+    "gulp-watch": "^4.3.10",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-ftp": "^0.6.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
+  }
+}
