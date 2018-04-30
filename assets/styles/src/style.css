@@ -644,6 +644,10 @@ html, body, .dc-site-contents, .layer{
 				padding-right: 0.8rem;
 			}
 
+		/* to allow for vert logo under fake tabs on posts */
+		.layer__post .post-section__contents{
+			padding-right: 3rem;
+		}
 }
 
 	.theme .theme--section{
@@ -1369,6 +1373,7 @@ html, body, .dc-site-contents, .layer{
 }
 
 .quadrant-wrapper .quadrant-section.post-section__contents{
+	padding-right: 3rem;
 	min-height: 100%;
 }
 	.quadrant-wrapper__networks  .quadrant-section.project-section__title,
@@ -1481,6 +1486,7 @@ html, body, .dc-site-contents, .layer{
 	.quadrant-wrapper .quadrant-section.project-section__images,
 	.quadrant-wrapper .quadrant-section.post-section__contents{
 		min-height: none;
+		padding-right: 1rem;
 	}
 	.quadrant-section.project-section__description,
 	.quadrant-section.post-section__contents{
@@ -2202,6 +2208,7 @@ body.loading .layer{
 	}
 	.theme.tabs--top-theme{
 		z-index: 5;
+		background: none !important; /*override theme's placeholder background image (which is only relevant on desktop)*/
 	}
 	.theme.tabs--top-theme .theme--follower{
 		pointer-events: all;
