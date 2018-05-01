@@ -16,7 +16,7 @@
 				foreach( $related_notes as $note ){
 					if( $note->ID !== get_the_ID() ):
 					?>
-					<a href="<?php echo $note->guid; ?>"><?php echo $note->post_title; ?></a>
+					<a href="<?php echo $note->guid; ?>"><span><?php echo $note->post_title; ?></span></a>
 					<?php
 					endif;
 				}

@@ -1459,10 +1459,11 @@ html, body, .dc-site-contents, .layer{
 		max-width: 20em;
 	}
 	.post--related-content h2,
-	.post--related-content a{
+	.post--related-content a span{
 			margin: 0;
 			padding: 0;
 			display: inline;
+			filter: blur( 0px );
 			transition: filter .3s ease-in;
 	}
 		.post--related-content a:after{
@@ -1471,7 +1472,7 @@ html, body, .dc-site-contents, .layer{
 			.post--related-content a:last-child:after{
 				content: '';
 			}
-			.post--related-content a:hover{
+			.post--related-content a:hover span{
 				filter: blur( 5px );
 			}
 
