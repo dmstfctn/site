@@ -256,11 +256,17 @@ proto.init = function( config ){
 	var $committeeHeader = $('.committee-header');
 	var committeeHeaderOpenHeight = $committeeHeader.height();
 
+	var timeout = null;
 	this.paneRight.onScrollMain = function(){
-		if( $(window).height() - that.paneRight.$scrollwrapper.scrollTop() < committeeHeaderOpenHeight ){
-			$committeeHeader.removeClass('unscrolled');
-		} else {
-			$committeeHeader.addClass('unscrolled');
+		if( !timeout ){
+			timeout = setTimeout(function(){
+				timeout = null;
+				if( $(window).height() - that.paneRight.$scrollwrapper.scrollTop() < committeeHeaderOpenHeight ){
+					$committeeHeader.removeClass('unscrolled');
+				} else {
+					$committeeHeader.addClass('unscrolled');
+				}
+			}, 50 );
 		}
 	}
 	this.paneRight.onScrollMain();
