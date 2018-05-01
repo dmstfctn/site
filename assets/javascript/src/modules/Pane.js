@@ -15,6 +15,7 @@ var Pane = function( _ele ){
 	this.$content = this.$ele.find('.theme--content');
 	this.$inner = this.$ele.find('.theme--follower');
 	this.$imageCover = this.$ele.find('.theme--image-cover');
+	this.$topbar = this.$ele.find('.theme--leader');
 	this.$title = this.$ele.find('.theme--leader h1');
 
 	this.$possibleTitles = this.$ele.find('.theme-possible-title');
@@ -122,7 +123,7 @@ proto.toggleLock = function(){
 			that.unlockScroll();
 		});
 	} else {
-		var to = this.$scrollwrapper.innerHeight();
+		var to = Math.ceil(this.$scrollwrapper.innerHeight() - this.$topbar.outerHeight());
 		this.$scrollwrapper.animate( { 'scrollTop': to }, to/3, function(){
 			that.lockScroll();
 		});
