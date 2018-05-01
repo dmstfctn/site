@@ -919,6 +919,7 @@ html, body, .dc-site-contents, .layer{
 		margin-bottom: 0.7em;
 	}
 		.theme--section__research a{
+			filter: blur(0);
 			transition: .3s ease-in;
 		}
 		@media (min-width: 721px){
@@ -1001,7 +1002,7 @@ html, body, .dc-site-contents, .layer{
 	transition: filter .2s .15s ease-in, opacity .2s ease-in;
 }
 	.theme[data-proportion="tiny"] .theme-item__work:hover{
-		filter: blur(0);
+		filter: blur(0px);
 		z-index: 2;
 	}
 
@@ -1473,7 +1474,7 @@ html, body, .dc-site-contents, .layer{
 				content: '';
 			}
 			.post--related-content a:hover span{
-				filter: blur( 5px );
+				filter: blur( 3px );
 			}
 
 @media ( min-width: 721px ){
@@ -2115,6 +2116,7 @@ a.text-link{
 	.collapsible-panel--toggle{
 		cursor: pointer;
 		transition: filter .3s ease-in-out;
+		filter: blur(0px);
 	}
 		@media (min-width: 721px){
 			.collapsible-panel--toggle:hover{
