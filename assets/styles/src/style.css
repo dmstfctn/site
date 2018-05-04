@@ -1526,23 +1526,7 @@ html, body, .dc-site-contents, .layer{
 		.quadrant-section.post-section__contents .wysiwyg{
 			padding-top: 2.45rem;
 		}
-		/* firefox specific sticky header - something weird btwn it and chrome otherwise*/
-		html.b-FFX .quadrant-section.project-section__description header,
-		html.b-FFX .quadrant-section.post-section__contents header{
-			top: -0.05rem;
-			margin-top: 0;
-			margin-left: 0;
-			transform: translateX(-1rem) translateY( -1rem ); /*because left isn't working and to allow background colour to fill to top over container's padding*/
-		}
-			html.b-FFX .quadrant-section.project-section__description .wysiwyg,
-			html.b-FFX .quadrant-section.post-section__contents .wysiwyg{
-				padding-top: 0rem;
-			}
-		/* safari specific sticky header - something weird btwn it and chrome otherwise*/
-		html.b-SFY .quadrant-section.project-section__description header,
-		html.b-SFY .quadrant-section.post-section__contents header{
-			top: -1rem;
-		}
+	
 			.quadrant-wrapper.quadrant-wrapper__networks .quadrant-section.project-section__description header,
 			.quadrant-wrapper.quadrant-wrapper__networks .quadrant-section.post-section__contents header{
 				border-color: #FFFFFF;
