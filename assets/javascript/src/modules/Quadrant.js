@@ -15,11 +15,11 @@ var Quadrant = function( _ele ){
 	];
 
 	this.order = 'ltr';
-	
-	if( this.$ele.hasClass('layer__networks') ){
+
+	if( this.$ele.find('.quadrant-wrapper').hasClass('quadrant-wrapper__networks') ){
 		this.order = 'rtl';
 	}
-
+	console.log('QUADRANT GOES ' + this.order );
 	this.reorderable = true;
 	this.getSections();
 	this.calculateHierarchy();

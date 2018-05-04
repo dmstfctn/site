@@ -51,8 +51,14 @@ proto.render = function(){
 	this.$wysiwyg
 		.css({
 			'padding-top': this.$header.outerHeight() - 10
-		})
-
+		});
+		console.log( 'Rendered project. ' + this.order );
+		console.log( 'Should be: ');
+		if( this.$ele.find('.quadrant-wrapper').hasClass('quadrant-wrapper__networks') ){
+			console.log( 'rtl' );
+		} else {
+			console.log( 'ltr' );
+		}
 }
 
 proto.calculateHierarchy = function(){

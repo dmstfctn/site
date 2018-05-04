@@ -156,6 +156,7 @@ proto.init = function( config ){
 		});
 		this.firstTime = false;
 	}
+	console.log('site init config: ', config );
 	// this.paneLeft = new Pane( $('.theme:first-child') );
 	// this.paneRight = new Pane( $('.theme:nth-child(2)') );
 	this.project = new Project( $('.layer__project') );
@@ -183,7 +184,7 @@ proto.init = function( config ){
 	});
 
 	$('.wysiwyg').fitVids();
-	
+
 	this.handleX.setConstraints({
 		x: {
 			min: this.paneLeft.minWidth,
