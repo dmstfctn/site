@@ -186,10 +186,6 @@ proto.isExternalLink = function( url ){
 proto.prepareLinks = function( _$context ){
 	var that = this;
 	var $context = _$context || this.$context;
-	console.log('prepare links -> ' );
-	$('a', $context ).each(function(){
-		console.log( this, 'IS EXT: ', that.isExternalLink( this.href ) );
-	})
 	$('a', $context ).on( 'click.' + this.namespace, function( e ){
 		var isTargetBlank = ( $(this).attr('target') === '_blank' );
 		if( !that.isExternalLink( this.href ) && !isTargetBlank ){

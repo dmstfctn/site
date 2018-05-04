@@ -82,7 +82,7 @@ proto.setWidth = function( to ){
 	this.render();
 }
 
-proto.setConstraints = function(){	
+proto.setConstraints = function(){
 	this.minWidth = this.$ele.parent().width() / 8;
 	this.maxWidth = this.$ele.parent().width() - this.minWidth;
 }
@@ -198,7 +198,8 @@ proto.addListeners = function(){
 	var firstClick = false;
 	var innerScrollTop = false;
 	var scrollInnerCounter = 0;
-	var scrollInnerTimer = null;
+	var scrollInnerTimer = (new Date()).getTime();
+	var scrollWrapperTimer = (new Date()).getTime();
 	this.$ele.on('click.' + this.namespace, function(){
 		if( that.locked || firstClick ){
 			//return false;
@@ -214,9 +215,13 @@ proto.addListeners = function(){
 		if( !innerScrollTop ){
 			innerScrollTop = that.$inner.scrollTop();
 		}
-		that.scrollMainResponse();
-		that.scrollInnerResponse( innerScrollTop );
-		that.setTitle( innerScrollTop );
+		var t = (new Date()).getTime();
+		if( t - scrollWrapperTimer > 33 ){ //max 20/sec
+			that.scrollMainResponse();
+			that.scrollInnerResponse( innerScrollTop );
+			that.setTitle( innerScrollTop );
+			scrollWrapperTimer = t;
+		}
 		return false;
 	});
 	this.$inner.on('scroll.' + this.namespace, function( e ){
@@ -226,14 +231,13 @@ proto.addListeners = function(){
 		if( !innerScrollTop ){
 			innerScrollTop = that.$inner.scrollTop();
 		}
-		if( !scrollInnerTimer ){
-			setTimeout(function(){
-				scrollInnerTimer = null;
-				innerScrollTop = that.$inner.scrollTop();
-				that.setTitle( innerScrollTop );
-				that.renderScrollBar();
-				that.scrollInnerResponse( innerScrollTop );
-			}, 20 ); //50fps max
+		var t = (new Date()).getTime();
+		if( t - scrollInnerTimer > 33 ){ //max 10/sec
+			innerScrollTop = that.$inner.scrollTop();
+			that.setTitle( innerScrollTop );
+			that.renderScrollBar();
+			that.scrollInnerResponse( innerScrollTop );
+			scrollInnerTimer = t;
 		}
 	});
 	this.$ele.on( 'mouseenter.' + this.namespace, function(){
