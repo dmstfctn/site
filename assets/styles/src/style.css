@@ -261,9 +261,20 @@ html, body, .dc-site-contents, .layer{
 		width: 100%;
 		height: 200px;
 		background-position: center;
-		background-size: cover;
+		background-size: 100vw auto;
 		background-attachment: fixed;
+		/* -moz-transform-origin: 0 0;
+		transform: translateZ(0); */
 	}
+		html.b-FFX .theme .theme--image-cover{
+			filter: none !important;
+		}
+		.theme:last-child .theme--image-cover{
+				background-position: center left;
+		}
+		.theme:last-child .theme--image-cover{
+				background-position: center right;
+		}
 
 		.theme .theme--leader{
 			padding: 0.68rem 1rem 0.63rem;
@@ -1526,7 +1537,7 @@ html, body, .dc-site-contents, .layer{
 		.quadrant-section.post-section__contents .wysiwyg{
 			padding-top: 2.45rem;
 		}
-	
+
 			.quadrant-wrapper.quadrant-wrapper__networks .quadrant-section.project-section__description header,
 			.quadrant-wrapper.quadrant-wrapper__networks .quadrant-section.post-section__contents header{
 				border-color: #FFFFFF;

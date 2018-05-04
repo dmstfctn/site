@@ -157,7 +157,8 @@ proto.scrollMainResponse = function(){
 
 	this.$imageCover.css({
 		filter: 'blur(' + proportionToLock * 10 + 'px )',
-		transform: 'scale(' + (1 + (proportionToLock*0.02)) + ' )'
+		//transform: 'scale(' + (100 + (proportionToLock*0.02)) + ' )'
+		'background-size': (100 + (proportionToLock*3)) + 'vw auto'
 	});
 
 	this._onScrollMain();
