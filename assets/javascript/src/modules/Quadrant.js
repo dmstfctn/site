@@ -16,10 +16,10 @@ var Quadrant = function( _ele ){
 
 	this.order = 'ltr';
 
-	if( this.$ele.find('.quadrant-wrapper').hasClass('quadrant-wrapper__networks') ){
+	if( this.$ele.find('.quadrant-wrapper').hasClass('quadrant-wrapper__offshore') ){
 		this.order = 'rtl';
 	}
-	
+
 	this.reorderable = true;
 	this.getSections();
 	this.calculateHierarchy();
