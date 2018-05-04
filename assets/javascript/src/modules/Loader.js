@@ -170,7 +170,6 @@ proto.historyBack = function(){
 
 proto.isExternalLink = function( url ){
 	//see: http://stackoverflow.com/a/28054735
-	console.log( 'is external? ', url );
 	var check = function(url) {
 		if ( url.indexOf('//') === 0 ) { url = location.protocol + url; }
 		return url.toLowerCase().replace(/([a-z])?:\/\//,'$1').split('/')[0];

@@ -156,9 +156,7 @@ proto.init = function( config ){
 		});
 		this.firstTime = false;
 	}
-	console.log('site init config: ', config );
-	// this.paneLeft = new Pane( $('.theme:first-child') );
-	// this.paneRight = new Pane( $('.theme:nth-child(2)') );
+	
 	this.project = new Project( $('.layer__project') );
 	this.post = new Post( $('.layer__post') );
 	this.about = new About( $('.about-wrapper') );
