@@ -260,7 +260,7 @@ html, body, .dc-site-contents, .layer{
 		display: none;
 		width: 100%;
 		height: 200px;
-		background-position: center;
+		background-position: top center;
 		background-size: 100vw auto;
 		background-attachment: fixed;
 		/* -moz-transform-origin: 0 0;
@@ -269,11 +269,21 @@ html, body, .dc-site-contents, .layer{
 		html.b-FFX .theme .theme--image-cover{
 			filter: none !important;
 		}
-		.theme:last-child .theme--image-cover{
-				background-position: center left;
+		.theme:first-child .theme--image-cover{
+				background-position: top left;
 		}
 		.theme:last-child .theme--image-cover{
-				background-position: center right;
+				background-position: top right;
+		}
+		.theme:first-child{
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		.theme:last-child{
+			position: absolute;
+			top: 0;
+			right: 0;
 		}
 
 		.theme .theme--leader{
