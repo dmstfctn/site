@@ -982,9 +982,9 @@ html, body, .dc-site-contents, .layer{
 
 .theme[data-proportion="tiny"] .theme--leader{
 	border-bottom: 1px solid #000000;
-	padding-bottom: 0.15em;
+	padding-bottom: 1.40em;
 	margin-bottom: 0.5em;
-	padding-top: 2.65em;
+	padding-top: 1.40em;
 }
 .theme[data-proportion="tiny"].theme__networks .theme--leader{
 	border-bottom-color: #FFFFFF;
