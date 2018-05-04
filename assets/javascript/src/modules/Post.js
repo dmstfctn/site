@@ -15,28 +15,43 @@ proto.getSections = function(){
 	this.$related = this.$ele.find('.post-section__related');
 	this.$content = this.$ele.find('.post-section__contents');
 	this.$header = this.$content.children('header:first-of-type');
+	this.$wysiwyg = this.$content.children('.wysiwyg');
 	//this.$close = this.$ele.find('.post-section__close');
 }
 
 proto.render = function(){
+	var primary = this.renderSections[1];
+	var primaryColumnName = this.smallestColumn;
+	var secondary = this.renderSections[0];
+	var secondaryColumnName = this.largestColumn;
+	if( this.order === 'rtl' ){
+		primary = this.renderSections[0];
+		primaryColumnName = this.largestColumn;
+		secondary = this.renderSections[1];
+		secondaryColumnName = this.smallestColumn;
+	}
 	this.$content
-		.css( this.renderSections[1].css )
-		.attr('data-section-location', this.renderSections[1].name )
-		.attr( 'data-section-span', this.smallestColumn )
-		.attr('data-proportion', this.calculateQuadrantProportion( this.renderSections[1].css ) );
+		.css( primary.css )
+		.attr('data-section-location',  primary.name )
+		.attr( 'data-section-span', primaryColumnName )
+		.attr('data-proportion', this.calculateQuadrantProportion(  primary.css ) );
 
 	this.$related
-		.css( this.renderSections[0].css )
-		.attr('data-section-location', this.renderSections[0].name )
-		.attr( 'data-section-span', this.largestColumn )
-		.attr('data-proportion', this.calculateQuadrantProportion( this.renderSections[0].css ) );
+		.css( secondary.css )
+		.attr('data-section-location', secondary.name )
+		.attr( 'data-section-span', secondaryColumnName )
+		.attr('data-proportion', this.calculateQuadrantProportion( secondary.css ) );
 
 	this.$header
 		.css({
-			width: this.renderSections[1].css.width,
-			top: this.renderSections[1].css.top,
-			left: this.renderSections[1].css.left
+			width: primary.css.width,
+			top: primary.css.top,
+			left: primary.css.left
 		});
+	this.$wysiwyg
+		.css({
+			'padding-top': this.$header.outerHeight() - 10
+		})
 }
 
 proto.calculateHierarchy = function(){

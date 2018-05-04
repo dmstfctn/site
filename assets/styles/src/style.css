@@ -1517,7 +1517,7 @@ html, body, .dc-site-contents, .layer{
 			box-sizing: border-box;
 			background: #FFFFFF;
 			border-bottom: 1px solid #000000;
-			border-left: 1px solid #000000;
+			border-left: none;
 			border-right: none;
 			-webkit-box-shadow: 0px 0px 8px 2px rgba(120,120,120,0.2), inset -2px -2px 8px -2px rgba(120,120,120,0.2);
 				 -moz-box-shadow: 0px 0px 8px 2px rgba(120,120,120,0.2), inset -2px -2px 8px -2px rgba(120,120,120,0.2);
@@ -1532,6 +1532,10 @@ html, body, .dc-site-contents, .layer{
 		.quadrant-section[data-proportion=small].post-section__contents .wysiwyg{
 			padding-top: 1rem;
 		}
+			.quadrant-section[data-section-span="e"] .wysiwyg,
+			.quadrant-section[data-section-span="e"] header h1{
+				padding-right: 2rem;
+			}
 
 		.quadrant-section.project-section__description .wysiwyg,
 		.quadrant-section.post-section__contents .wysiwyg{

@@ -14,6 +14,12 @@ var Quadrant = function( _ele ){
 		this.grid.nw
 	];
 
+	this.order = 'ltr';
+	
+	if( this.$ele.hasClass('layer__networks') ){
+		this.order = 'rtl';
+	}
+
 	this.reorderable = true;
 	this.getSections();
 	this.calculateHierarchy();
