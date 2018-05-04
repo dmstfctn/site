@@ -14,6 +14,7 @@ var proto = Post.prototype;
 proto.getSections = function(){
 	this.$related = this.$ele.find('.post-section__related');
 	this.$content = this.$ele.find('.post-section__contents');
+	this.$header = this.$content.children('header:first-of-type');
 	//this.$close = this.$ele.find('.post-section__close');
 }
 
@@ -30,6 +31,12 @@ proto.render = function(){
 		.attr( 'data-section-span', this.largestColumn )
 		.attr('data-proportion', this.calculateQuadrantProportion( this.renderSections[0].css ) );
 
+	this.$header
+		.css({
+			width: this.renderSections[1].css.width,
+			top: this.renderSections[1].css.top,
+			left: this.renderSections[1].css.left
+		});
 }
 
 proto.calculateHierarchy = function(){

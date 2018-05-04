@@ -45,8 +45,8 @@ proto.setupPanes = function(){
 	if( this.paneRight ){
 		this.paneRight.destroy();
 	}
-	this.paneLeft = new Pane( $('.theme:first-child') );
-	this.paneRight = new Pane( $('.theme:nth-child(2)') );
+	this.paneLeft = new Pane( $('.layer__themes .theme:first-child') );
+	this.paneRight = new Pane( $('.layer__themes .theme:nth-child(2)') );
 }
 
 proto.setupHandles = function(){
@@ -183,7 +183,7 @@ proto.init = function( config ){
 	});
 
 	$('.wysiwyg').fitVids();
-
+	
 	this.handleX.setConstraints({
 		x: {
 			min: this.paneLeft.minWidth,

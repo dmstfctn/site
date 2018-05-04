@@ -82,7 +82,7 @@ proto.setWidth = function( to ){
 	this.render();
 }
 
-proto.setConstraints = function(){
+proto.setConstraints = function(){	
 	this.minWidth = this.$ele.parent().width() / 8;
 	this.maxWidth = this.$ele.parent().width() - this.minWidth;
 }

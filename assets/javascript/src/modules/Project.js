@@ -14,6 +14,7 @@ var proto = Project.prototype;
 proto.getSections = function(){
 	this.$images = this.$ele.find('.project-section__images');
 	this.$description = this.$ele.find('.project-section__description');
+	this.$header = this.$description.children('header:first-of-type');
 }
 
 proto.render = function(){
@@ -28,7 +29,12 @@ proto.render = function(){
 		.attr('data-section-location', this.renderSections[1].name )
 		.attr( 'data-section-span', this.smallestColumn )
 		.attr('data-proportion', this.calculateQuadrantProportion( this.renderSections[1].css ) );
-
+	this.$header
+		.css({
+			width: this.renderSections[1].css.width,
+			top: this.renderSections[1].css.top,
+			left: this.renderSections[1].css.left
+		});
 }
 
 proto.calculateHierarchy = function(){
