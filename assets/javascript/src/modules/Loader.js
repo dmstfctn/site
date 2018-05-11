@@ -189,11 +189,7 @@ proto.prepareLinks = function( _$context ){
 		var isTargetBlank = ( $(this).attr('target') === '_blank' );
 		if( !that.isExternalLink( this.href ) && !isTargetBlank ){
 			e.preventDefault();
-			if( $(this).hasClass('quadrant-close-link') ){
-				that.historyBack();
-			} else {
-				that.historyChange( this.href, this.pathname, this.hash, this.search );
-			}
+			that.historyChange( this.href, this.pathname, this.hash, this.search );
 		}
 	});
 }
