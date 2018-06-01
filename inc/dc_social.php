@@ -104,15 +104,18 @@
 		$data = json_decode( $data );
 
 		// try{
-			foreach( $data->entry_data->ProfilePage[0]->user->media->nodes as $entry ){
+			foreach( $data->entry_data->ProfilePage[0]->graphql->user->edge_owner_to_timeline_media->edges as $entry ){
+				$item = $entry->node;
+
+				date_default_timezone_set( 'UTC' );
 				$datetime = new DateTime();
-				$datetime->setTimestamp( strval($entry->date) );
+				$datetime->setTimestamp(strval( $item->taken_at_timestamp ));
 				$datetime->setTimezone( new DateTimeZone('UTC') );
 				$post = array(
-					'id' => $entry->code,
-					'text' => $entry->caption,
+					'id' => $item->shortcode,
+					'text' => $item->edge_media_to_caption->edges[0]->node->text,
 					'date' => $datetime->format('Y-m-d H:i:s'),
-					'media' => array( $entry->display_src )
+					'media' => array( $item->thumbnail_src )
 				);
 				dc_social_make_post( 'dc_social_instagram', $post );
 			}
