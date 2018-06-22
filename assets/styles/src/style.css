@@ -845,16 +845,14 @@ html, body, .dc-site-contents, .layer{
 		.theme-item__work h2{
 			margin: 0 0 .63em 0;
 			transform-origin: top left;
+			transition: filter .3s ease-in;
 		}
 		.theme-item__work:hover h2{
 			transition: filter .3s ease-in;
 		}
 
 		@media (min-width: 721px){
-			.theme-item__work img{
-				transition: filter .3s ease-in;
-			}
-			.theme-item__work:hover img{
+			.theme-item__work:hover h2{
 				filter: blur( 3px );
 			}
 			.theme-item__work:first-child h2{
