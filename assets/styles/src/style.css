@@ -2136,6 +2136,7 @@ a.text-link{
 		cursor: pointer;
 		transition: filter .3s ease-in-out;
 		filter: blur(0px);
+
 	}
 		@media (min-width: 721px){
 			.collapsible-panel--toggle:hover{
@@ -2144,28 +2145,10 @@ a.text-link{
 		}
 	.collapsible-panel .collapsible-panel--toggle:after{
 		content: 'Less ';
-		padding-right: .75em;
-		background-image: url('../../images/more-arrow-black-up.png');
-		background-position: center right;
-		background-size: 10px 20px;
-		background-repeat: no-repeat;
+		text-decoration: underline;
 	}
 		.collapsible-panel.collapsed .collapsible-panel--toggle:after{
 			content: 'More ';
-			background-image: url('../../images/more-arrow-black-down.png');
-		}
-		@media (max-width: 721px){
-			.collapsible-panel .collapsible-panel--toggle:after{
-				background-image: url('../../images/more-arrow-black-left.png');
-				background-position: left .55em;
-				background-size: 20px 10px;
-				padding-left: 1.5em;
-				content: ' Less';
-			}
-				.collapsible-panel.collapsed .collapsible-panel--toggle:after{
-					background-image: url('../../images/more-arrow-black-right.png');
-					content: ' More';
-				}
 		}
 
 /* loading */
