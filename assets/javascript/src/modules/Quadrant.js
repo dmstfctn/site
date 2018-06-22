@@ -16,7 +16,7 @@ var Quadrant = function( _ele ){
 
 	this.order = 'ltr';
 
-	if( this.$ele.find('.quadrant-wrapper').hasClass('quadrant-wrapper__offshore') ){
+	if( this.$ele.find('.quadrant-wrapper').hasClass('quadrant-wrapper__networks') ){
 		this.order = 'rtl';
 	}
 
