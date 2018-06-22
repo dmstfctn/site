@@ -198,8 +198,8 @@ html, body, .dc-site-contents, .layer{
 		.committee-header:hover,
 		.committee-header.unscrolled,
 		body.page-template-page-about-php .committee-header{
-			display: block;
-			height: 17rem;
+			display: block;			
+			height: 9.4rem;
 		}
 		.committee-header:hover h1,
 		.committee-header.unscrolled h1,
