@@ -32,7 +32,7 @@
 
 <body <?php body_class(); ?>>
 	<header class="committee-header unscrolled">
-			<?php if( is_page_template( 'page-about.php') ): ?>
+			<?php if( is_page_template( 'page-about.php') || is_single() ): ?>
 				<a href="<?php echo home_url(); ?>">
 			<?php else: ?>
 				<a href="<?php echo home_url( 'about' ); ?>">

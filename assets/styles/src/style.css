@@ -149,11 +149,11 @@ html, body, .dc-site-contents, .layer{
 		pointer-events: none;
 	}
 
-	body.single-post .committee-header,
+	/* body.single-post .committee-header,
 	body.single-dc_project .committee-header,
 	body.page-template-page-dc-quadrant .committee-header{
 		display: none;
-	}
+	} */
 
 .committee-header{
 	position: fixed;
@@ -184,6 +184,7 @@ html, body, .dc-site-contents, .layer{
 		background-position: -1.6rem top;
 	}
 
+
 	.committee-header span{
 		display: none;
 	}
@@ -202,16 +203,18 @@ html, body, .dc-site-contents, .layer{
 		}
 		.committee-header:hover h1,
 		.committee-header.unscrolled h1,
-		body.page-template-page-about-php .committee-header h1{
+		body.page-template-page-about-php .committee-header h1,
+		.dc_tax_topics-networks .committee-header h1{
 			background-position: 0px -0.9rem;
 		}
 			.committee-header.invert:hover h1,
 			.committee-header.invert.unscrolled h1,
 			body.page-template-page-about-php .committee-header h1{
-				background-position: -1.6rem 0.9rem;
+					background-position: -1.6rem top;
 			}
 			body.page-template-page-about .committee-header.unscrolled h1,
-			body.page-template-page-about-php .committee-header h1{
+			body.page-template-page-about-php .committee-header h1,
+			.dc_tax_topics-offshore .committee-header h1{
 				background-position: -1.6rem -0.9rem;
 			}
 				body.page-template-page-about .committee-header.unscrolled:hover h1,
