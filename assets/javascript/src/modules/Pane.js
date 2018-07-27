@@ -20,6 +20,7 @@ var Pane = function( _ele ){
 
 	this.$possibleTitles = this.$ele.find('.theme-possible-title');
 	this.$possibleTitleContainers = this.$ele.find('.theme-possible-title-container');
+	this.$projects = this.$ele.find('.theme-item__work')
 
 	this.width = this.$ele.outerWidth();
 	this.locked = false;
@@ -67,8 +68,13 @@ proto.setTitle = function( _innerScroll ){
 			$closestContainer = $(this);
 		}
 	});
-
+	this.$title.removeClass( 'hovered' );
 	this.$editableTitle.text( $closestContainer.find('.theme-possible-title').text() );
+	// alt: to make title clickable
+	// var closestTitle = $closestContainer.find('.theme-possible-title').text()
+	// var closestLink = $closestContainer.find('.theme-possible-title').closest('a').attr('href');
+	// this.$editableTitle.html('<a href="' + closestLink + '">' + closestTitle + '</a>');
+
 };
 
 proto.setWidth = function( to ){
@@ -244,7 +250,25 @@ proto.addListeners = function(){
 	this.$ele.on( 'mouseenter.' + this.namespace, function(){
 		that._onHover();
 	});
+	this.$projects.on('mouseenter.' + this.namespace, function(){
+		that.hoverTitles( $(this) );
+	});
+	this.$projects.on('mouseleave.' + this.namespace, function(){
+		that.hoverTitles( false );
+	})
 };
+
+proto.hoverTitles = function( $hovered ){
+	if( !$hovered ){
+		this.$title.removeClass( 'hovered' );
+		return;
+	}
+	if( $hovered.find('h2').text() === this.$editableTitle.text() ){
+		this.$title.addClass('hovered');
+	} else {
+		this.$title.removeClass( 'hovered' );
+	}
+}
 
 proto.setupScrollbar = function(){
 	var that = this;
@@ -313,9 +337,12 @@ proto.destroy = function(){
 	this.$scrollwrapper.off( 'scroll.' + this.namespace );
 	this.$inner.off( 'scroll.' + this.namespace );
 	this.$ele.off( 'mouseenter.' + this.namespace );
+	this.$projects.off('mouseenter.' + this.namespace );
+	this.$projects.off('mouseleave.' + this.namespace );
 	this.$ele.attr('data-proportion', this.proportionName );
 	this.$ele.attr('data-proportion', '' );
 	this.$ele.attr( 'style', '' );
+
 }
 
 proto._onHover = function(){

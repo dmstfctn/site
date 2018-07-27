@@ -162,7 +162,7 @@ html, body, .dc-site-contents, .layer{
 	z-index: 99;
 	left: auto;
   top: auto;
-	top: 0.85rem;
+	top: 1.05rem;
   right: 0.9rem;
   background: transparent;
   width: 1.6rem;
@@ -198,7 +198,7 @@ html, body, .dc-site-contents, .layer{
 		.committee-header:hover,
 		.committee-header.unscrolled,
 		body.page-template-page-about-php .committee-header{
-			display: block;			
+			display: block;
 			height: 9.4rem;
 		}
 		.committee-header:hover h1,
@@ -214,7 +214,8 @@ html, body, .dc-site-contents, .layer{
 			}
 			body.page-template-page-about .committee-header.unscrolled h1,
 			body.page-template-page-about-php .committee-header h1,
-			.dc_tax_topics-offshore .committee-header h1{
+			.dc_tax_topics-offshore .committee-header h1,
+			body.post-template-default .committee-header h1{
 				background-position: -1.6rem -0.9rem;
 			}
 				body.page-template-page-about .committee-header.unscrolled:hover h1,
@@ -297,10 +298,16 @@ html, body, .dc-site-contents, .layer{
 			top: 0;
 			cursor: pointer;
 		}
-			.theme.scrolled-past-top .theme--content .theme--leader{
+			/* .theme.scrolled-past-top .theme--content .theme--leader{
 				border-bottom: 1px solid #000000;
 			}
 			.theme.theme__networks.scrolled-past-top .theme--content .theme--leader{
+				border-bottom: 1px solid #ffffff;
+			} */
+			.theme .theme--content .theme--leader{
+				border-bottom: 1px solid #000000;
+			}
+			.theme.theme__networks .theme--content .theme--leader{
 				border-bottom: 1px solid #ffffff;
 			}
 
@@ -308,10 +315,15 @@ html, body, .dc-site-contents, .layer{
 				margin-bottom: 0;
 				line-height: 1rem;
 				white-space: nowrap;
+				transition: filter .3s ease-in
 			}
 				.theme .theme--leader h1 .editable+.original{
 					display: none;
 				}
+		.theme .theme--leader h1.hovered{
+			filter: blur(3px);
+		}
+
 
 		.theme .theme--follower{
 			padding: 0.9em 1rem 10em 1.1rem;
@@ -1480,6 +1492,7 @@ html, body, .dc-site-contents, .layer{
 		position: absolute;
 		bottom: 1em;
 		left: 1rem;
+		right: 1rem;
 		max-width: 20em;
 	}
 	.post--related-content h2,
@@ -1561,6 +1574,13 @@ html, body, .dc-site-contents, .layer{
 					 -moz-box-shadow: 0px 0px 9px 2px rgba(160,160,160,0.6), inset -2px -2px 9px -2px rgba(160,160,160,0.6);
 					 			box-shadow: 0px 0px 9px 2px rgba(160,160,160,0.6), inset -2px -2px 9px -2px rgba(160,160,160,0.6);
 			}
+			.quadrant-wrapper.quadrant-wrapper__committee .quadrant-section.project-section__description header,
+			.quadrant-wrapper.quadrant-wrapper__committee .quadrant-section.post-section__contents header{
+				background-color: transparent;
+				-webkit-box-shadow:none;
+					 -moz-box-shadow:none;
+								box-shadow:none;
+			}
 	.post-section__close a:before,
 	.project-section__close a:before{
 		content: '← ';
@@ -1623,7 +1643,7 @@ html, body, .dc-site-contents, .layer{
 		transition-delay: 0;
 	}
 	body.loading .handle{
-		opacity: 1;
+		opacity: 0;
 		pointer-events: all;
 	}
 		body.loading .handle .indicator{
@@ -1634,11 +1654,12 @@ html, body, .dc-site-contents, .layer{
 		background: #FFFFFF;
 		filter: blur( 5px );
 		border: 3px solid #FFFFFF;
-		opacity: 0.3;
+		opacity: 0;
 	}
 		body.loading .handle:after{
 			background: #000000;
 			border: #000000;
+
 		}
 
 		.handle .indicator{
@@ -2149,9 +2170,11 @@ a.text-link{
 	.collapsible-panel .collapsible-panel--toggle:after{
 		content: 'Less ';
 		text-decoration: underline;
+		display: none;
 	}
 		.collapsible-panel.collapsed .collapsible-panel--toggle:after{
 			content: 'More ';
+			display: block;
 		}
 
 /* loading */
@@ -2165,7 +2188,7 @@ body.loading .dc-site-loader{
 		top: 0;
 		left: 0;
 		z-index: 90;
-		background: #ffffff;
+		background: #000000;
 		pointer-events: none;
 		opacity: 0;
 		transition: opacity .3s ease-in-out;

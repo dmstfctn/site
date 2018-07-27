@@ -16,7 +16,7 @@ var Loader = function( context ){
 	ID++;
 
 	this.$context = (context) ? $(context) : $('html');
-	this.loadTime = 300;
+	this.loadTime = 100;
 	this.setupPaths();
 	this.addListeners();
 	this.prepareLinks();
@@ -80,10 +80,12 @@ proto.getLoadConfig = function( path ){
 	}
 }
 
+proto.isLoadingAbout = function( classes, html ){
+	return (classes.indexOf( 'page-template-page-about' ) !== -1);
+}
+
 proto.isLoadingBlack = function( classes, html ){
-	var isAboutPage = (classes.indexOf( 'page-template-page-about' ) !== -1);
-	var hasNetworkQuadrant = $( $(html)[0] ).hasClass( '.quadrant-wrapper__network-ensemble' );
-	return isAboutPage || hasNetworkQuadrant;
+	return $( $(html)[0] ).hasClass( '.quadrant-wrapper__network-ensemble' );
 }
 
 proto.load = function( state ){
@@ -114,8 +116,14 @@ proto.load = function( state ){
 		that.prepareLinks( config.destination );
 
 		$('body').attr('class', newBodyClasses + ' loading' );
-		if( that.isLoadingBlack( newBodyClasses, $html ) ){
+		if( that.isLoadingBlack( newBodyClasses, $html ) === false ){
 			$('body').addClass('dc-black-page');
+			$('.dc-site-loader').attr( 'data-loading', 'white' );
+		} else {
+			$('.dc-site-loader').attr( 'data-loading', 'black' );
+		}
+		if( that.isLoadingAbout( newBodyClasses, $html ) ){
+			$('.dc-site-loader').attr( 'data-loading', 'red' );
 		}
 
 		setTimeout( function(){
