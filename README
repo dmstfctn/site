@@ -1,18 +1,12 @@
-#Dev Setup
+(demystification.co/mmittee)[https://demystification.co/mmittee]
 
-##Javascript concatenation
-Javascript is written as modules and everything is require()d to bring it
-together, this means it has to be packaged before it can be used.
-[Watchify](https://github.com/substack/watchify) is good.
+# Dev Setup
+It's a wordpress theme.
 
-In the root folder of the theme run:
+## General
+Browserify is used via Gulp to concat scripts, allow require()ing of modules and to minify. Run ```gulp watch-pack``` in the root.
 
-```watchify assets/javascript/src/main.js -o assets/javascript/dist/main.js```
+## CSS
+The CSS is written naked, no preprocessors, no modularisation. It's a huge, terrifying, file. Good luck.
 
-##Javascript Minification
-Optionally minify it before distribution/upload. No pro way of doing this, just
-minify however you want (online is easy) and then paste it into dist/main.js.
-
-##CSS
-The CSS is written naked, no preprocessors, no modularisation. It's a huge file.
-Good luck.
+The theme loads the CSS from ```assets/styles/dist/style.css```. running ```gulp watch-pack``` will do that for you, although it will also minify it which is a bit annoying.
