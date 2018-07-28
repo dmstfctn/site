@@ -182,12 +182,15 @@ html, body, .dc-site-contents, .layer{
 			top: 0;
 			width: 100%;
 		}
+			.committee-header h1 svg path{
+				fill: #000000;
+				transition: fill .3s ease-in-out;
+			}
 		.committee-header--logo__full,
 		.committee-header--logo__small{
 			display: none;
 		}
 	.committee-header.invert h1 svg path{
-		transition: fill .3s eas-in-out;
 		fill: #FFFFFF;
 	}
 	.committee-header span{
@@ -2212,11 +2215,31 @@ body.loading .dc-site-loader{
 		position: fixed;
 		top: 0;
 		left: 0;
-		z-index: 90;
-		background: #000000;
+		z-index: -1;
+		background: #FFFFFF;
 		pointer-events: none;
+		//opacity: 0;
+		transition: opacity .3s ease-in-out, background-color .3s ease-in-out;
+	}
+	.dc-site-loader .loader--half{
 		opacity: 0;
 		transition: opacity .3s ease-in-out;
+		width: 50%;
+		height: 100%;
+		background: #000000;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+
+	body.dc_tax_topics-networks .dc-site-loader{
+		background: #000000;
+	}
+	body.home .dc-site-loader .loader--half{
+		opacity: 1;
+	}
+	body.page-template-page-about .dc-site-loader{
+		background: #FF0000;
 	}
 body.loading .committee-header{
 	//opacity: 0;

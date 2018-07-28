@@ -22,7 +22,7 @@ var Site = function(){
 	this.hoverImgs = [];
 	this.videos = [];
 	this.panels = [];
-
+	this.loaderEle = $('.dc-site-loader');
 	this.namespace = 'Site-' + ID;
 	ID++;
 
@@ -124,6 +124,12 @@ proto.sizePanes = function(){
 	this.paneRight.setWidth( rightW );
 }
 
+proto.sizeLoaderPanels = function(){
+	var leftW = Math.round( this.handleX.pos.x );
+	var rightW = $(window).width() - leftW;
+	this.loaderEle.children('.loader--half').width( rightW );
+}
+
 proto.sizeAbout = function(){
 	var leftW = Math.round( this.handleX.pos.x );
 	var rightW = $(window).width() - leftW;
@@ -156,7 +162,7 @@ proto.init = function( config ){
 		});
 		this.firstTime = false;
 	}
-	
+
 	this.project = new Project( $('.layer__project') );
 	this.post = new Post( $('.layer__post') );
 	this.about = new About( $('.about-wrapper') );
@@ -206,6 +212,7 @@ proto.init = function( config ){
 
 	this.handleX.onMove = function( pos ){
 		that.sizePanes();
+		that.sizeLoaderPanels();
 		that.sizeAbout();
 		that.sizeVideos();
 		that.handleY.setCrossPoint( that.handleX.pos.x );
@@ -216,6 +223,7 @@ proto.init = function( config ){
 		that.moveGrid();
 	}
 
+	this.sizeLoaderPanels();
 	this.sizePanes();
 	this.sizeAbout();
 	this.moveGrid();

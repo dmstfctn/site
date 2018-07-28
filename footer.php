@@ -38,7 +38,9 @@
 	<?php endif; ?>
 
 	</div><!-- end .dc-site-contents -->
-	<div class="dc-site-loader"></div>
+	<div class="dc-site-loader">
+		<div class="loader--half"></div>
+	</div>
 	<div id="handle-x" class="handle handle__x">
 		<div class="indicator"></div>
 	</div>
