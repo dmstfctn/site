@@ -456,21 +456,30 @@ html, body, .dc-site-contents, .layer{
 			right: 0
 		}
 		.theme:nth-child(2) .dc-scrollbar--handle{
-			background: #ffffff;
 			right: 0;
 			left: auto;
 		}
+			.theme:nth-child(2) .dc-scrollbar--handle:after{
+				background: #ffffff;
+				right: 0;
+			}
 		.dc-scrollbar--handle{
-			position: absolute;
-			left: -1px;
+			position: absolute;			
 			cursor: pointer;
 			width: 9px;
 			height: 18px;
-			background: #000000;
+			background: transparent;
 			transform: translateY(1px);
 			transition: width .2s, height .5s;
-			//filter: blur( 1px);
 		}
+			.dc-scrollbar--handle:after{
+				position: absolute;
+				display: block;
+				content: '';
+				width: 4px;
+				height: 100%;
+				background: #000000;
+			}
 		.theme.locked .dc-scrollbar{
 			pointer-events: all;
 			opacity: 1;
