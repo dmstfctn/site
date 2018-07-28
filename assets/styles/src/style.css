@@ -220,18 +220,22 @@ html, body, .dc-site-contents, .layer{
 	body.single-post .layer__project,
 	body.single-post .layer__committee,
 	body.page-template-page-dc-quadrant .layer__project,
-	body.page-template-page-dc-quadrant .layer__committee{
+	body.page-template-page-dc-quadrant .layer__committee,
+	body.page-template-page-about .layer__themes{
 		opacity: 0;
 		pointer-events: none;
 	}
 	body.single-dc_project .layer__committee,
-	body.single-dc_project .layer__post{
+	body.single-dc_project .layer__post,
+	body.page-template-page-about .layer__themes{
 		opacity: 0;
 		pointer-events: none;
 	}
 
 	body.page-template-page-about .layer__post,
-	body.page-template-page-about .layer__project{
+	body.page-template-page-about .layer__project,
+	body.page-template-page-about .layer__project,
+	body.page-template-page-about .layer__themes{
 		opacity: 0;
 		pointer-events: none;
 	}
@@ -271,7 +275,10 @@ html, body, .dc-site-contents, .layer{
 		}
 			.committee-header h1 svg path{
 				fill: #000000;
-				transition: fill .3s .3s ease-in-out;
+				transition: fill .3s ease-in-out;
+			}
+			body.loading .committee-header h1 svg path{
+				transition-delay: .3s;
 			}
 		.committee-header--logo__full,
 		.committee-header--logo__small{
@@ -2320,9 +2327,15 @@ body.loading .layer{
 }
 	.dc-site-contents,
 	.layer{
-		transition: opacity .3s ease-in-out;
-		transition-delay: .05s;
+		transition: opacity .13s ease-in-out;
+		//transition-delay: .05s;
 	}
+		.dc-site-contents{
+			transition-delay: .2s
+		}
+		body.loading .dc-site-contents{
+			transition-delay: 0;
+		}
 
 @media (min-width: 721px){
 			.dc-slideshow .dc-slideshow--prev:after,
