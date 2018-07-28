@@ -47,6 +47,7 @@
 	top: 0;
 	bottom: 0;
 	width:4px;
+	visibility: hidden;
 }
 
  .optiscroll.has-vtrack.has-htrack>.optiscroll-v{
