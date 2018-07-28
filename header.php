@@ -38,6 +38,12 @@
 				<a href="<?php echo home_url( 'about' ); ?>">
 			<?php endif; ?>
 				<h1>
+					<div class="committee-header--logo__full">
+						<?php echo file_get_contents( __DIR__ . '/assets/svg/demystification-committee-full-embed.svg'); ?>
+					</div>
+					<div class="committee-header--logo__small">
+						<?php echo file_get_contents( __DIR__ . '/assets/svg/demystification-committee-dc-embed.svg'); ?>
+					</div>
 					<span>Demystification Committee</span>
 				</h1>
 			</a>
