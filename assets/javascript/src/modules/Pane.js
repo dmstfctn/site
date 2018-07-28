@@ -22,6 +22,8 @@ var Pane = function( _ele ){
 	this.$possibleTitleContainers = this.$ele.find('.theme-possible-title-container');
 	this.$projects = this.$ele.find('.theme-item__work')
 
+	this.firstClick = false;
+
 	this.width = this.$ele.outerWidth();
 	this.locked = false;
 	this.scrollPercent = 0;
@@ -69,11 +71,10 @@ proto.setTitle = function( _innerScroll ){
 		}
 	});
 	this.$title.removeClass( 'hovered' );
-	this.$editableTitle.text( $closestContainer.find('.theme-possible-title').text() );
-	// alt: to make title clickable
-	// var closestTitle = $closestContainer.find('.theme-possible-title').text()
-	// var closestLink = $closestContainer.find('.theme-possible-title').closest('a').attr('href');
-	// this.$editableTitle.html('<a href="' + closestLink + '">' + closestTitle + '</a>');
+	//this.$editableTitle.text( $closestContainer.find('.theme-possible-title').text() );
+	var closestTitle = $closestContainer.find('.theme-possible-title').text()
+	this.currentHeaderLink = $closestContainer.find('.theme-possible-title').closest('a');
+	this.$editableTitle.text( closestTitle );
 
 };
 
@@ -157,14 +158,11 @@ proto.scrollMainResponse = function(){
 	if(  scroll >= scrollLockAt ){
 		this.$scrollwrapper.scrollTop( scrollLockAt );
 		this.lockScroll()
-	} else {
-		this.unlockScroll();
+		this.firstClick = true;
 	}
 
 	this.$imageCover.css({
-		filter: 'blur(' + proportionToLock * 10 + 'px )',
-		//transform: 'scale(' + (100 + (proportionToLock*0.02)) + ' )'
-		//'background-size': (100 + (proportionToLock*3)) + 'vw auto'
+		filter: 'blur(' + proportionToLock * 10 + 'px )'
 	});
 
 	this._onScrollMain();
@@ -180,10 +178,6 @@ proto.scrollInnerResponse = function( _innerScroll ){
 	}
 	var scrollMax = Math.round( this.$inner[0].scrollHeight - this.$inner.innerHeight() );
 	this.scrollPercent = (scroll/scrollMax) * 100;
-
-	if( scroll < 0 || (scroll < this.innerPScroll && scroll < 1 ) ){
-		this.unlockScroll();
-	}
 
 	this.innerPScroll = scroll;
 }
@@ -202,21 +196,27 @@ proto.scrollInner = function( by, _innerScroll ){
 
 proto.addListeners = function(){
 	var that = this;
-	var firstClick = false;
 	var innerScrollTop = false;
 	var scrollInnerCounter = 0;
 	var scrollInnerTimer = (new Date()).getTime();
 	var scrollWrapperTimer = (new Date()).getTime();
+	var scrollTimeoutUpdate = false;
+	this.firstClick = false;
+
 	this.$ele.on('click.' + this.namespace, function(){
-		if( that.locked || firstClick ){
+		if( that.locked || that.firstClick ){
 			//return false;
 		} else {
-			firstClick = true;
+			that.firstClick = true;
 			that.toggleLock();
 		}
 	});
 	this.$ele.find('.theme--leader').on('click.' + this.namespace, function(){
-		that.toggleLock();
+		if( !that.firstClick ){
+			that.toggleLock();
+		} else {
+			that.currentHeaderLink.click();
+		}
 	});
 	this.$scrollwrapper.on('scroll.' + this.namespace, function(e){
 		if( !innerScrollTop ){
@@ -242,10 +242,16 @@ proto.addListeners = function(){
 		if( t - scrollInnerTimer > 33 ){ //max 10/sec
 			innerScrollTop = that.$inner.scrollTop();
 			that.setTitle( innerScrollTop );
-			that.renderScrollBar();
 			that.scrollInnerResponse( innerScrollTop );
+			that.renderScrollBar();
 			scrollInnerTimer = t;
 		}
+		clearTimeout( scrollTimeoutUpdate );
+		scrollTimeoutUpdate = setTimeout(function(){
+			that.setTitle( that.$inner.scrollTop() );
+			that.scrollInnerResponse( that.$inner.scrollTop() );
+			that.renderScrollBar();
+		}, 5 );
 	});
 	this.$ele.on( 'mouseenter.' + this.namespace, function(){
 		that._onHover();

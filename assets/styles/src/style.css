@@ -464,7 +464,7 @@ html, body, .dc-site-contents, .layer{
 				right: 0;
 			}
 		.dc-scrollbar--handle{
-			position: absolute;			
+			position: absolute;
 			cursor: pointer;
 			width: 9px;
 			height: 18px;
@@ -1654,19 +1654,7 @@ html, body, .dc-site-contents, .layer{
 		body.loading .handle .indicator{
 			opacity: 0;
 		}
-
-	body.loading .handle:after{
-		background: #FFFFFF;
-		filter: blur( 5px );
-		border: 3px solid #FFFFFF;
-		opacity: 0;
-	}
-		body.loading .handle:after{
-			background: #000000;
-			border: #000000;
-
-		}
-
+			
 		.handle .indicator{
 			width: 0;
 			height: 0;
