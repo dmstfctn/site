@@ -408,34 +408,6 @@ html, body, .dc-site-contents, .layer{
 				display: none;
 			}
 
-			.theme--content:before,
-			.theme--content:after{
-				content: '';
-				position: absolute;
-				top: -11px;
-				left: 0px;
-				right:0px;
-				background: #ffffff;
-				height: 30px;
-				border-radius: 0 0 32px 32px;
-				filter: blur( 3px );
-				transition: opacity .13s ease-out;
-			}
-				.theme .theme--content:after{
-					top: auto;
-					bottom: -18px;
-					border-radius: 13px 13px 0 0;
-					z-index: 2;
-				}
-					.theme__networks .theme--content:after{
-						bottom: -22px;
-					}
-
-			.theme__networks .theme--content:before,
-			.theme__networks .theme--content:after{
-				background: #000000;
-			}
-
 		/* SCROLLBAR HIDING */
 
 	.theme-scroller-wrapper{
