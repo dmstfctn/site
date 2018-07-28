@@ -2235,7 +2235,7 @@ body.loading .layer{
 @media (min-width: 721px){
 			.dc-slideshow .dc-slideshow--prev:after,
 			.dc-slideshow .dc-slideshow--next:after{
-				filter: blur( 3px );
+				filter: blur( 2px );
 				transition: filter .3s ease-in;
 			}
 			.dc-slideshow .dc-slideshow--prev:hover:after,
