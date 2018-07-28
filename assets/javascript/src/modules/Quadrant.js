@@ -23,7 +23,8 @@ var Quadrant = function( _ele ){
 	this.reorderable = true;
 	this.getSections();
 	this.calculateHierarchy();
-	this.render();
+	//don't auto render
+	//this.render();
 }
 
 var proto = Quadrant.prototype;

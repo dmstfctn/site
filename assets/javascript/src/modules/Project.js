@@ -19,16 +19,18 @@ proto.getSections = function(){
 }
 
 proto.render = function(){
-	var primary = this.renderSections[1];
-	var primaryColumnName = this.smallestColumn;
-	var secondary = this.renderSections[0];
-	var secondaryColumnName = this.largestColumn;
+	var primaryColumnName = 'w';
+	var secondaryColumnName = 'e';
 	if( this.order === 'rtl' ){
-		primary = this.renderSections[0];
-		primaryColumnName = this.largestColumn;
-		secondary = this.renderSections[1];
-		secondaryColumnName = this.smallestColumn;
+		primaryColumnName = 'e';
+		secondaryColumnName = 'w';
 	}
+	var primary = $.grep( this.renderSections,function( section, index ){
+		return section.name.indexOf( primaryColumnName ) !== -1;
+	})[0];
+	var secondary = $.grep( this.renderSections,function( section, index ){
+		return section.name.indexOf( secondaryColumnName ) !== -1;
+	})[0];
 	this.$description
 		.css( primary.css )
 		.attr('data-section-location',  primary.name )
@@ -44,7 +46,7 @@ proto.render = function(){
 	this.$header
 		.css({
 			width: primary.css.width,
-			top: primary.css.top,
+			top: 0,
 			left: primary.css.left
 		});
 
