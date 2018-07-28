@@ -1,4 +1,4 @@
-(demystification.co/mmittee)[https://demystification.co/mmittee]
+https://demystification.co/mmittee
 
 # Dev Setup
 It's a wordpress theme.
