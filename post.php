@@ -31,13 +31,15 @@
 				<?php the_title(); ?>
 			</h1>
 		</header>
-		<div class="wysiwyg">
-			<?php
-				the_content();
-				if(get_post_type() === 'dc_social_twitter' ||  get_post_type() === 'dc_social_instagram' ){
-					the_post_thumbnail();
-				}
-			?>
+		<div class="scrollinner">
+			<div class="wysiwyg">
+				<?php
+					the_content();
+					if(get_post_type() === 'dc_social_twitter' ||  get_post_type() === 'dc_social_instagram' ){
+						the_post_thumbnail();
+					}
+				?>
+			</div>
 		</div>
 	</section><!--
 --><section class="post-section post-section__close" data-section-location="se">

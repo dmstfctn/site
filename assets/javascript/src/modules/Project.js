@@ -1,5 +1,6 @@
 var $ = require('jquery');
 var Quadrant = require( './Quadrant.js' );
+var Optiscroll = require('optiscroll');
 
 var Project = function( _ele ){
 	Quadrant.call( this, _ele );
@@ -54,6 +55,17 @@ proto.render = function(){
 		.css({
 			'padding-top': this.$header.outerHeight() - 10
 		});
+	
+	if( this.$description.length > 0 && !this.scrollbars ){
+		this.scrollbars = new Optiscroll(this.$description.find('.scrollinner')[0], {forceScrollbars: true, maxTrackSize: 5});
+		this.$description.find('.scrollinner').addClass('optiscroll');
+	}
+	if( this.order === 'rtl' ){
+		this.$description.find('.scrollinner').addClass('is-rtl').removeClass('is-ltr');
+	} else {
+		this.$description.find('.scrollinner').addClass('is-ltr').removeClass('is-rtl');
+
+	}
 }
 
 proto.calculateHierarchy = function(){
@@ -79,6 +91,9 @@ proto.calculateHierarchy = function(){
 };
 
 proto.destroy = function(){
+	if( this.scrollbars ){
+		this.scrollbars.destroy();
+	}
 	this.$images
 		.attr('style','')
 		.attr('data-section-location', '' );

@@ -1,4 +1,5 @@
 var $ = require('jquery');
+var Optiscroll = require('optiscroll')
 
 var About = function( _ele ){
 	this.$ele = (_ele) ? $( _ele ) : this.$ele;
@@ -49,17 +50,16 @@ proto.calculateProportion = function(){
 }
 
 proto.render = function(){
-	// this.$content.attr('data-proportion', this.proportionNameL );
-	// this.$extra.attr('data-proportion', this.proportionNameR );
-	// this.$content.css({
-  //   'width': this.widthL
-  // });
-	// this.$extra.css({
-  //   'width': this.widthR
-  // });
+	if( !this.scrollbars && this.$ele.length > 0 ){
+		this.scrollbars = new Optiscroll( this.$ele[0],{ forceScrollbars: true });
+		this.$ele.addClass('optiscroll');
+	}
 }
 
 proto.destroy = function(){
+	if( this.scrollbars ){
+		this.scrollbars.destroy();
+	}
 	this.$content.attr( 'data-proportion', '' );
 	this.$content.attr( 'style', '' );
 	this.$extra.attr( 'data-proportion', '' );

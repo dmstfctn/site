@@ -30,8 +30,10 @@
 					<?php the_title(); ?>
 				</h1>
 			</header>
-			<div class="wysiwyg">
-				<?php the_content(); ?>
+			<div class="scrollinner">
+				<div class="wysiwyg">
+					<?php the_content(); ?>
+				</div>
 			</div>
 		</section><!--
 	--><section class="project-section project-section__close">

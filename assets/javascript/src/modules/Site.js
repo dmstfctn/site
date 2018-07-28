@@ -162,7 +162,15 @@ proto.init = function( config ){
 		});
 		this.firstTime = false;
 	}
-
+	if( this.project ){
+		this.project.destroy();
+	}
+	if( this.post ){
+		this.post.destroy();
+	}
+	if( this.about ){
+		this.about.destroy();
+	}
 	this.project = new Project( $('.layer__project') );
 	this.post = new Post( $('.layer__post') );
 	this.about = new About( $('.about-wrapper') );

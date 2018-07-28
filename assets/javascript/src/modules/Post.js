@@ -1,5 +1,6 @@
 var $ = require('jquery');
 var Quadrant = require( './Quadrant.js' );
+var Optiscroll = require('optiscroll');
 
 var Post = function( _ele ){
 	Quadrant.call( this, _ele );
@@ -52,6 +53,16 @@ proto.render = function(){
 		.css({
 			'padding-top': this.$header.outerHeight() - 10
 		})
+
+	if( this.$content.length > 0 && !this.scrollbars ){
+		this.scrollbars = new Optiscroll(this.$content.find('.scrollinner')[0], {forceScrollbars: true, maxTrackSize: 5});
+		this.$content.find('.scrollinner').addClass('optiscroll');
+	}
+	if( this.order === 'rtl' ){
+		this.$content.find('.scrollinner').addClass('is-rtl').removeClass('is-ltr');
+	} else {
+		this.$content.find('.scrollinner').addClass('is-ltr').removeClass('is-rtl');
+	}
 }
 
 proto.calculateHierarchy = function(){
@@ -77,6 +88,9 @@ proto.calculateHierarchy = function(){
 };
 
 proto.destroy = function(){
+	if( this.scrollbars ){
+		this.scrollbars.destroy();
+	}
 	this.$content.attr('style','')
 		.attr( 'data-section-location', '' )
 		.attr( 'data-section-span', '' );
