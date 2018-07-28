@@ -46,7 +46,7 @@
 	height: 100%;
 	top: 0;
 	bottom: 0;
-	width:4px;
+	width:10px;
 	visibility: hidden;
 }
 
@@ -55,16 +55,26 @@
 }
 
  .optiscroll-vtrack {
-    background:black;
+	 background: transparent;
 		cursor: pointer;
 		min-height: 30px;
 		position: relative;
 	}
+	.optiscroll-vtrack:before{
+		display: block;
+		content: '';
+		width: 4px;
+		height: 100%;
+		background:black;
+		right: 0;
+		position: absolute;
+	}
 	 .optiscroll-vtrack:after{
+		 right: 0;
 		 display: block;
 		 content: '';
 		 height: 0;
-		 width: 100%;
+		 width: 4px;
 		 position: absolute;
 		 top: 100%;
 		 background: black;
@@ -75,7 +85,8 @@
 		height: 10px;
 	}
 		.dc_tax_topics-networks .optiscroll-vtrack,
-		.dc_tax_topics-networks .optiscroll-vtrack:after{
+		.dc_tax_topics-networks .optiscroll-vtrack:after,
+		.dc_tax_topics-networks .optiscroll-vtrack:before{
 			background: #FFFFFF;
 		}
  .optiscroll-vtrack{
@@ -87,6 +98,11 @@
     right:auto;
     left:0px;
 	}
+		.optiscroll.is-ltr > .optiscroll-v .optiscroll-vtrack:before,
+		.optiscroll.is-ltr > .optiscroll-v .optiscroll-vtrack:after{
+			right: auto;
+			left: 0;
+		}
 
 /* FONT */
 @import url("https://fast.fonts.net/lt/1.css?apiType=css&c=dc7503f7-b2ae-4b2b-a29c-0aa22a05fae1&fontids=1492055");

@@ -51,7 +51,7 @@ proto.calculateProportion = function(){
 
 proto.render = function(){
 	if( !this.scrollbars && this.$ele.length > 0 ){
-		this.scrollbars = new Optiscroll( this.$ele[0],{ forceScrollbars: true });
+		this.scrollbars = new Optiscroll( this.$ele[0],{ forceScrollbars: true, maxTrackSize: 5 });
 		this.$ele.addClass('optiscroll');
 	}
 }
