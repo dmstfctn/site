@@ -497,7 +497,7 @@ html, body, .dc-site-contents, .layer{
 			background: #000000;
 			transform: translateY(1px);
 			transition: width .2s, height .5s;
-			filter: blur( 1px);
+			//filter: blur( 1px);
 		}
 		.theme.locked .dc-scrollbar{
 			pointer-events: all;
