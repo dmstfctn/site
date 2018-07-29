@@ -437,6 +437,9 @@ html, body, .dc-site-contents, .layer{
 			top: 0;
 			cursor: pointer;
 		}
+			.theme[data-proportion="tiny"] .theme--leader{
+				cursor: default;
+			}
 			/* .theme.scrolled-past-top .theme--content .theme--leader{
 				border-bottom: 1px solid #000000;
 			}
@@ -471,7 +474,10 @@ html, body, .dc-site-contents, .layer{
 		.theme.locked .theme--leader:hover h1.has-link{
 			filter: blur(3px);
 		}
-
+			.theme[data-proportion="tiny"] .theme--leader h1.hovered,
+			.theme[data-proportion="tiny"].locked .theme--leader:hover h1.has-link{
+				filter: blur(0);
+			}
 
 		.theme .theme--follower{
 			padding: 0.9em 1rem 10em 1.1rem;

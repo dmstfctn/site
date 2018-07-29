@@ -265,7 +265,9 @@ proto.addListeners = function(){
 		if( !that.firstClick ){
 			that.toggleLock();
 		} else {
-			that.currentHeaderLink.click();
+			if( that.proportionName !== 'tiny' ){
+				that.currentHeaderLink.click();
+			}
 		}
 	});
 	this.$scrollwrapper.on('scroll.' + this.namespace, function(e){
