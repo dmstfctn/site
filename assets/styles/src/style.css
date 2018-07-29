@@ -309,7 +309,7 @@ html, body, .dc-site-contents, .layer{
 
 	@media (min-width: 721px){
 		.committee-header:hover,
-		.committee-header.unscrolled,
+		/*.committee-header.unscrolled,*/
 		body.page-template-page-about-php .committee-header{
 			height: 9.4rem;
 		}
@@ -1911,64 +1911,8 @@ html, body, .dc-site-contents, .layer{
 				}
 
 	.handle__y{
-		height: 90px;
-		top: 50%;
-		left: 0;
-		right: 0;
-		transform: translateY( -50% );
-		opacity: 0;
-		pointer-events: none;
-
+		display: none;
 	}
-
-		.handle__y:after{
-			width: 100%;
-			height: 1px;
-			top: 50%;
-			transform: translateY(-50%);
-		}
-
-		.handle__y .indicator{
-			width: 36px;
-			top: 50%;
-			left: 50%;
-			transform: translateX(-50%) translateY(-50%);
-		}
-
-			.handle__y .indicator:before,
-			.handle__y .indicator:after{
-				background-image: url('../../images/arrow-u-d-small.png');
-				background-size: 72px 56px;
-				background-repeat: no-repeat;
-				background-position: top left;
-				width: 36px;
-			}
-
-				.handle__y .indicator:before{
-					bottom: 50%;
-					top: auto;
-				}
-
-				.handle__y .indicator:after{
-					top: 50%;
-					bottom: auto;
-					background-position: bottom left;
-				}
-
-				.handle__y .indicator:after,
-				body.home .handle__y .indicator:after{
-					background-image: url('../../images/arrow-u-d-small.png');
-					background-size: 72px 56px;
-					background-repeat: no-repeat;
-					background-position: bottom left;
-				}
-
-		.handle__y:hover .indicator:before,
-		.handle__y:hover .indicator:after,
-		.handle__y.handle__active .indicator:before,
-		.handle__y.handle__active .indicator:after{
-			height: 28px;
-		}
 
 		body.dc_tax_topics-networks .handle__x .indicator:after,
 		body.page-template-page-about .handle__x .indicator:after{
@@ -1986,22 +1930,8 @@ html, body, .dc-site-contents, .layer{
 			background-position: bottom left;
 			opacity: 1;
 		}
-		body.dc_tax_topics-networks .handle__y .indicator:after,
-		body.page-template-page-about .handle__y .indicator:after{
-			background-image: url('../../images/arrow-u-d-small.png');
-			background-size: 72px 56px;
-			background-repeat: no-repeat;
-			background-position: bottom right;
-			opacity: 1;
-		}
-		body.dc_tax_topics-networks .handle__y .indicator:before,
-		body.page-template-page-about .handle__y .indicator:before{
-			background-image: url('../../images/arrow-u-d-small.png');
-			background-size: 72px 56px;
-			background-repeat: no-repeat;
-			background-position: top right;
-			opacity: 1;
-		}
+
+
 
 		body.home .handle__x,
 		body.page-template-page-about .handle__x,
@@ -2011,9 +1941,6 @@ html, body, .dc-site-contents, .layer{
 			opacity: 1;
 			pointer-events: all;
 		}
-		body.home .handle__y,
-		body.page-template-page-about .handle__y,
-		body.single-dc_project .handle__y,
 		body.page-template-page-about .handle__x{
 			opacity: 0;
 			pointer-events: none;

@@ -66,6 +66,11 @@ proto.init = function(){
 
 	$('.wysiwyg').fitVids();
 	//$('.dc-video').fitVids();
+	
+	// load home page project images
+	$('.layer__themes').find('.theme-item__work img').each(function(){
+		$(this).attr('src', $(this).attr('data-src') );
+	});
 }
 
 proto.loadAbout = function( callback ){
@@ -84,6 +89,9 @@ proto.loadHome = function( callback ){
 	$.get('/mmittee', function( data ){
 		var $content = $(data).filter('.dc-site-contents').find('.layer__themes').html();
 		$('.layer__themes').html( $content );
+		$('.layer__themes').find('.theme-item__work img').each(function(){
+			$(this).attr('src', $(this).attr('data-src') );
+		});
 		if( typeof callback === 'function' ){
 			callback();
 		}
