@@ -321,10 +321,10 @@ html, body, .dc-site-contents, .layer{
 		.committee-header.tiny.unscrolled .committee-header--logo__small{
 			display: none;
 		}
-			.committee-header.tiny .committee-header--logo__small{
+			body.home .committee-header.tiny .committee-header--logo__small{
 				display: block;
 			}
-			.committee-header.tiny .committee-header--logo__full{
+			body.home .committee-header.tiny .committee-header--logo__full{
 				display: none;
 			}
 
@@ -1674,7 +1674,7 @@ html, body, .dc-site-contents, .layer{
 			position: fixed;
 			top: 0;
 			z-index: 5;
-			padding: 0.67em 1rem 0 1rem;
+			padding: 0.67rem 1rem 0 1rem;
 			width: calc( 100% + 2rem );
 			box-sizing: border-box;
 			background: #FFFFFF;
@@ -1687,15 +1687,21 @@ html, body, .dc-site-contents, .layer{
 				 			box-shadow: 0px 0px 8px 2px rgba(120,120,120,0.2), inset -2px -2px 8px -2px rgba(120,120,120,0.2);
 							*/
 		}
+		.quadrant-section.project-section__description header h1,
+		.quadrant-section.post-section__contents header h1{
+			margin-bottom: .67rem;
+			line-height: 1rem;
+		}
 		.quadrant-section.project-section__description[data-section-span="w"] header,
 		.quadrant-section.post-section__contents[data-section-span="w"] header{
 			border-right: 1px solid #000000;
 			border-left: none;
 		}
-		.quadrant-section[data-proportion=small].project-section__description .wysiwyg,
-		.quadrant-section[data-proportion=small].post-section__contents .wysiwyg{
-			padding-top: 1rem;
+		.quadrant-section[data-proportion=small].project-section__description .scrollinner,
+		.quadrant-section[data-proportion=small].post-section__contents .scrollinner{
+			//top: 1.45rem;
 		}
+
 			.quadrant-section[data-section-span="e"] .wysiwyg,
 			.quadrant-section[data-section-span="e"] header h1{
 				padding-right: 2rem;
