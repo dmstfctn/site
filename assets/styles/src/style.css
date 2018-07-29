@@ -1187,7 +1187,7 @@ html, body, .dc-site-contents, .layer{
 
 .theme[data-proportion="tiny"] .theme--leader{
 	border-bottom: 1px solid #000000;
-	padding-bottom: 1.40em;
+	padding-bottom: 0.87rem;
 	margin-bottom: 0.5em;
 	padding-top: 1.40em;
 }
