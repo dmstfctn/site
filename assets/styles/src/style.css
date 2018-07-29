@@ -313,12 +313,20 @@ html, body, .dc-site-contents, .layer{
 		body.page-template-page-about-php .committee-header{
 			height: 9.4rem;
 		}
-		.committee-header--logo__full{
-			display: none;
-		}
-		.committee-header--logo__small{
+		.committee-header .committee-header--logo__full,
+		.committee-header.tiny.unscrolled .committee-header--logo__full{
 			display: block;
 		}
+		.committee-header .committee-header--logo__small,
+		.committee-header.tiny.unscrolled .committee-header--logo__small{
+			display: none;
+		}
+			.committee-header.tiny .committee-header--logo__small{
+				display: block;
+			}
+			.committee-header.tiny .committee-header--logo__full{
+				display: none;
+			}
 
 		.committee-header:hover .committee-header--logo__full,
 		.committee-header.unscrolled .committee-header--logo__full,

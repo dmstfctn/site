@@ -133,6 +133,11 @@ proto.sizePanes = function(){
 	var rightW = $(window).width() - leftW;
 	this.paneLeft.setWidth( leftW );
 	this.paneRight.setWidth( rightW );
+	if( this.paneRight.proportionName === 'tiny' ){
+		$('.committee-header').addClass('tiny');
+	} else {
+		$('.committee-header').removeClass('tiny');
+	}
 }
 
 proto.sizeLoaderPanels = function(){
@@ -280,13 +285,15 @@ proto.init = function( config ){
 	}
 
 	var $committeeHeader = $('.committee-header');
-	var committeeHeaderOpenHeight = $committeeHeader.height();
+	var committeeHeaderOpenHeight = 200;
 
 	var timeout = null;
 	this.paneRight.onScrollMain = function(){
+		console.log( $(window).height() - that.paneRight.$scrollwrapper.scrollTop(), committeeHeaderOpenHeight );
 		if( !timeout ){
 			timeout = setTimeout(function(){
 				timeout = null;
+				console.log('check');
 				if( $(window).height() - that.paneRight.$scrollwrapper.scrollTop() < committeeHeaderOpenHeight ){
 					$committeeHeader.removeClass('unscrolled');
 				} else {
@@ -296,6 +303,7 @@ proto.init = function( config ){
 		}
 	}
 	this.paneRight.onScrollMain();
+
 
 	// if( config && config.name === 'home' ){
 	// 	if( window.location.hash ){
