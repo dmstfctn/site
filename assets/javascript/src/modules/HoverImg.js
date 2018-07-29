@@ -7,9 +7,13 @@ var ID = 0;
 var HoverImg = function( _ele ){
 	this.$ele = $( _ele );
   this.ele = this.$ele.get(0);
-	this.$trigger = this.$ele.parent().find('.dc-hoverimg-trigger');
+	this.$trigger = this.$ele.parent().find('.dc-hoverimg-trigger').add(this.$ele.closest('.theme-item'));
 	this.replaced = false;
 	this.active = false;
+
+	this.$ele.parent().find('a').click(function(e){
+		e.stopPropagation();
+	});
 
 	this.namespace = 'HoverImg-' + ID;
 	ID++;
@@ -28,12 +32,20 @@ proto.addListeners = function(){
 		this.$trigger.on( 'mouseleave.' + this.namespace, function(){
 			that.deactivate();
 		});
-		this.$trigger.on( 'click.' + this.namespace, function(){
-			that.toggle();
+		this.$trigger.on( 'click.' + this.namespace, function( e ){
+			if( that.active ){
+					that.followLink();
+			} else {
+				that.toggle();
+			}
 		});
 	}
 	this.$trigger.on( 'touchend.' + this.namespace, function(){
-		that.toggle();
+		if( that.active ){
+			that.followLink();
+		} else {
+			that.toggle();
+		}
 	});
 
 }
@@ -43,6 +55,12 @@ proto.toggle = function(){
 		this.deactivate();
 	} else {
 		this.activate();
+	}
+}
+
+proto.followLink = function(){
+	if( this.$ele.parent().find('a').length > 0 ){
+		window.open( this.$ele.parent().find('a').first().attr('href'), '_blank');
 	}
 }
 
