@@ -289,11 +289,9 @@ proto.init = function( config ){
 
 	var timeout = null;
 	this.paneRight.onScrollMain = function(){
-		console.log( $(window).height() - that.paneRight.$scrollwrapper.scrollTop(), committeeHeaderOpenHeight );
 		if( !timeout ){
 			timeout = setTimeout(function(){
 				timeout = null;
-				console.log('check');
 				if( $(window).height() - that.paneRight.$scrollwrapper.scrollTop() < committeeHeaderOpenHeight ){
 					$committeeHeader.removeClass('unscrolled');
 				} else {
