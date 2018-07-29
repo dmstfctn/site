@@ -459,7 +459,8 @@ html, body, .dc-site-contents, .layer{
 				.theme .theme--leader h1 .editable+.original{
 					display: none;
 				}
-		.theme .theme--leader h1.hovered{
+		.theme .theme--leader h1.hovered,
+		.theme.locked .theme--leader:hover h1.has-link{
 			filter: blur(3px);
 		}
 

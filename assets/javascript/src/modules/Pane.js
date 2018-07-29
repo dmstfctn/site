@@ -87,7 +87,7 @@ proto.setupTitle = function(){
 	this.$title.append( '<span class="editable"></span>' );
 	this.$title.append( '<span class="original">' + originalTitle + '</span>' );
 	this.$editableTitle = this.$title.find('.editable');
-
+	this.currentTitle = '';
 	this.setTitle();
 }
 
@@ -114,9 +114,17 @@ proto.setTitle = function( _innerScroll ){
 	});
 	this.$title.removeClass( 'hovered' );
 	//this.$editableTitle.text( $closestContainer.find('.theme-possible-title').text() );
-	var closestTitle = $closestContainer.find('.theme-possible-title').text()
-	this.currentHeaderLink = $closestContainer.find('.theme-possible-title').closest('a');
-	this.$editableTitle.text( closestTitle );
+	var closestTitle = $closestContainer.find('.theme-possible-title').text();
+	if( closestTitle !== this.currentTitle ){
+		this.currentHeaderLink = $closestContainer.find('.theme-possible-title').closest('a');
+		this.$editableTitle.text( closestTitle );
+		if( this.currentHeaderLink.length > 0 ){
+			this.$title.addClass('has-link');
+		} else {
+			this.$title.removeClass('has-link')
+		}
+		this.currentTitle = closestTitle;
+	}
 
 };
 
