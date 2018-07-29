@@ -554,6 +554,7 @@ html, body, .dc-site-contents, .layer{
 		}
 			.theme.locked .theme--content{
 				height: 100%;
+				top: 0;
 			}
 			.theme--section:last-child{
 				padding-bottom: 4rem;
