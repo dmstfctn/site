@@ -451,6 +451,14 @@ html, body, .dc-site-contents, .layer{
 			}
 
 			.theme .theme--leader h1{
+				-webkit-backface-visibility: hidden;
+				-webkit-perspective: 1000;
+				-webkit-transform: translate3d(0,0,0);
+				-webkit-transform: translateZ(0);
+				backface-visibility: hidden;
+				perspective: 1000;
+				transform: translate3d(0,0,0);
+				transform: translateZ(0);
 				margin-bottom: 0;
 				line-height: 1rem;
 				white-space: nowrap;
@@ -885,10 +893,26 @@ html, body, .dc-site-contents, .layer{
 		transition: z-index .01s .2s linear;
 	}
 		.theme-item__hasimg h3{
+			-webkit-backface-visibility: hidden;
+			-webkit-perspective: 1000;
+			-webkit-transform: translate3d(0,0,0);
+			-webkit-transform: translateZ(0);
+			backface-visibility: hidden;
+			perspective: 1000;
+			transform: translate3d(0,0,0);
+			transform: translateZ(0);
 			position: relative;
 			z-index: 2;
 		}
 		.theme-item__hasimg .theme-item--hoverimg{
+			-webkit-backface-visibility: hidden;
+			-webkit-perspective: 1000;
+			-webkit-transform: translate3d(0,0,0);
+			-webkit-transform: translateZ(0);
+			backface-visibility: hidden;
+			perspective: 1000;
+			transform: translate3d(0,0,0);
+			transform: translateZ(0);
 			opacity: 0;
 			position: absolute;
 			width: 100%;
@@ -976,10 +1000,26 @@ html, body, .dc-site-contents, .layer{
 			width: 100%;
 		}
 			.theme__networks .theme-item__work img{
+				-webkit-backface-visibility: hidden;
+				-webkit-perspective: 1000;
+				-webkit-transform: translate3d(0,0,0);
+				-webkit-transform: translateZ(0);
+				backface-visibility: hidden;
+				perspective: 1000;
+				transform: translate3d(0,0,0);
+				transform: translateZ(0);
 				display: block;
 				width: 100%;
 			}
 		.theme-item__work h2{
+			-webkit-backface-visibility: hidden;
+			-webkit-perspective: 1000;
+			-webkit-transform: translate3d(0,0,0);
+			-webkit-transform: translateZ(0);
+			backface-visibility: hidden;
+			perspective: 1000;
+			transform: translate3d(0,0,0);
+			transform: translateZ(0);
 			margin: 0 0 .63em 0;
 			transform-origin: top left;
 			transition: filter .3s ease-in;
@@ -1006,6 +1046,14 @@ html, body, .dc-site-contents, .layer{
 }
 .theme .theme--section__research ul li:before{
 	content: attr(data-li-number) " ";
+	-webkit-backface-visibility: hidden;
+	-webkit-perspective: 1000;
+	-webkit-transform: translate3d(0,0,0);
+	-webkit-transform: translateZ(0);
+	backface-visibility: hidden;
+	perspective: 1000;
+	transform: translate3d(0,0,0);
+	transform: translateZ(0);
 	filter: blur(0); /*to make sure it has same weight as <li>s in Safari*/
 	width: 1.7em;
 	display: block;
@@ -1076,6 +1124,14 @@ html, body, .dc-site-contents, .layer{
 		margin-bottom: 0.7em;
 	}
 		.theme--section__research a{
+			-webkit-backface-visibility: hidden;
+			-webkit-perspective: 1000;
+			-webkit-transform: translate3d(0,0,0);
+			-webkit-transform: translateZ(0);
+			backface-visibility: hidden;
+			perspective: 1000;
+			transform: translate3d(0,0,0);
+			transform: translateZ(0);
 			filter: blur(0);
 			transition: .3s ease-in;
 		}
@@ -1332,6 +1388,14 @@ html, body, .dc-site-contents, .layer{
 .about--section__news .theme-item__type-post h3{
 	text-decoration: underline;
 	text-decoration-skip: ink;
+	-webkit-backface-visibility: hidden;
+	-webkit-perspective: 1000;
+	-webkit-transform: translate3d(0,0,0);
+	-webkit-transform: translateZ(0);
+	backface-visibility: hidden;
+	perspective: 1000;
+	transform: translate3d(0,0,0);
+	transform: translateZ(0);
 	filter: blur( 0px );
 	transition: filter .3s ease-in;
 }
@@ -1639,6 +1703,14 @@ html, body, .dc-site-contents, .layer{
 			margin: 0;
 			padding: 0;
 			display: inline;
+			-webkit-backface-visibility: hidden;
+			-webkit-perspective: 1000;
+			-webkit-transform: translate3d(0,0,0);
+			-webkit-transform: translateZ(0);
+			backface-visibility: hidden;
+			perspective: 1000;
+			transform: translate3d(0,0,0);
+			transform: translateZ(0);
 			filter: blur( 0px );
 			transition: filter .3s ease-in;
 	}
@@ -2153,6 +2225,14 @@ a.text-link{
 		padding: 0;
 		letter-spacing: inherit;
 		cursor: pointer;
+		-webkit-backface-visibility: hidden;
+		-webkit-perspective: 1000;
+		-webkit-transform: translate3d(0,0,0);
+		-webkit-transform: translateZ(0);
+		backface-visibility: hidden;
+		perspective: 1000;
+		transform: translate3d(0,0,0);
+		transform: translateZ(0);
 		filter: blur( 0 );
 		transition: filter .3s ease-in;
 	}
@@ -2228,6 +2308,14 @@ a.text-link{
 	.collapsible-panel--toggle{
 		cursor: pointer;
 		transition: filter .3s ease-in-out;
+		-webkit-backface-visibility: hidden;
+		-webkit-perspective: 1000;
+		-webkit-transform: translate3d(0,0,0);
+		-webkit-transform: translateZ(0);
+		backface-visibility: hidden;
+		perspective: 1000;
+		transform: translate3d(0,0,0);
+		transform: translateZ(0);
 		filter: blur(0px);
 
 	}
