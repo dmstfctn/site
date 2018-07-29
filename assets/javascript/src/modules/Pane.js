@@ -35,9 +35,51 @@ var Pane = function( _ele ){
 	this.setupScrollbar();
 	this.setupTitle();
 
+	this.imagesLoaded = false;
+	this.deferredImageLoad();
+
 }
 
 var proto = Pane.prototype;
+
+proto._onCoverLoaded = function(){
+	if( typeof this.onCoverLoaded === 'function' ){
+		this.onCoverLoaded();
+	}
+};
+proto.onCoverLoaded = function(){ /* ... override ... */ };
+
+proto.showCoverImage = function(){
+	this.$imageCover.addClass('visible');
+}
+
+proto.deferredCoverImage = function( cb ){
+	var that = this;
+	var src = this.$imageCover.attr('data-src');
+	var $img = $('<img>');
+	$img.on('load', function(){
+		that.$imageCover.css({
+			'background-image': 'url(' + src + ')',
+		});
+		that._onCoverLoaded();
+		if( typeof cb === 'function' ){
+			cb();
+		}
+	});
+	$img.attr('src', src);
+};
+
+proto.deferredImageLoad = function(){
+	if( !this.imagesLoaded ){
+		var that = this;
+		this.deferredCoverImage(function(){
+			that.$projects.find('img').each(function(){
+				$(this).attr('src', $(this).attr('data-src') );
+			});
+			that.imagesLoaded = true;
+		});
+	}
+}
 
 proto.setupTitle = function(){
 	var originalTitle = this.$title.html();

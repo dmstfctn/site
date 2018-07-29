@@ -39,6 +39,7 @@ var Site = function(){
 var proto = Site.prototype;
 
 proto.setupPanes = function(){
+	var that = this;
 	if( this.paneLeft ){
 		this.paneLeft.destroy();
 	}
@@ -47,6 +48,16 @@ proto.setupPanes = function(){
 	}
 	this.paneLeft = new Pane( $('.layer__themes .theme:first-child') );
 	this.paneRight = new Pane( $('.layer__themes .theme:nth-child(2)') );
+	var loadcount = 0;
+	var paneHeaderLoaded = function(){
+		loadcount++;
+		if( loadcount >= 2 ){
+			that.paneLeft.showCoverImage();
+			that.paneRight.showCoverImage();
+		}
+	}
+	this.paneLeft.onCoverLoaded = paneHeaderLoaded;
+	this.paneRight.onCoverLoaded = paneHeaderLoaded;
 }
 
 proto.setupHandles = function(){

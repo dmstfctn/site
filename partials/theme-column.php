@@ -1,5 +1,5 @@
-<article id="<?php echo $theme->slug; ?>" class="theme theme__<?php echo $theme->slug; ?>" style="background-color: <?php echo $theme->placeholder_colour; ?>; background-image: url('<?php echo $theme->placeholder_image; ?>');">
-	<div class="theme--image-cover" style="background-image: url('<?php echo $theme->image ?>')"></div>
+<article id="<?php echo $theme->slug; ?>" class="theme theme__<?php echo $theme->slug; ?>" style="background-color: <?php echo $theme->placeholder_colour; ?>;">
+	<div class="theme--image-cover" data-src="<?php echo $theme->image ?>" style=""></div>
 	<div class="dc-scrollbar">
 		<div class="dc-scrollbar--handle"></div>
 	</div>
@@ -34,7 +34,15 @@
 							<li class="theme-item theme-item__work theme-possible-title-container">
 								<a href="<?php the_permalink(); ?>">
 									<h2 class="theme-possible-title"><?php the_title(); ?></h2>
-									<?php the_post_thumbnail(); ?>
+									<?php //the_post_thumbnail(); ?>
+									<?php
+										$thumb_id = get_post_thumbnail_id();
+										$thumb = wp_get_attachment_image_src( $thumb_id, 'dc_huge' );
+										$light_placeholder = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP88B8AAuUB8e2ujYwAAAAASUVORK5CYII=";
+										$dark_placeholder = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOU+w8AAUEBH2QH9c4AAAAASUVORK5CYII=";
+										$placeholder = ( $theme->slug === 'networks' ) ? $dark_placeholder : $light_placeholder;
+									?>
+									<img src="<?php echo $placeholder; ?>" width="<?php echo $thumb[1]; ?>" height="<?php echo $thumb[2]; ?>" data-src="<?php echo $thumb[0]; ?>" />
 								</a>
 							</li>
 						<?php

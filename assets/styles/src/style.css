@@ -392,9 +392,15 @@ html, body, .dc-site-contents, .layer{
 		background-position: top center;
 		background-size: cover;
 		background-attachment: fixed;
+		opacity: 0;
 		/* -moz-transform-origin: 0 0;
 		transform: translateZ(0); */
 	}
+		.theme .theme--image-cover.visible{
+			opacity: 1;
+			transition: opacity .3s ease-out;
+		}
+
 		html.b-FFX .theme .theme--image-cover{
 			filter: none !important;
 		}
