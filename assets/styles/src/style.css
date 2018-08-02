@@ -416,7 +416,8 @@ html, body, .dc-site-contents, .layer{
 				background-position: top left;
 		}
 		.theme:last-child .theme--image-cover{
-				background-position: top right;
+				//background-position: top right;
+				background-position: top 33%;
 		}
 		.theme:first-child{
 			position: absolute;
