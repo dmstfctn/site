@@ -576,7 +576,7 @@ html, body, .dc-site-contents, .layer{
 				top: 0;
 			}
 			.theme--section:last-child{
-				padding-bottom: 4rem;
+				padding-bottom: 10rem;
 			}
 			.theme .theme--image-cover{
 				-webkit-box-shadow: none;
