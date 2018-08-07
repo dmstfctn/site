@@ -70,13 +70,14 @@ proto.activate = function(){
 	this.setSrc();
 	if( this.$ele.closest('.theme').attr('data-proportion') === 'tiny' ){
 		var $item = this.$ele.closest('.theme-item');
+		var $section = this.$ele.closest('.theme--section');
 		var itemLeft = $item.position().left;
 		var $theme = this.$ele.closest('.theme');
 		var imgGap = 0;
 		var imgW =  $theme.width() - (imgGap * 2);
 		this.$ele.css({
 			'position': 'absolute',
-			'left': -itemLeft + imgGap,
+			'left': -itemLeft - 3,
 			'width': imgW,
 			'top': 0,
 			'transform': 'translateY(-50%)'
