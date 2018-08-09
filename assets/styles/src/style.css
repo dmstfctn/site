@@ -1751,7 +1751,7 @@ html, body, .dc-site-contents, .layer{
 	}
 	.quadrant-section.project-section__description,
 	.quadrant-section.post-section__contents{
-		overflow-y: scroll;
+		overflow-y: auto;
 		z-index: 2;
 		position: relative;
 	}
@@ -1841,10 +1841,6 @@ html, body, .dc-site-contents, .layer{
 		.post-section__close a:before,
 		.project-section__close a:before{
 			display: none;
-		}
-		/* post specifics */
-		.quadrant-section.post-section__contents{
-			overflow-y: scroll;
 		}
 }
 
