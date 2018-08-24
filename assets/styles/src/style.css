@@ -414,6 +414,7 @@ html, body, .dc-site-contents, .layer{
 			}
 			.theme.theme__networks .theme--content .theme--leader{
 				border-bottom: 1px solid #ffffff;
+				padding-right: 3rem;
 			}
 
 			.theme .theme--leader h1{
@@ -428,11 +429,14 @@ html, body, .dc-site-contents, .layer{
 				margin-bottom: 0;
 				line-height: 1rem;
 				white-space: nowrap;
-				transition: filter .3s ease-in
+				transition: filter .3s ease-in;
+				overflow: hidden;
+				text-overflow: ellipsis;
 			}
 				.theme .theme--leader h1 .editable+.original{
 					display: none;
 				}
+
 		.theme .theme--leader h1.hovered,
 		.theme.locked .theme--leader:hover h1.has-link{
 			filter: blur(3px);
@@ -966,6 +970,8 @@ html, body, .dc-site-contents, .layer{
 			margin: 0 0 .63em 0;
 			transform-origin: top left;
 			transition: filter .3s ease-in;
+			overflow: hidden;
+			padding-right: 1.8rem;
 		}
 		.theme-item__work:hover h2{
 			transition: filter .3s ease-in;
