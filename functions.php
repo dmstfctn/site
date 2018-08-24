@@ -4,6 +4,8 @@ require_once( 'inc/dc_acf.php' );
 
 require_once( 'inc/dc_social.php' );
 
+require_once( 'inc/dc_cvgenerator.php' );
+
 function dc_browser(){
 	$browser = false;
 	$useragent = '';
