@@ -1325,6 +1325,13 @@ html, body, .dc-site-contents, .layer{
 		.about--section{
 		  padding-bottom: 1.4rem;
 		}
+			.about--section .collapsible-panel--toggle:after{
+				content: 'Currently' !important;
+			}
+			.about--section__news .collapsible-panel--toggle:after{
+				content: '...' !important;
+				text-decoration: none !important;
+			}
 		.about--section__contact{
 			padding-bottom: 0.4rem;
 			padding-right: 1.7em;
