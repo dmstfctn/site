@@ -2091,7 +2091,7 @@ html, body, .dc-site-contents, .layer{
 
 /* wysiwyg */
 .wysiwyg{
-	line-height: 1.25;
+	line-height: 1.2;
 }
 	[data-proportion="small"],
 	[data-proportion="tiny"]{
