@@ -1333,8 +1333,7 @@ html, body, .dc-site-contents, .layer{
 				content: 'Currently' !important;
 			}
 			.about--section__news .collapsible-panel--toggle:after{
-				content: '...' !important;
-				text-decoration: none !important;
+				content: 'Further Afield' !important;				
 			}
 		.about--section__contact{
 			padding-bottom: 0.4rem;
@@ -1415,11 +1414,15 @@ html, body, .dc-site-contents, .layer{
 		box-sizing: border-box;
 	}
 	.about-wrapper .about--content{
-		width: 60%;
-		padding-right: 3rem;
+		padding-right: 3.8rem;
+		margin-right: 10%;
 	}
 	.about-wrapper 	.about--extra{
 		width: 40%;
+		font-size: 0.74rem;
+	}
+	.about-wrapper .about--content .collapsible-panel{
+		font-size: 0.74rem;
 	}
 	.about-wrapper 	.about--extra a.layer-close-link{
 		margin-left: 0;
