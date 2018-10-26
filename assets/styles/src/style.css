@@ -432,6 +432,7 @@ html, body, .dc-site-contents, .layer{
 				transition: filter .3s ease-in;
 				overflow: hidden;
 				text-overflow: ellipsis;
+				height: 1.2rem;
 			}
 				.theme .theme--leader h1 .editable+.original{
 					display: none;
@@ -1325,6 +1326,9 @@ html, body, .dc-site-contents, .layer{
 		.about--section{
 		  padding-bottom: 1.4rem;
 		}
+			.about-content--section .collapsible-panel--toggle{
+				margin-top: 1.4rem;
+			}
 			.about--section .collapsible-panel--toggle:after{
 				content: 'Currently' !important;
 			}
