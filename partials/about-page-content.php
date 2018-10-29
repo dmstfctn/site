@@ -55,7 +55,6 @@
 				</div>
 			</div>
 			<div class="about-extra--section about--section about--section__news">
-				<h2>Elsewhere</h2>
 				<?php include( 'news-list.php'); ?>
 			</div>
 		</aside>

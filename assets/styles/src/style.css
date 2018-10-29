@@ -911,26 +911,21 @@ html, body, .dc-site-contents, .layer{
 			display: inline-block;
 			vertical-align: top;
 			margin-right: .2em;
-			border: 1px solid #000000;
-			width: 20px;
-			height: 12px;
-	    top: 0.35em;
 	    position: absolute;
 	    right: 100%;
-	    margin-right: 0.65rem;
+	    margin-right: 0.83em;
+			width: 1em;
+			height: 1em;
 			cursor: pointer
-
 		}
 
 			.dc-hoverimg-trigger:after{
-				content: 'IMG';
+				/* content: '◦';
 				display: inline-block;
 				vertical-align: top;
 				text-align: center;
 				width: 100%;
-				font-size: 8px;
-				letter-spacing: 0.03em;
-				line-height: 1.65em;
+				font-size: 1.4em; */
 			}
 
 
@@ -1045,8 +1040,8 @@ html, body, .dc-site-contents, .layer{
 	.news-items .theme-item__dc_social_twitter:before,
 	.news-items .theme-item__dc_social_instagram:before{
 		content: '• ';
-		top: -0.2em;
-    left: -1.35rem;
+		top: -0.13em;
+    left: -1rem;
 		font-size: 1.6em;
 	}
 		.about--pane[data-proportion="small"] .news-items li:before{
@@ -1058,7 +1053,9 @@ html, body, .dc-site-contents, .layer{
 			}
 	.theme .theme--section__notes ul li.theme-item__hasimg:before,
 	.news-items li.theme-item__hasimg:before{
-		display: none;
+		content: '◦ ';
+		font-size: 1.45em;
+		margin-top: .06em;
 	}
 	.theme .theme--section__research{
 		margin-top: 0.6em;
@@ -1221,7 +1218,14 @@ html, body, .dc-site-contents, .layer{
 			position: static;
 			width: 0.56em;
 			margin: 0;
+			border: 1px solid black;
+			height: 12px;
+			margin-left: 1px;
+			margin-top: -1px;
 		}
+			.theme[data-proportion="tiny"] .theme-item__hasimg:before{
+				display: none;
+			}
 		.about--pane[data-proportion="tiny"] .dc-hoverimg-trigger{
 			position: static;
 			width: .65em;
@@ -1333,7 +1337,7 @@ html, body, .dc-site-contents, .layer{
 				content: 'Currently' !important;
 			}
 			.about--section__news .collapsible-panel--toggle:after{
-				content: 'Further Afield' !important;				
+				content: 'Elsewhere' !important;
 			}
 		.about--section__contact{
 			padding-bottom: 0.4rem;
@@ -1415,10 +1419,10 @@ html, body, .dc-site-contents, .layer{
 	}
 	.about-wrapper .about--content{
 		padding-right: 3.8rem;
-		margin-right: 10%;
+		margin-right: 9%;
 	}
 	.about-wrapper 	.about--extra{
-		width: 40%;
+		width: 39%;
 		font-size: 0.74rem;
 	}
 	.about-wrapper .about--content .collapsible-panel{
