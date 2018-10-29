@@ -2429,3 +2429,10 @@ div.mce_inline_error{
 			width: 1.8rem;
 		}
 	}
+
+
+	.b-SFY *,
+	.b-SFY *:after,
+	.b-SFY *:before{
+		filter: none !important;
+	}
