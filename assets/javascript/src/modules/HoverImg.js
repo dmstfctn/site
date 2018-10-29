@@ -88,18 +88,13 @@ proto.activate = function(){
 			this.$ele.attr('style','');
 		}
 		this.activatedInTiny = false;
-		var that = this;
-		clearTimeout(this.offsetTimeout);
-		this.offsetTimeout = setTimeout(function(){
-			console.log( that.$ele.height() + that.$ele.offset().top, '>?', $(window).height() );
-			if( that.$ele.height() + that.$ele.offset().top > $(window).height() ){
-				that.$ele.css({
-					'bottom': 0,
-					'transform': 'translateX(-50%)',
-					'top': 'auto'
-				});
-			}
-		}, 1000 );
+		if( this.$ele.parent().index() > this.$ele.parent().parent().children().length - 3 ){
+			this.$ele.css({
+				'bottom': 0,
+				'transform': 'translateX(-50%)',
+				'top': 'auto'
+			});
+		}
 	}
 	this.active = true;
 }
