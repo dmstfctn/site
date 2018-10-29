@@ -448,7 +448,7 @@ html, body, .dc-site-contents, .layer{
 			}
 
 		.theme .theme--follower{
-			padding: 0.9em 1rem 10em 1.1rem;
+			padding: 0.9em 1rem 0 1.1rem;
 		}
 		/* SCROLLBAR HIDING */
 		.theme:nth-child(2){
@@ -538,8 +538,9 @@ html, body, .dc-site-contents, .layer{
 				height: 100%;
 				top: 0;
 			}
-			.theme--section:last-child{
-				padding-bottom: 10rem;
+			.theme .theme--section:last-child{
+				padding-bottom: 0;
+				margin-bottom: 4em;
 			}
 			.theme .theme--image-cover{
 				-webkit-box-shadow: none;
@@ -547,7 +548,7 @@ html, body, .dc-site-contents, .layer{
 				box-shadow: none;
 			}
 			.theme .theme--follower{
-				padding-bottom: 10em;
+				padding-bottom: 0;
 			}
 
 	.dc-scrollbar{
@@ -1223,6 +1224,9 @@ html, body, .dc-site-contents, .layer{
 			margin-left: 1px;
 			margin-top: -1px;
 		}
+			.theme[data-proportion="tiny"].theme__networks .dc-hoverimg-trigger{
+				border-color: #ffffff;
+			}
 			.theme[data-proportion="tiny"] .theme-item__hasimg:before{
 				display: none;
 			}

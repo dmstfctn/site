@@ -69,6 +69,7 @@ proto.activate = function(){
 	this.$ele.parent().addClass('hoverimg-active');
 	this.setSrc();
 	if( this.$ele.closest('.theme').attr('data-proportion') === 'tiny' ){
+		this.activatedInTiny = true;
 		var $item = this.$ele.closest('.theme-item');
 		var $section = this.$ele.closest('.theme--section');
 		var itemLeft = $item.position().left;
@@ -83,7 +84,22 @@ proto.activate = function(){
 			'transform': 'translateY(-50%)'
 		})
 	} else {
-		this.$ele.attr('style','');
+		if( this.activatedInTiny ){
+			this.$ele.attr('style','');
+		}
+		this.activatedInTiny = false;
+		var that = this;
+		clearTimeout(this.offsetTimeout);
+		this.offsetTimeout = setTimeout(function(){
+			console.log( that.$ele.height() + that.$ele.offset().top, '>?', $(window).height() );
+			if( that.$ele.height() + that.$ele.offset().top > $(window).height() ){
+				that.$ele.css({
+					'bottom': 0,
+					'transform': 'translateX(-50%)',
+					'top': 'auto'
+				});
+			}
+		}, 1000 );
 	}
 	this.active = true;
 }
