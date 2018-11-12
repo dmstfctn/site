@@ -5,12 +5,12 @@ var ID = 0;
 var CollapsiblePanel = function( _ele ){
 	this.$ele = $( _ele );
   this.ele = this.$ele.get(0);
-	this.$trigger = this.$ele.find('.collapsible-panel--toggle');
+	this.$trigger = this.$ele.find('.collapsible-panel--toggle, .collapsible-panel--persistent-toggle');
 	this.isOpen = ( $(this).hasClass('collapsed') ) ? true : false;
 
 	this.namespace = 'CollapsiblePanel-' + ID;
 	ID++;
-	
+
 	this.addListeners();
 }
 

@@ -1338,10 +1338,10 @@ html, body, .dc-site-contents, .layer{
 				margin-top: 1.4rem;
 			}
 			.about--section .collapsible-panel--toggle:after{
-				content: 'Currently' !important;
+				content: 'Elsewhere' !important;
 			}
 			.about--section__news .collapsible-panel--toggle:after{
-				content: 'Elsewhere' !important;
+				content: 'Flow' !important;
 			}
 		.about--section__contact{
 			padding-bottom: 0.4rem;

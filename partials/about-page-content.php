@@ -30,10 +30,13 @@
 							</div>
 							<?php
 								$sections = get_field('about_sections');
-								foreach( $sections as $section ):
+								foreach( $sections as $key=>$section ):
 							?>
 							<div class="about-content--section about--section">
-								<h2><?php echo $section['about_sections_title']; ?></h2>
+								<h2 class="<?php if($key === 0): ?>collapsible-panel--persistent-toggle<?php endif; ?>">
+									<?php echo $section['about_sections_title']; ?>
+								</h2>
+
 								<div class="wysiwyg">
 									<?php echo $section['about_sections_content']; ?>
 								</div>
