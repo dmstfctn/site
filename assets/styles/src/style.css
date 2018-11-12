@@ -1229,8 +1229,11 @@ html, body, .dc-site-contents, .layer{
 				border-color: #ffffff;
 			}
 			.theme[data-proportion="tiny"] .theme-item__hasimg:before{
-				display: none;
+				//display: none;
 			}
+				.theme[data-proportion="tiny"] .theme-item__hasimg .dc-hoverimg-trigger{
+					display: none;
+				}
 		.about--pane[data-proportion="tiny"] .dc-hoverimg-trigger{
 			position: static;
 			width: .65em;
@@ -1270,9 +1273,10 @@ html, body, .dc-site-contents, .layer{
 			.theme[data-proportion="tiny"]  .theme--section__notes ul li:before{
 				content: '';
 				font-size: 1em;
-				width: 8px;
-				height: 8px;
+				width: 6px;
+				height: 6px;
 				background: #000000;
+				border: 1px solid #000000;
 				border-radius: 50%;
 				position: absolute;
 				left: 50%;
@@ -1281,8 +1285,15 @@ html, body, .dc-site-contents, .layer{
 				margin-left: 1px;
 				margin-top: 1px;
 			}
+				.theme[data-proportion="tiny"] .theme--section__notes ul li.theme-item__hasimg:before{
+					background: transparent;
+				}
 				.theme[data-proportion="tiny"].theme__networks .theme--section__notes ul li:before{
 					background: #FFFFFF;
+					border: 1px solid #FFFFFF;
+				}
+				.theme[data-proportion="tiny"].theme__networks .theme--section__notes ul li.theme-item__hasimg:before{
+					background: transparent !important;
 				}
 
 			.theme[data-proportion="tiny"]  .theme--section__research ul li{
