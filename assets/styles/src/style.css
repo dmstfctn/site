@@ -1042,7 +1042,7 @@ html, body, .dc-site-contents, .layer{
 	.news-items .theme-item__dc_social_instagram:before{
 		content: '• ';
 		top: -0.13em;
-    left: -1rem;
+    left: -0.8rem;
 		font-size: 1.6em;
 	}
 		.about--pane[data-proportion="small"] .news-items li:before{
