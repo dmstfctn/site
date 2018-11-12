@@ -46,7 +46,7 @@ proto.render = function(){
 	this.$header
 		.css({
 			width: primary.css.width,
-			top: primary.css.top,
+			top: 0,
 			left: primary.css.left
 		});
 	this.$wysiwyg
