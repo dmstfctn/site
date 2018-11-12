@@ -1029,7 +1029,7 @@ html, body, .dc-site-contents, .layer{
 	.theme[data-proportion="tiny"] .theme--section__notes ul li:before,
 	.theme[data-proportion="small"] .news-items li:before,
 	.theme[data-proportion="tiny"] .news-items li:before{
-		left: -0.85rem;
+		left: -1.05rem;
 		top: -0.2rem;
 	}
 	.news-items .theme-item__post:before{
