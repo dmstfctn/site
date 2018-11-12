@@ -1057,6 +1057,7 @@ html, body, .dc-site-contents, .layer{
 		content: '◦ ';
 		font-size: 1.45em;
 		margin-top: .06em;
+		margin-left: .015em
 	}
 	.theme .theme--section__research{
 		margin-top: 0.6em;
