@@ -1388,8 +1388,12 @@ html, body, .dc-site-contents, .layer{
 	.about-wrapper{
 		padding-top:2rem;
 	}
+
 	.news-items{
 		padding-left: 0;
+	}
+	.about--section__news{
+		display: none;
 	}
 	.about--section__news .dc-hoverimg-trigger{
 		top: 100%;
