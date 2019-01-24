@@ -1042,7 +1042,7 @@ html, body, .dc-site-contents, .layer{
 	.news-items .theme-item__dc_social_instagram:before{
 		content: '• ';
 		top: -0.13em;
-    left: -0.8rem;
+    left: -0.7rem;
 		font-size: 1.6em;
 	}
 		.about--pane[data-proportion="small"] .news-items li:before{
@@ -1057,8 +1057,15 @@ html, body, .dc-site-contents, .layer{
 		content: '◦ ';
 		font-size: 1.45em;
 		margin-top: .06em;
+		margin-top: calc(.06em - 2px);
 		margin-left: .015em
 	}
+			.theme .theme--section__notes ul li:before{
+				top: -0.09em;
+			}
+			.theme .theme--section__notes ul li.theme-item__hasimg:before{
+				margin-top: .05em;
+			}
 	.theme .theme--section__research{
 		margin-top: 0.6em;
 	}
