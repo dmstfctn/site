@@ -60,7 +60,7 @@
 				the_row();
         		if( get_row_layout() == 'project_media_image' ){
         			$img_id = get_sub_field( 'image' );
-        			$img_src = wp_get_attachment_image_src( $img_id, 'dc_normal' );
+        			$img_src = wp_get_attachment_image_src( $img_id, 'dc_huge' );
         			$img_shadow = get_sub_field( 'shadow' );
         			$tag = '<img';
         			if( !$img_shadow ){
@@ -71,7 +71,7 @@
         		} else if( get_row_layout() == 'project_media_embed' ){
         			$embed = get_sub_field( 'embed' );
 							$img_id = get_sub_field( 'image' );
-							$img_src = wp_get_attachment_image_src( $img_id, 'dc_normal' );
+							$img_src = wp_get_attachment_image_src( $img_id, 'dc_huge' );
 							$tag = '<img src="' . $img_src[0] . '" width="' . $img_src[1] . '" height="' . $img_src[2] . '" class="dc-video-image">';
         			$media[] = '<div class="dc-video">'  . $embed . $tag . '</div>';
         		}
