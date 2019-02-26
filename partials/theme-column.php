@@ -52,7 +52,7 @@
 					</ul>
 				</section>
 				<section class="theme--section theme--section__research theme-possible-title-container">
-					<h2 class="theme-possible-title">Notes</h2>
+					<h2 class="theme-possible-title">Elsewhere</h2>
 					<ul>
 						<?php
 							$research = dc_get_theme_research( $theme->slug );
