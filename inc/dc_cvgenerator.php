@@ -1,7 +1,7 @@
 <?php
 	function dc_cvgen_p2br( $text ){
 		$text = preg_replace("/<p[^>]*?>/", "", $text );
-		return str_replace("</p>", "<br />", $text );
+		return str_replace("</p>", "<br /><br />", $text );
 	}
 	function dc_cvgen_br2nl( $text ){
 		//https://secure.php.net/manual/en/function.nl2br.php#86678
@@ -9,7 +9,7 @@
 	}
 	function dc_cvgen_links2text( $text ){
 		//tested / figured out here: https://regexr.com/
-		return preg_replace('/\<a\s*href="(.*)"\s*\>(.*)\<\/\s*a\s*\>\<br\s*?\/?\>\s*(.*)/i', "$2\n$3$1\n", $text );
+		return preg_replace('/\<a\s*href="(.*)"\s*\>(.*)\<\/\s*a\s*\>\<br\s*?\/?\>\s*(.*)/i', "$2\n$3$1", $text );
 	}
 
 	function dc_cvgen_format( $text ){
@@ -50,13 +50,13 @@
 			$content = dc_cvgen_format( $content );
 
 			$cv .= $title;
-			$cv .= "\n";
+			$cv .= "\n\n";
 			$cv .= $content;
 			$cv .= "\n";
 		}
 		$cv .= "\n\n";
 		$cv .= 'Generated at ' . date('H.i.s \o\n d.m.Y');
-		file_put_contents(  '/mmittee/downloads/DC_CV.txt', $cv );
+		file_put_contents(  ABSPATH . '/downloads/DC_CV.txt', $cv );
 		//for local debug, but also just because
 		file_put_contents( __DIR__ . '/DC_CV.txt', $cv );
 	}
