@@ -1,6 +1,6 @@
 <div class="collapsible-panel collapsed">
 	<div class="collapsible-panel--content">
-		<h3>Flow</h3>
+		<h3>Drift</h3>
 		<ul class="news-items">
 <?php
 	$news = dc_get_news();
