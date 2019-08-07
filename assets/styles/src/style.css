@@ -804,10 +804,6 @@ html, body, .dc-site-contents, .layer{
 				left: -1rem;
 			}
 
-			.theme .theme--section__notes > h2,
-			.theme .theme--section__research > h2 {
-				text-indent: 1.7em;
-			}
 				.theme[data-proportion="tiny"] .theme--section__research > h2,
 				.theme[data-proportion="tiny"] .theme--section__notes > h2 {
 					text-indent: 0;
@@ -985,7 +981,7 @@ html, body, .dc-site-contents, .layer{
 
 .theme .theme--section__research ul{
 	list-style-type: none;
-	padding-left: 1.7em;
+	//padding-left: 1.7em;
 }
 .theme .theme--section__research ul li{
 	position: relative;
@@ -1006,10 +1002,11 @@ html, body, .dc-site-contents, .layer{
 	position: absolute;
 	top: 0;
 	right: 100%;
+	display: none;
 }
 .theme .theme--section__notes ul,
 .news-items{
-	padding-left: 1.7em;
+	padding-left: 1.1em;
 }
 .theme .theme--section__notes ul li,
 .news-items li{
@@ -1020,7 +1017,7 @@ html, body, .dc-site-contents, .layer{
 	content: '• ';
 	display: inline-block;
 	position: absolute;
-	left: -1.62rem;
+	left: -1.1rem;
 	top: -0.35rem;
 	font-size: 1.6em;
 	line-height: 1;
