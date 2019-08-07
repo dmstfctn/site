@@ -1674,6 +1674,14 @@ html, body, .dc-site-contents, .layer{
 		right: 1rem;
 		max-width: 20em;
 	}
+	.wysiwyg .post--related-content{
+		position: relative;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		padding-bottom: 1rem;
+		margin-top: 3rem;		
+	}
 	.post--related-content h2,
 	.post--related-content a span{
 			margin: 0;

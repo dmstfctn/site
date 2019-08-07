@@ -91,6 +91,34 @@
 		}
 	}
 
+	function dc_get_project_related_list(){
+		global $post;
+		$related = get_field('project_related_iterations');
+		$iterations = array();
+		if( $related ){
+			foreach( $related as $r ){
+				$title = get_the_title( $r->ID );
+				$url = get_permalink( $r->ID );
+				$iterations[] = '<a href="' . $url . '">' . $title . '</a>';
+			}
+			return $iterations;
+		} else {
+			return false;
+		}
+	}
+	function dc_project_related_list(){
+		$related = dc_get_project_related_list();
+		if( $related && is_array( $related ) ){
+			echo '<ul class="dc-related-list">';
+			foreach( $related as $r ){
+				echo "<li>";
+					echo $r;
+				echo "</li>";
+			}
+			echo '</ul>';
+		}
+	}
+
 	function dc_render_post_list( $posts ){
 		if( count( $posts ) > 0 ){
 			echo '<ul>';

@@ -22,7 +22,7 @@
 	</div>
 	<article class="quadrant-wrapper project-wrapper quadrant-wrapper__<?php echo dc_get_post_theme( get_the_ID() )->slug; ?>" id="project"><!--
 	--><section class="quadrant-section project-section project-section__images dc-slideshow">
-			<?php dc_project_media(); ?>
+			<?php dc_project_media(); ?>		
 		</section><!--
 	--><section class="quadrant-section project-section project-section__description">
 			<header>
@@ -33,6 +33,18 @@
 			<div class="scrollinner">
 				<div class="wysiwyg">
 					<?php the_content(); ?>
+					<?php $related_notes = dc_get_project_related_list( $theme_slug ); ?>
+					<?php if( count($related_notes) > 0 ): ?>
+					<div class="post--related-content">
+					<h2>
+						Related
+						<?php dc_text_arrow(); ?>
+					</h2>
+					<?php foreach( $related_notes as $note ): ?>
+							<?php echo $note; ?>
+					<?php endforeach; ?>
+					</div>
+					<?php endif;?>
 				</div>
 			</div>
 		</section><!--
