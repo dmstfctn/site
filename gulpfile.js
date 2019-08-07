@@ -56,11 +56,30 @@ gulp.task( 'pack', function(){
 	gulp.start('browserify-minify');
 });
 
-gulp.task('watch-pack', function () {
-	watch( './assets/javascript/src/**/*.js', function(){
-		gulp.start('browserify-minify');
-	});
-  return watch('./assets/styles/src/**/*.css', function(){
-		gulp.start('css-minify');
+// gulp.task('watch-pack', function () {
+// 	watch( './assets/javascript/src/**/*.js', function(){
+// 		gulp.start('browserify-minify');
+// 	});
+//   return watch('./assets/styles/src/**/*.css', function(){
+// 		gulp.start('css-minify');
+// 	});
+// });
+
+gulp.task('watch-pack-js', function () {
+	console.log('watch-pack-js ready');
+	return watch( './assets/javascript/src/**/*.js', function(){
+		console.log('watch-pack-js running');
+		gulp.series('browserify-minify')();
 	});
 });
+
+gulp.task('watch-pack-css', function(){
+	console.log('watch-pack-css ready');
+  return watch('./assets/styles/**/*.css')
+	.on('change', function( path, stats ){
+		console.log('watch-pack-css running');
+		gulp.series('css-minify')();
+	});
+});
+
+gulp.task( 'watch-pack', gulp.parallel('watch-pack-js', 'watch-pack-css'));
