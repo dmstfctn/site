@@ -32,6 +32,7 @@ function dc_scripts() {
 	$js_dist = get_template_directory_uri() . '/assets/javascript/dist/';
 
 	// footer
+	wp_enqueue_script( 'youtube', 'https://www.youtube.com/iframe_api', false, false, true );
 	wp_enqueue_script( 'main', $js_dist . 'main.js', false, false, true );
 }
 add_action( 'wp_enqueue_scripts', 'dc_scripts' );

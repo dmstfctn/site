@@ -1,5 +1,8 @@
 var $ = require('jquery');
 var VimeoPlayer = require('@vimeo/player');
+// youtube player api is included in functions.php...
+// from: https://www.youtube.com/iframe_api
+// docs: https://developers.google.com/youtube/iframe_api_reference#Examples
 
 var ID = 0;
 
@@ -7,7 +10,15 @@ var Video = function( _ele ){
 	this.$ele = $(_ele);
 	this.$video = this.$ele.find('iframe');
 	this.$img = this.$ele.find( '.dc-video-image' );
-	this.player = new VimeoPlayer( this.$video[0] );
+	this.playerType = 'unknown';
+	if( this.$video.attr('src').indexOf('vimeo') > -1 ){
+		this.playerType = 'vimeo';
+		this.player = new VimeoPlayer( this.$video[0] );
+	} else if( this.$video.attr('src').indexOf('youtube') > -1 ){
+		this.playerType = 'youtube';
+		this.player = new YT.Player( this.$video[0] );
+	}
+	console.log('video type: ', this.playerType )
 	this.vidW = this.$video.attr('width') || 16;
 	this.vidH = this.$video.attr('height') || 9;
 	this.vidRatio = this.vidH / this.vidW;
@@ -34,11 +45,21 @@ proto.createDom = function(){
 }
 
 proto.play = function(){
-	this.player.play();
+	if( this.playerType === 'vimeo' ){
+		this.player.play();
+	}
+	if( this.playerType === 'youtube' ){
+		this.player.playVideo()
+	}
 }
 
 proto.pause = function(){
-	this.player.pause();
+	if( this.playerType === 'vimeo' ){
+		this.player.pause();
+	}
+	if( this.playerType === 'youtube' ){
+		this.player.pauseVideo()
+	}
 }
 
 proto.toggleVideo = function(){
