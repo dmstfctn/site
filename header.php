@@ -34,9 +34,9 @@
 <body <?php body_class(); ?>>
 	<header class="committee-header unscrolled">
 			<?php if( is_page_template( 'page-about.php') || is_single() ): ?>
-				<a href="<?php echo home_url(); ?>">
+				<a href="<?php echo home_url(); ?>" target="_blank">
 			<?php else: ?>
-				<a href="<?php echo home_url( 'about' ); ?>">
+				<a href="<?php echo home_url( 'about' ); ?>" target="_blank">
 			<?php endif; ?>
 				<h1>
 					<div class="committee-header--logo__full">
